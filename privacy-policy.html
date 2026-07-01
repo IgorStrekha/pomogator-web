@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Политика конфиденциальности — Pomogator</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+         background:#f5f5f5;color:#1a1a1a;line-height:1.7}
+    .hero{background:#FFD600;padding:48px 24px 36px;text-align:center}
+    .hero h1{font-size:2rem;font-weight:800;color:#1a1a1a;margin-bottom:8px}
+    .hero p{color:#555;font-size:1rem}
+    .container{max-width:720px;margin:40px auto;padding:0 24px 60px}
+    .card{background:#fff;border-radius:16px;padding:32px;margin-bottom:24px;
+          box-shadow:0 2px 12px rgba(0,0,0,.07)}
+    h2{font-size:1.15rem;font-weight:700;margin-bottom:12px;color:#1a1a1a}
+    p,li{color:#444;font-size:.97rem;margin-bottom:8px}
+    ul{padding-left:20px}
+    li{margin-bottom:6px}
+    .badge{display:inline-block;background:#FFD600;color:#1a1a1a;
+           font-size:.8rem;font-weight:700;padding:3px 10px;border-radius:20px;
+           margin-bottom:16px}
+    .footer{text-align:center;color:#999;font-size:.85rem;margin-top:40px}
+    a{color:#1a1a1a;font-weight:600}
+    .lang{text-align:right;margin-bottom:8px}
+    .lang a{font-size:.85rem;color:#888;margin-left:12px;text-decoration:none}
+    .lang a.active{color:#1a1a1a;font-weight:700}
+    .section-en{display:none}
+    .section-ru{display:block}
+    body.en .section-ru{display:none}
+    body.en .section-en{display:block}
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1>Pomogator</h1>
+    <p id="heroSub">Политика конфиденциальности</p>
+  </div>
+
+  <div class="container">
+    <div class="lang">
+      <a href="#" class="active" id="btnRu" onclick="setLang('ru');return false">RU</a>
+      <a href="#" id="btnEn" onclick="setLang('en');return false">EN</a>
+    </div>
+
+    <!-- === RUSSIAN === -->
+    <div class="section-ru">
+      <div class="card">
+        <div class="badge">Обновлено: 1 июля 2025</div>
+        <h2>Что мы собираем</h2>
+        <p>При регистрации и использовании приложения мы можем собирать:</p>
+        <ul>
+          <li>Имя и адрес электронной почты</li>
+          <li>Фотография профиля (загружается по желанию)</li>
+          <li>Данные об использовании приложения и технические сведения об устройстве</li>
+          <li>Анонимные отчёты об ошибках и сбоях</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Как мы используем данные</h2>
+        <ul>
+          <li>Создание и ведение вашего аккаунта</li>
+          <li>Отображение вашего профиля в приложении</li>
+          <li>Улучшение качества и стабильности приложения</li>
+          <li>Связь с вами по вопросам сервиса</li>
+        </ul>
+        <p>Мы не продаём и не передаём ваши данные третьим лицам в коммерческих целях.</p>
+      </div>
+
+      <div class="card">
+        <h2>Сервисы третьих сторон</h2>
+        <p>Приложение использует следующие сторонние сервисы:</p>
+        <ul>
+          <li><strong>Supabase</strong> — хранение данных аккаунта и профилей специалистов (серверы в ЕС)</li>
+          <li><strong>Sentry</strong> — анонимные отчёты об ошибках для улучшения стабильности</li>
+        </ul>
+        <p>Каждый сервис имеет собственную политику конфиденциальности и соответствует требованиям GDPR.</p>
+      </div>
+
+      <div class="card">
+        <h2>Хранение данных</h2>
+        <p>Данные хранятся на серверах Supabase в Европейском союзе. Мы применяем технические меры для защиты ваших данных от несанкционированного доступа.</p>
+        <p>Токены сессии хранятся локально на вашем устройстве и используются для автоматического входа.</p>
+      </div>
+
+      <div class="card">
+        <h2>Ваши права</h2>
+        <ul>
+          <li>Запросить копию ваших данных</li>
+          <li>Потребовать исправления неточных данных</li>
+          <li>Удалить аккаунт и все связанные данные</li>
+          <li>Отозвать согласие в любое время</li>
+        </ul>
+        <p>Для реализации любого из этих прав — напишите нам.</p>
+      </div>
+
+      <div class="card">
+        <h2>Дети</h2>
+        <p>Приложение не предназначено для лиц младше 16 лет. Мы намеренно не собираем данные детей.</p>
+      </div>
+
+      <div class="card">
+        <h2>Контакты</h2>
+        <p>По вопросам конфиденциальности: <a href="mailto:expansion9@mstart.com">expansion9@mstart.com</a></p>
+      </div>
+    </div>
+
+    <!-- === ENGLISH === -->
+    <div class="section-en">
+      <div class="card">
+        <div class="badge">Updated: July 1, 2025</div>
+        <h2>What We Collect</h2>
+        <p>When you register and use the app, we may collect:</p>
+        <ul>
+          <li>Name and email address</li>
+          <li>Profile photo (optional, uploaded by you)</li>
+          <li>App usage data and technical device information</li>
+          <li>Anonymous crash and error reports</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>How We Use Your Data</h2>
+        <ul>
+          <li>Creating and maintaining your account</li>
+          <li>Displaying your profile in the app</li>
+          <li>Improving app quality and stability</li>
+          <li>Contacting you regarding service matters</li>
+        </ul>
+        <p>We do not sell or share your personal data with third parties for commercial purposes.</p>
+      </div>
+
+      <div class="card">
+        <h2>Third-Party Services</h2>
+        <p>The app uses the following third-party services:</p>
+        <ul>
+          <li><strong>Supabase</strong> — account and specialist profile storage (EU servers)</li>
+          <li><strong>Sentry</strong> — anonymous error reporting to improve stability</li>
+        </ul>
+        <p>Each service has its own privacy policy and complies with GDPR requirements.</p>
+      </div>
+
+      <div class="card">
+        <h2>Data Storage</h2>
+        <p>Data is stored on Supabase servers in the European Union. We apply technical measures to protect your data from unauthorized access.</p>
+        <p>Session tokens are stored locally on your device and used for automatic sign-in.</p>
+      </div>
+
+      <div class="card">
+        <h2>Your Rights</h2>
+        <ul>
+          <li>Request a copy of your data</li>
+          <li>Request correction of inaccurate data</li>
+          <li>Delete your account and all associated data</li>
+          <li>Withdraw consent at any time</li>
+        </ul>
+        <p>To exercise any of these rights, please contact us.</p>
+      </div>
+
+      <div class="card">
+        <h2>Children</h2>
+        <p>The app is not intended for users under 16 years of age. We do not knowingly collect data from children.</p>
+      </div>
+
+      <div class="card">
+        <h2>Contact</h2>
+        <p>Privacy inquiries: <a href="mailto:expansion9@mstart.com">expansion9@mstart.com</a></p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>© 2025 Pomogator. Все права защищены.</p>
+    </div>
+  </div>
+
+  <script>
+    function setLang(lang){
+      document.body.className=lang==='en'?'en':'';
+      document.getElementById('btnRu').className=lang==='ru'?'active':'';
+      document.getElementById('btnEn').className=lang==='en'?'active':'';
+      document.getElementById('heroSub').textContent=
+        lang==='en'?'Privacy Policy':'Политика конфиденциальности';
+    }
+    var stored=localStorage.getItem('pp_lang');
+    if(stored)setLang(stored);
+  </script>
+</body>
+</html>
