@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ProBazis — специалисты для русскоязычных в Польше</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow: #FFD600;
+      --dark:   #1A1A1A;
+      --gray:   #5A5A5A;
+      --light:  #F5F5F5;
+      --radius: 16px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 4px 32px rgba(0,0,0,.08);
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--yellow);
+      border-radius: 14px;
+      width: 64px;
+      height: 64px;
+      margin-bottom: 20px;
+    }
+
+    .logo svg { width: 36px; height: 36px; }
+
+    h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--gray);
+      line-height: 1.5;
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      margin-bottom: 12px;
+      transition: opacity .15s;
+    }
+    .btn:active { opacity: .85; }
+
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--dark);
+    }
+
+    .btn-secondary {
+      background: var(--light);
+      color: var(--dark);
+      border: 1.5px solid #E0E0E0;
+    }
+
+    .divider {
+      font-size: 13px;
+      color: #B0B0B0;
+      margin: 4px 0 16px;
+    }
+
+    .footer {
+      margin-top: 24px;
+      font-size: 12px;
+      color: #C0C0C0;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body { background: #111; }
+      .card { background: #1E1E1E; box-shadow: 0 4px 32px rgba(0,0,0,.4); }
+      h1 { color: #F0F0F0; }
+      .subtitle { color: #999; }
+      .btn-secondary { background: #2A2A2A; border-color: #3A3A3A; color: #F0F0F0; }
+      .divider { color: #555; }
+      .footer { color: #555; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="18" cy="13" r="6" fill="#1A1A1A"/>
+        <path d="M6 30c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <h1>ProBazis</h1>
+    <p class="subtitle">С тобой поделились профилем специалиста. Открой приложение чтобы посмотреть.</p>
+
+    <button class="btn btn-primary" id="btnOpen" onclick="openApp()">
+      Открыть в ProBazis
+    </button>
+
+    <div class="divider">или</div>
+
+    <a class="btn btn-secondary" id="btnStore" href="https://apps.apple.com/app/id6788651791">
+      Скачать ProBazis
+    </a>
+
+    <p class="footer">Специалисты для русскоязычных в Польше</p>
+  </div>
+
+  <script>
+    var specialistId = new URLSearchParams(window.location.search).get('id');
+    var appUrl = specialistId ? 'probazis://specialist?id=' + encodeURIComponent(specialistId) : 'probazis://';
+
+    // Обновляем href кнопки скачивания
+    document.getElementById('btnStore').href =
+      'https://apps.apple.com/app/id6788651791';
+
+    function openApp() {
+      window.location.href = appUrl;
+      // Если через 2.5 сек не переключило — предлагаем скачать
+      setTimeout(function () {
+        if (!document.hidden) {
+          document.getElementById('btnStore').style.background = '#FFD600';
+          document.getElementById('btnStore').style.borderColor = '#FFD600';
+          document.getElementById('btnStore').style.color = '#1A1A1A';
+          document.getElementById('btnStore').textContent = '⬇ Скачать ProBazis в App Store';
+        }
+      }, 2500);
+    }
+
+    // Автоматически пробуем открыть приложение при загрузке страницы
+    if (specialistId) {
+      setTimeout(openApp, 600);
+    }
+  </script>
+</body>
+</html>
