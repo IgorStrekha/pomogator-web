@@ -126,7 +126,7 @@
 
     <div class="divider">или</div>
 
-    <a class="btn btn-secondary" id="btnStore" href="https://apps.apple.com/app/id6788651791">
+    <a class="btn btn-secondary" id="btnStore" href="#">
       Скачать ProBazis
     </a>
 
@@ -137,19 +137,24 @@
     var specialistId = new URLSearchParams(window.location.search).get('id');
     var appUrl = specialistId ? 'probazis://specialist?id=' + encodeURIComponent(specialistId) : 'probazis://';
 
-    // Обновляем href кнопки скачивания
-    document.getElementById('btnStore').href =
-      'https://apps.apple.com/app/id6788651791';
+    var isAndroid = /android/i.test(navigator.userAgent);
+    var storeUrl = isAndroid
+      ? 'https://play.google.com/store/apps/details?id=com.probazis.app'
+      : 'https://apps.apple.com/app/id6788651791';
+    var storeLabel = isAndroid ? '⬇ Скачать ProBazis в Google Play' : '⬇ Скачать ProBazis в App Store';
+
+    document.getElementById('btnStore').href = storeUrl;
 
     function openApp() {
       window.location.href = appUrl;
       // Если через 2.5 сек не переключило — предлагаем скачать
       setTimeout(function () {
         if (!document.hidden) {
-          document.getElementById('btnStore').style.background = '#FFD600';
-          document.getElementById('btnStore').style.borderColor = '#FFD600';
-          document.getElementById('btnStore').style.color = '#1A1A1A';
-          document.getElementById('btnStore').textContent = '⬇ Скачать ProBazis в App Store';
+          var btn = document.getElementById('btnStore');
+          btn.style.background = '#FFD600';
+          btn.style.borderColor = '#FFD600';
+          btn.style.color = '#1A1A1A';
+          btn.textContent = storeLabel;
         }
       }, 2500);
     }
