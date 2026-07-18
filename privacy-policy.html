@@ -3,188 +3,233 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Политика конфиденциальности — Pomogator</title>
+  <title>Политика конфиденциальности — ProBazis</title>
   <style>
-    *{box-sizing:border-box;margin:0;padding:0}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#12121F;--card:#1C1C30;--card-border:rgba(255,255,255,0.07);
+      --primary:#FFD600;--hero-text:#1A1A1A;
+      --text-primary:#F0F0F5;--text-secondary:#9090A8;--link:#FFD600;--footer:#404058;
+    }
+    @media(prefers-color-scheme:light){
+      :root{--bg:#F2F2F7;--card:#FFFFFF;--card-border:rgba(0,0,0,0.07);
+        --text-primary:#1A1A1A;--text-secondary:#55556A;--link:#1A1A1A;--footer:#AAAABC;}
+    }
+    :root[data-theme="dark"]{--bg:#12121F;--card:#1C1C30;--card-border:rgba(255,255,255,0.07);
+      --text-primary:#F0F0F5;--text-secondary:#9090A8;--link:#FFD600;--footer:#404058;}
+    :root[data-theme="light"]{--bg:#F2F2F7;--card:#FFFFFF;--card-border:rgba(0,0,0,0.07);
+      --text-primary:#1A1A1A;--text-secondary:#55556A;--link:#1A1A1A;--footer:#AAAABC;}
     body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-         background:#f5f5f5;color:#1a1a1a;line-height:1.7}
-    .hero{background:#FFD600;padding:48px 24px 36px;text-align:center}
-    .hero h1{font-size:2rem;font-weight:800;color:#1a1a1a;margin-bottom:8px}
-    .hero p{color:#555;font-size:1rem}
-    .container{max-width:720px;margin:40px auto;padding:0 24px 60px}
-    .card{background:#fff;border-radius:16px;padding:32px;margin-bottom:24px;
-          box-shadow:0 2px 12px rgba(0,0,0,.07)}
-    h2{font-size:1.15rem;font-weight:700;margin-bottom:12px;color:#1a1a1a}
-    p,li{color:#444;font-size:.97rem;margin-bottom:8px}
-    ul{padding-left:20px}
-    li{margin-bottom:6px}
-    .badge{display:inline-block;background:#FFD600;color:#1a1a1a;
-           font-size:.8rem;font-weight:700;padding:3px 10px;border-radius:20px;
-           margin-bottom:16px}
-    .footer{text-align:center;color:#999;font-size:.85rem;margin-top:40px}
-    a{color:#1a1a1a;font-weight:600}
-    .lang{text-align:right;margin-bottom:8px}
-    .lang a{font-size:.85rem;color:#888;margin-left:12px;text-decoration:none}
-    .lang a.active{color:#1a1a1a;font-weight:700}
-    .section-en{display:none}
-    .section-ru{display:block}
-    body.en .section-ru{display:none}
-    body.en .section-en{display:block}
+      background:var(--bg);color:var(--text-primary);line-height:1.75;transition:background .2s,color .2s;}
+    .hero{background:var(--primary);padding:52px 24px 40px;text-align:center;}
+    .hero h1{font-size:2.2rem;font-weight:900;color:var(--hero-text);letter-spacing:-.5px;margin-bottom:6px;}
+    .hero p{color:rgba(26,26,26,0.6);font-size:1rem;font-weight:500;}
+    .container{max-width:720px;margin:0 auto;padding:32px 20px 72px;}
+    .lang{display:flex;gap:6px;justify-content:flex-end;margin-bottom:22px;flex-wrap:wrap;}
+    .lang a{font-size:.78rem;font-weight:700;padding:5px 12px;border-radius:20px;text-decoration:none;
+      color:var(--text-secondary);border:1px solid var(--card-border);transition:all .15s;}
+    .lang a.active{background:var(--primary);color:var(--hero-text);border-color:var(--primary);}
+    .lang a:hover:not(.active){color:var(--text-primary);border-color:rgba(255,255,255,0.2);}
+    .card{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:28px 28px 24px;margin-bottom:14px;}
+    .badge{display:inline-block;background:var(--primary);color:var(--hero-text);
+      font-size:.76rem;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:16px;}
+    h2{font-size:1.08rem;font-weight:700;margin-bottom:10px;color:var(--text-primary);}
+    p,li{color:var(--text-secondary);font-size:.95rem;margin-bottom:8px;}
+    ul{padding-left:18px;}li{margin-bottom:5px;}
+    strong{color:var(--text-primary);}a{color:var(--link);font-weight:600;}
+    .footer{text-align:center;color:var(--footer);font-size:.82rem;margin-top:40px;}
+    .section-ru,.section-en,.section-pl,.section-uk,.section-de{display:none;}
+    body:not(.en):not(.pl):not(.uk):not(.de) .section-ru{display:block;}
+    body.en .section-en{display:block;}body.pl .section-pl{display:block;}
+    body.uk .section-uk{display:block;}body.de .section-de{display:block;}
   </style>
 </head>
 <body>
   <div class="hero">
-    <h1>Pomogator</h1>
+    <h1>ProBazis</h1>
     <p id="heroSub">Политика конфиденциальности</p>
   </div>
-
   <div class="container">
     <div class="lang">
       <a href="#" class="active" id="btnRu" onclick="setLang('ru');return false">RU</a>
       <a href="#" id="btnEn" onclick="setLang('en');return false">EN</a>
+      <a href="#" id="btnPl" onclick="setLang('pl');return false">PL</a>
+      <a href="#" id="btnUk" onclick="setLang('uk');return false">UK</a>
+      <a href="#" id="btnDe" onclick="setLang('de');return false">DE</a>
     </div>
 
-    <!-- === RUSSIAN === -->
+    <!-- RUSSIAN -->
     <div class="section-ru">
-      <div class="card">
-        <div class="badge">Обновлено: 1 июля 2025</div>
-        <h2>Что мы собираем</h2>
+      <div class="card"><div class="badge">Обновлено: 1 июля 2025</div><h2>Что мы собираем</h2>
         <p>При регистрации и использовании приложения мы можем собирать:</p>
-        <ul>
-          <li>Имя и адрес электронной почты</li>
-          <li>Фотография профиля (загружается по желанию)</li>
-          <li>Данные об использовании приложения и технические сведения об устройстве</li>
-          <li>Анонимные отчёты об ошибках и сбоях</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h2>Как мы используем данные</h2>
-        <ul>
-          <li>Создание и ведение вашего аккаунта</li>
-          <li>Отображение вашего профиля в приложении</li>
-          <li>Улучшение качества и стабильности приложения</li>
-          <li>Связь с вами по вопросам сервиса</li>
-        </ul>
-        <p>Мы не продаём и не передаём ваши данные третьим лицам в коммерческих целях.</p>
-      </div>
-
-      <div class="card">
-        <h2>Сервисы третьих сторон</h2>
+        <ul><li>Имя и адрес электронной почты</li><li>Фотография профиля (загружается по желанию)</li>
+        <li>Данные об использовании приложения и технические сведения об устройстве</li>
+        <li>Анонимные отчёты об ошибках и сбоях</li></ul></div>
+      <div class="card"><h2>Как мы используем данные</h2>
+        <ul><li>Создание и ведение вашего аккаунта</li><li>Отображение вашего профиля в приложении</li>
+        <li>Улучшение качества и стабильности приложения</li><li>Связь с вами по вопросам сервиса</li></ul>
+        <p>Мы не продаём и не передаём ваши данные третьим лицам в коммерческих целях.</p></div>
+      <div class="card"><h2>Сервисы третьих сторон</h2>
         <p>Приложение использует следующие сторонние сервисы:</p>
-        <ul>
-          <li><strong>Supabase</strong> — хранение данных аккаунта и профилей специалистов (серверы в ЕС)</li>
-          <li><strong>Sentry</strong> — анонимные отчёты об ошибках для улучшения стабильности</li>
-        </ul>
-        <p>Каждый сервис имеет собственную политику конфиденциальности и соответствует требованиям GDPR.</p>
-      </div>
-
-      <div class="card">
-        <h2>Хранение данных</h2>
+        <ul><li><strong>Supabase</strong> — хранение данных аккаунта и профилей специалистов (серверы в ЕС)</li>
+        <li><strong>Sentry</strong> — анонимные отчёты об ошибках для улучшения стабильности</li></ul>
+        <p>Каждый сервис имеет собственную политику конфиденциальности и соответствует требованиям GDPR.</p></div>
+      <div class="card"><h2>Хранение данных</h2>
         <p>Данные хранятся на серверах Supabase в Европейском союзе. Мы применяем технические меры для защиты ваших данных от несанкционированного доступа.</p>
-        <p>Токены сессии хранятся локально на вашем устройстве и используются для автоматического входа.</p>
-      </div>
-
-      <div class="card">
-        <h2>Ваши права</h2>
-        <ul>
-          <li>Запросить копию ваших данных</li>
-          <li>Потребовать исправления неточных данных</li>
-          <li>Удалить аккаунт и все связанные данные</li>
-          <li>Отозвать согласие в любое время</li>
-        </ul>
-        <p>Для реализации любого из этих прав — напишите нам.</p>
-      </div>
-
-      <div class="card">
-        <h2>Дети</h2>
-        <p>Приложение не предназначено для лиц младше 16 лет. Мы намеренно не собираем данные детей.</p>
-      </div>
-
-      <div class="card">
-        <h2>Контакты</h2>
-        <p>По вопросам конфиденциальности: <a href="mailto:igor.strekha@gmail.com">igor.strekha@gmail.com</a></p>
-      </div>
+        <p>Токены сессии хранятся локально на вашем устройстве и используются для автоматического входа.</p></div>
+      <div class="card"><h2>Ваши права</h2>
+        <ul><li>Запросить копию ваших данных</li><li>Потребовать исправления неточных данных</li>
+        <li>Удалить аккаунт и все связанные данные</li><li>Отозвать согласие в любое время</li></ul>
+        <p>Для реализации любого из этих прав — напишите нам.</p></div>
+      <div class="card"><h2>Дети</h2>
+        <p>Приложение не предназначено для лиц младше 16 лет. Мы намеренно не собираем данные детей.</p></div>
+      <div class="card"><h2>Контакты</h2>
+        <p>По вопросам конфиденциальности: <a href="mailto:igor.strekha@gmail.com">igor.strekha@gmail.com</a></p></div>
     </div>
 
-    <!-- === ENGLISH === -->
+    <!-- ENGLISH -->
     <div class="section-en">
-      <div class="card">
-        <div class="badge">Updated: July 1, 2025</div>
-        <h2>What We Collect</h2>
+      <div class="card"><div class="badge">Updated: July 1, 2025</div><h2>What We Collect</h2>
         <p>When you register and use the app, we may collect:</p>
-        <ul>
-          <li>Name and email address</li>
-          <li>Profile photo (optional, uploaded by you)</li>
-          <li>App usage data and technical device information</li>
-          <li>Anonymous crash and error reports</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h2>How We Use Your Data</h2>
-        <ul>
-          <li>Creating and maintaining your account</li>
-          <li>Displaying your profile in the app</li>
-          <li>Improving app quality and stability</li>
-          <li>Contacting you regarding service matters</li>
-        </ul>
-        <p>We do not sell or share your personal data with third parties for commercial purposes.</p>
-      </div>
-
-      <div class="card">
-        <h2>Third-Party Services</h2>
+        <ul><li>Name and email address</li><li>Profile photo (optional, uploaded by you)</li>
+        <li>App usage data and technical device information</li><li>Anonymous crash and error reports</li></ul></div>
+      <div class="card"><h2>How We Use Your Data</h2>
+        <ul><li>Creating and maintaining your account</li><li>Displaying your profile in the app</li>
+        <li>Improving app quality and stability</li><li>Contacting you regarding service matters</li></ul>
+        <p>We do not sell or share your personal data with third parties for commercial purposes.</p></div>
+      <div class="card"><h2>Third-Party Services</h2>
         <p>The app uses the following third-party services:</p>
-        <ul>
-          <li><strong>Supabase</strong> — account and specialist profile storage (EU servers)</li>
-          <li><strong>Sentry</strong> — anonymous error reporting to improve stability</li>
-        </ul>
-        <p>Each service has its own privacy policy and complies with GDPR requirements.</p>
-      </div>
-
-      <div class="card">
-        <h2>Data Storage</h2>
+        <ul><li><strong>Supabase</strong> — account and specialist profile storage (EU servers)</li>
+        <li><strong>Sentry</strong> — anonymous error reporting to improve stability</li></ul>
+        <p>Each service has its own privacy policy and complies with GDPR requirements.</p></div>
+      <div class="card"><h2>Data Storage</h2>
         <p>Data is stored on Supabase servers in the European Union. We apply technical measures to protect your data from unauthorized access.</p>
-        <p>Session tokens are stored locally on your device and used for automatic sign-in.</p>
-      </div>
-
-      <div class="card">
-        <h2>Your Rights</h2>
-        <ul>
-          <li>Request a copy of your data</li>
-          <li>Request correction of inaccurate data</li>
-          <li>Delete your account and all associated data</li>
-          <li>Withdraw consent at any time</li>
-        </ul>
-        <p>To exercise any of these rights, please contact us.</p>
-      </div>
-
-      <div class="card">
-        <h2>Children</h2>
-        <p>The app is not intended for users under 16 years of age. We do not knowingly collect data from children.</p>
-      </div>
-
-      <div class="card">
-        <h2>Contact</h2>
-        <p>Privacy inquiries: <a href="mailto:igor.strekha@gmail.com">igor.strekha@gmail.com</a></p>
-      </div>
+        <p>Session tokens are stored locally on your device and used for automatic sign-in.</p></div>
+      <div class="card"><h2>Your Rights</h2>
+        <ul><li>Request a copy of your data</li><li>Request correction of inaccurate data</li>
+        <li>Delete your account and all associated data</li><li>Withdraw consent at any time</li></ul>
+        <p>To exercise any of these rights, please contact us.</p></div>
+      <div class="card"><h2>Children</h2>
+        <p>The app is not intended for users under 16 years of age. We do not knowingly collect data from children.</p></div>
+      <div class="card"><h2>Contact</h2>
+        <p>Privacy inquiries: <a href="mailto:igor.strekha@gmail.com">igor.strekha@gmail.com</a></p></div>
     </div>
 
-    <div class="footer">
-      <p>© 2025 Pomogator. Все права защищены.</p>
+    <!-- POLISH -->
+    <div class="section-pl">
+      <div class="card"><div class="badge">Zaktualizowano: 1 lipca 2025</div><h2>Co zbieramy</h2>
+        <p>Podczas rejestracji i korzystania z aplikacji mozemy zbierac:</p>
+        <ul><li>Imie i adres e-mail</li><li>Zdjecie profilowe (opcjonalne, przesylane przez uzytkownika)</li>
+        <li>Dane dotyczace korzystania z aplikacji i informacje techniczne o urzadzeniu</li>
+        <li>Anonimowe raporty o bledach i awariach</li></ul></div>
+      <div class="card"><h2>Jak uzywamy danych</h2>
+        <ul><li>Tworzenie i zarzadzanie Twoim kontem</li><li>Wyswietlanie Twojego profilu w aplikacji</li>
+        <li>Poprawa jakosci i stabilnosci aplikacji</li><li>Kontakt z Toba w sprawach dotyczacych uslugi</li></ul>
+        <p>Nie sprzedajemy ani nie udostepniamy Twoich danych osobowych stronom trzecim w celach komercyjnych.</p></div>
+      <div class="card"><h2>Uslugi stron trzecich</h2>
+        <p>Aplikacja korzysta z nastepujacych uslug zewnetrznych:</p>
+        <ul><li><strong>Supabase</strong> — przechowywanie danych konta i profili specjalistow (serwery w UE)</li>
+        <li><strong>Sentry</strong> — anonimowe raporty bledow w celu poprawy stabilnosci</li></ul>
+        <p>Kazda usluga ma wlasna polityke prywatnosci i spelnia wymogi RODO.</p></div>
+      <div class="card"><h2>Przechowywanie danych</h2>
+        <p>Dane sa przechowywane na serwerach Supabase w Unii Europejskiej. Stosujemy srodki techniczne chroniane Twoje dane przed nieuprawnionym dostepem.</p>
+        <p>Tokeny sesji sa przechowywane lokalnie na Twoim urzadzeniu i sluga do automatycznego logowania.</p></div>
+      <div class="card"><h2>Twoje prawa</h2>
+        <ul><li>Zazadac kopii swoich danych</li><li>Zazadac poprawienia niedokladnych danych</li>
+        <li>Usunac konto i wszystkie powiazane dane</li><li>Wycofac zgode w dowolnym momencie</li></ul>
+        <p>Aby skorzystac z ktoregolwiek z tych praw, skontaktuj sie z nami.</p></div>
+      <div class="card"><h2>Dzieci</h2>
+        <p>Aplikacja nie jest przeznaczona dla osob ponizej 16 roku zycia. Swiadomie nie zbieramy danych dzieci.</p></div>
+      <div class="card"><h2>Kontakt</h2>
+        <p>Zapytania dotyczace prywatnosci: <a href="mailto:igor.strekha@gmail.com">igor.strekha@gmail.com</a></p></div>
     </div>
+
+    <!-- UKRAINIAN -->
+    <div class="section-uk">
+      <div class="card"><div class="badge">&#1054;&#1085;&#1086;&#1074;&#1083;&#1077;&#1085;&#1086;: 1 &#1083;&#1080;&#1087;&#1085;&#1103; 2025</div><h2>&#1Щ;&#1086; &#1084;&#1080; &#1079;&#1073;&#1080;&#1088;&#1072;&#1108;&#1084;&#1086;</h2>
+        <p>&#1055;&#1088;&#1080; &#1088;&#1077;&#1108;&#1089;&#1090;&#1088;&#1072;&#1094;&#1110;&#1111; &#1090;&#1072; &#1074;&#1080;&#1082;&#1086;&#1088;&#1080;&#1089;&#1090;&#1072;&#1085;&#1085;&#1110; &#1079;&#1072;&#1089;&#1090;&#1086;&#1089;&#1091;&#1085;&#1082;&#1091; &#1084;&#1080; &#1084;&#1086;&#1078;&#1077;&#1084;&#1086; &#1079;&#1073;&#1080;&#1088;&#1072;&#1090;&#1080;:</p>
+        <ul><li>&#1406;&#1084;'&#1103; &#1090;&#1072; &#1072;&#1076;&#1088;&#1077;&#1089;&#1091; &#1077;&#1083;&#1077;&#1082;&#1090;&#1088;&#1086;&#1085;&#1085;&#1086;&#1111; &#1087;&#1086;&#1096;&#1090;&#1080;</li>
+        <li>&#1060;&#1086;&#1090;&#1086;&#1075;&#1088;&#1072;&#1092;&#1110;&#1103; &#1087;&#1088;&#1086;&#1092;&#1110;&#1083;&#1102; (&#1079;&#1072;&#1074;&#1072;&#1085;&#1090;&#1072;&#1078;&#1091;&#1108;&#1090;&#1100;&#1089;&#1103; &#1079;&#1072; &#1073;&#1072;&#1078;&#1072;&#1085;&#1085;&#1103;&#1084;)</li>
+        <li>&#1044;&#1072;&#1085;&#1110; &#1087;&#1088;&#1086; &#1074;&#1080;&#1082;&#1086;&#1088;&#1080;&#1089;&#1090;&#1072;&#1085;&#1085;&#1103; &#1079;&#1072;&#1089;&#1090;&#1086;&#1089;&#1091;&#1085;&#1082;&#1091; &#1090;&#1072; &#1090;&#1077;&#1093;&#1085;&#1110;&#1095;&#1085;&#1110; &#1074;&#1110;&#1076;&#1086;&#1084;&#1086;&#1089;&#1090;&#1110; &#1087;&#1088;&#1086; &#1087;&#1088;&#1080;&#1089;&#1090;&#1088;&#1110;&#1081;</li>
+        <li>&#1040;&#1085;&#1086;&#1085;&#1110;&#1084;&#1085;&#1110; &#1079;&#1074;&#1110;&#1090;&#1080; &#1087;&#1088;&#1086; &#1087;&#1086;&#1084;&#1080;&#1083;&#1082;&#1080; &#1090;&#1072; &#1079;&#1073;&#1086;&#1111;</li></ul></div>
+      <div class="card"><h2>&#1071;&#1082; &#1084;&#1080; &#1074;&#1080;&#1082;&#1086;&#1088;&#1080;&#1089;&#1090;&#1086;&#1074;&#1091;&#1108;&#1084;&#1086; &#1076;&#1072;&#1085;&#1110;</h2>
+        <ul><li>&#1057;&#1090;&#1074;&#1086;&#1088;&#1077;&#1085;&#1085;&#1103; &#1090;&#1072; &#1074;&#1077;&#1076;&#1077;&#1085;&#1085;&#1103; &#1074;&#1072;&#1096;&#1086;&#1075;&#1086; &#1086;&#1073;&#1083;&#1110;&#1082;&#1086;&#1074;&#1086;&#1075;&#1086; &#1079;&#1072;&#1087;&#1080;&#1089;&#1091;</li>
+        <li>&#1042;&#1110;&#1076;&#1086;&#1073;&#1088;&#1072;&#1078;&#1077;&#1085;&#1085;&#1103; &#1074;&#1072;&#1096;&#1086;&#1075;&#1086; &#1087;&#1088;&#1086;&#1092;&#1110;&#1083;&#1102; &#1074; &#1079;&#1072;&#1089;&#1090;&#1086;&#1089;&#1091;&#1085;&#1082;&#1091;</li>
+        <li>&#1055;&#1086;&#1082;&#1088;&#1072;&#1097;&#1077;&#1085;&#1085;&#1103; &#1103;&#1082;&#1086;&#1089;&#1090;&#1110; &#1090;&#1072; &#1089;&#1090;&#1072;&#1073;&#1110;&#1083;&#1100;&#1085;&#1086;&#1089;&#1090;&#1110; &#1079;&#1072;&#1089;&#1090;&#1086;&#1089;&#1091;&#1085;&#1082;&#1091;</li>
+        <li>&#1047;&#1074;'&#1103;&#1079;&#1086;&#1082; &#1079; &#1074;&#1072;&#1084;&#1080; &#1079; &#1087;&#1080;&#1090;&#1072;&#1085;&#1100; &#1089;&#1077;&#1088;&#1074;&#1110;&#1089;&#1091;</li></ul>
+        <p>&#1052;&#1080; &#1085;&#1077; &#1087;&#1088;&#1086;&#1076;&#1072;&#1108;&#1084;&#1086; &#1110; &#1085;&#1077; &#1087;&#1077;&#1088;&#1077;&#1076;&#1072;&#1108;&#1084;&#1086; &#1074;&#1072;&#1096;&#1110; &#1076;&#1072;&#1085;&#1110; &#1090;&#1088;&#1077;&#1090;&#1110;&#1084; &#1086;&#1089;&#1086;&#1073;&#1072;&#1084; &#1091; &#1082;&#1086;&#1084;&#1077;&#1088;&#1094;&#1110;&#1081;&#1085;&#1080;&#1093; &#1094;&#1110;&#1083;&#1103;&#1093;.</p></div>
+      <div class="card"><h2>&#1057;&#1090;&#1086;&#1088;&#1086;&#1085;&#1085;&#1110; &#1089;&#1077;&#1088;&#1074;&#1110;&#1089;&#1080;</h2>
+        <p>&#1047;&#1072;&#1089;&#1090;&#1086;&#1089;&#1091;&#1085;&#1086;&#1082; &#1074;&#1080;&#1082;&#1086;&#1088;&#1080;&#1089;&#1090;&#1086;&#1074;&#1091;&#1108; &#1090;&#1072;&#1082;&#1110; &#1089;&#1090;&#1086;&#1088;&#1086;&#1085;&#1085;&#1110; &#1089;&#1077;&#1088;&#1074;&#1110;&#1089;&#1080;:</p>
+        <ul><li><strong>Supabase</strong> — &#1079;&#1073;&#1077;&#1088;&#1110;&#1075;&#1072;&#1085;&#1085;&#1103; &#1076;&#1072;&#1085;&#1080;&#1093; &#1086;&#1073;&#1083;&#1110;&#1082;&#1086;&#1074;&#1086;&#1075;&#1086; &#1079;&#1072;&#1087;&#1080;&#1089;&#1091; &#1090;&#1072; &#1087;&#1088;&#1086;&#1092;&#1110;&#1083;&#1110;&#1074; &#1092;&#1072;&#1093;&#1110;&#1074;&#1094;&#1110;&#1074; (&#1089;&#1077;&#1088;&#1074;&#1077;&#1088;&#1080; &#1074; &#1028;&#1057;)</li>
+        <li><strong>Sentry</strong> — &#1072;&#1085;&#1086;&#1085;&#1110;&#1084;&#1085;&#1110; &#1079;&#1074;&#1110;&#1090;&#1080; &#1087;&#1088;&#1086; &#1087;&#1086;&#1084;&#1080;&#1083;&#1082;&#1080; &#1076;&#1083;&#1103; &#1087;&#1086;&#1082;&#1088;&#1072;&#1097;&#1077;&#1085;&#1085;&#1103; &#1089;&#1090;&#1072;&#1073;&#1110;&#1083;&#1100;&#1085;&#1086;&#1089;&#1090;&#1110;</li></ul>
+        <p>&#1050;&#1086;&#1078;&#1077;&#1085; &#1089;&#1077;&#1088;&#1074;&#1110;&#1089; &#1084;&#1072;&#1108; &#1074;&#1083;&#1072;&#1089;&#1085;&#1091; &#1087;&#1086;&#1083;&#1110;&#1090;&#1080;&#1082;&#1091; &#1082;&#1086;&#1085;&#1092;&#1110;&#1076;&#1077;&#1085;&#1094;&#1110;&#1081;&#1085;&#1086;&#1089;&#1090;&#1110; &#1090;&#1072; &#1074;&#1110;&#1076;&#1087;&#1086;&#1074;&#1110;&#1076;&#1072;&#1108; &#1074;&#1080;&#1084;&#1086;&#1075;&#1072;&#1084; GDPR.</p></div>
+      <div class="card"><h2>&#1047;&#1073;&#1077;&#1088;&#1110;&#1075;&#1072;&#1085;&#1085;&#1103; &#1076;&#1072;&#1085;&#1080;&#1093;</h2>
+        <p>&#1044;&#1072;&#1085;&#1110; &#1079;&#1073;&#1077;&#1088;&#1110;&#1075;&#1072;&#1102;&#1090;&#1100;&#1089;&#1103; &#1085;&#1072; &#1089;&#1077;&#1088;&#1074;&#1077;&#1088;&#1072;&#1093; Supabase &#1074; &#1028;&#1074;&#1088;&#1086;&#1087;&#1077;&#1081;&#1089;&#1100;&#1082;&#1086;&#1084;&#1091; &#1089;&#1086;&#1102;&#1079;&#1110;. &#1052;&#1080; &#1079;&#1072;&#1089;&#1090;&#1086;&#1089;&#1086;&#1074;&#1091;&#1108;&#1084;&#1086; &#1090;&#1077;&#1093;&#1085;&#1110;&#1095;&#1085;&#1110; &#1079;&#1072;&#1093;&#1086;&#1076;&#1080; &#1076;&#1083;&#1103; &#1079;&#1072;&#1093;&#1080;&#1089;&#1090;&#1091; &#1074;&#1072;&#1096;&#1080;&#1093; &#1076;&#1072;&#1085;&#1080;&#1093; &#1074;&#1110;&#1076; &#1085;&#1077;&#1089;&#1072;&#1085;&#1082;&#1094;&#1110;&#1086;&#1085;&#1086;&#1074;&#1072;&#1085;&#1086;&#1075;&#1086; &#1076;&#1086;&#1089;&#1090;&#1091;&#1087;&#1091;.</p>
+        <p>&#1058;&#1086;&#1082;&#1077;&#1085;&#1080; &#1089;&#1077;&#1089;&#1110;&#1111; &#1079;&#1073;&#1077;&#1088;&#1110;&#1075;&#1072;&#1102;&#1090;&#1100;&#1089;&#1103; &#1083;&#1086;&#1082;&#1072;&#1083;&#1100;&#1085;&#1086; &#1085;&#1072; &#1074;&#1072;&#1096;&#1086;&#1084;&#1091; &#1087;&#1088;&#1080;&#1089;&#1090;&#1088;&#1086;&#1111; &#1090;&#1072; &#1074;&#1080;&#1082;&#1086;&#1088;&#1080;&#1089;&#1090;&#1086;&#1074;&#1091;&#1102;&#1090;&#1100;&#1089;&#1103; &#1076;&#1083;&#1103; &#1072;&#1074;&#1090;&#1086;&#1084;&#1072;&#1090;&#1080;&#1095;&#1085;&#1086;&#1075;&#1086; &#1074;&#1093;&#1086;&#1076;&#1091;.</p></div>
+      <div class="card"><h2>&#1042;&#1072;&#1096;&#1110; &#1087;&#1088;&#1072;&#1074;&#1072;</h2>
+        <ul><li>&#1047;&#1072;&#1087;&#1088;&#1086;&#1089;&#1080;&#1090;&#1080; &#1082;&#1086;&#1087;&#1110;&#1102; &#1074;&#1072;&#1096;&#1080;&#1093; &#1076;&#1072;&#1085;&#1080;&#1093;</li>
+        <li>&#1042;&#1080;&#1084;&#1072;&#1075;&#1072;&#1090;&#1080; &#1074;&#1080;&#1087;&#1088;&#1072;&#1074;&#1083;&#1077;&#1085;&#1085;&#1103; &#1085;&#1077;&#1090;&#1086;&#1095;&#1085;&#1080;&#1093; &#1076;&#1072;&#1085;&#1080;&#1093;</li>
+        <li>&#1042;&#1080;&#1076;&#1072;&#1083;&#1080;&#1090;&#1080; &#1086;&#1073;&#1083;&#1110;&#1082;&#1086;&#1074;&#1080;&#1081; &#1079;&#1072;&#1087;&#1080;&#1089; &#1090;&#1072; &#1074;&#1089;&#1110; &#1087;&#1086;&#1074;'&#1103;&#1079;&#1072;&#1085;&#1110; &#1076;&#1072;&#1085;&#1110;</li>
+        <li>&#1042;&#1110;&#1076;&#1082;&#1083;&#1080;&#1082;&#1072;&#1090;&#1080; &#1079;&#1075;&#1086;&#1076;&#1091; &#1074; &#1073;&#1091;&#1076;&#1100;-&#1103;&#1082;&#1080;&#1081; &#1095;&#1072;&#1089;</li></ul>
+        <p>&#1044;&#1083;&#1103; &#1088;&#1077;&#1072;&#1083;&#1110;&#1079;&#1072;&#1094;&#1110;&#1111; &#1073;&#1091;&#1076;&#1100;-&#1103;&#1082;&#1086;&#1075;&#1086; &#1079; &#1094;&#1080;&#1093; &#1087;&#1088;&#1072;&#1074; — &#1085;&#1072;&#1087;&#1080;&#1096;&#1110;&#1090;&#1100; &#1085;&#1072;&#1084;.</p></div>
+      <div class="card"><h2>&#1044;&#1110;&#1090;&#1080;</h2>
+        <p>&#1047;&#1072;&#1089;&#1090;&#1086;&#1089;&#1091;&#1085;&#1086;&#1082; &#1085;&#1077; &#1087;&#1088;&#1080;&#1079;&#1085;&#1072;&#1095;&#1077;&#1085;&#1080;&#1081; &#1076;&#1083;&#1103; &#1086;&#1089;&#1110;&#1073; &#1084;&#1086;&#1083;&#1086;&#1076;&#1096;&#1077; 16 &#1088;&#1086;&#1082;&#1110;&#1074;. &#1052;&#1080; &#1089;&#1074;&#1110;&#1076;&#1086;&#1084;&#1086; &#1085;&#1077; &#1079;&#1073;&#1080;&#1088;&#1072;&#1108;&#1084;&#1086; &#1076;&#1072;&#1085;&#1110; &#1076;&#1110;&#1090;&#1077;&#1081;.</p></div>
+      <div class="card"><h2>&#1050;&#1086;&#1085;&#1090;&#1072;&#1082;&#1090;&#1080;</h2>
+        <p>&#1047; &#1087;&#1080;&#1090;&#1072;&#1085;&#1100; &#1082;&#1086;&#1085;&#1092;&#1110;&#1076;&#1077;&#1085;&#1094;&#1110;&#1081;&#1085;&#1086;&#1089;&#1090;&#1110;: <a href="mailto:igor.strekha@gmail.com">igor.strekha@gmail.com</a></p></div>
+    </div>
+
+    <!-- GERMAN -->
+    <div class="section-de">
+      <div class="card"><div class="badge">Aktualisiert: 1. Juli 2025</div><h2>Was wir sammeln</h2>
+        <p>Bei der Registrierung und Nutzung der App k&#246;nnen wir folgende Daten erfassen:</p>
+        <ul><li>Name und E-Mail-Adresse</li><li>Profilbild (optional, vom Nutzer hochgeladen)</li>
+        <li>App-Nutzungsdaten und technische Ger&#228;teinformationen</li>
+        <li>Anonyme Absturz- und Fehlerberichte</li></ul></div>
+      <div class="card"><h2>Wie wir Ihre Daten verwenden</h2>
+        <ul><li>Erstellung und Pflege Ihres Kontos</li><li>Anzeige Ihres Profils in der App</li>
+        <li>Verbesserung der App-Qualit&#228;t und -Stabilit&#228;t</li><li>Kontaktaufnahme in Serviceangelegenheiten</li></ul>
+        <p>Wir verkaufen oder teilen Ihre personenbezogenen Daten nicht zu kommerziellen Zwecken mit Dritten.</p></div>
+      <div class="card"><h2>Drittanbieter-Dienste</h2>
+        <p>Die App nutzt folgende Drittanbieter-Dienste:</p>
+        <ul><li><strong>Supabase</strong> — Speicherung von Konto- und Spezialistenprofilen (Server in der EU)</li>
+        <li><strong>Sentry</strong> — anonyme Fehlerberichte zur Verbesserung der Stabilit&#228;t</li></ul>
+        <p>Jeder Dienst hat seine eigene Datenschutzrichtlinie und entspricht den DSGVO-Anforderungen.</p></div>
+      <div class="card"><h2>Datenspeicherung</h2>
+        <p>Daten werden auf Supabase-Servern in der Europ&#228;ischen Union gespeichert. Wir wenden technische Ma&#223;nahmen an, um Ihre Daten vor unbefugtem Zugriff zu sch&#252;tzen.</p>
+        <p>Sitzungstoken werden lokal auf Ihrem Ger&#228;t gespeichert und f&#252;r die automatische Anmeldung verwendet.</p></div>
+      <div class="card"><h2>Ihre Rechte</h2>
+        <ul><li>Kopie Ihrer Daten anfordern</li><li>Berichtigung ungenauer Daten verlangen</li>
+        <li>Konto und alle zugeh&#246;rigen Daten l&#246;schen</li><li>Einwilligung jederzeit widerrufen</li></ul>
+        <p>Zur Aus&#252;bung dieser Rechte kontaktieren Sie uns bitte.</p></div>
+      <div class="card"><h2>Kinder</h2>
+        <p>Die App ist nicht f&#252;r Nutzer unter 16 Jahren bestimmt. Wir erheben wissentlich keine Daten von Kindern.</p></div>
+      <div class="card"><h2>Kontakt</h2>
+        <p>Datenschutzanfragen: <a href="mailto:igor.strekha@gmail.com">igor.strekha@gmail.com</a></p></div>
+    </div>
+
+    <div class="footer" id="footerEl"><p>&#169; 2025 ProBazis. &#1042;&#1089;&#1077; &#1087;&#1088;&#1072;&#1074;&#1072; &#1079;&#1072;&#1097;&#1080;&#1097;&#1077;&#1085;&#1099;.</p></div>
   </div>
 
   <script>
+    var meta={
+      ru:{title:'&#1055;&#1086;&#1083;&#1080;&#1090;&#1080;&#1082;&#1072; &#1082;&#1086;&#1085;&#1092;&#1080;&#1076;&#1077;&#1085;&#1094;&#1080;&#1072;&#1083;&#1100;&#1085;&#1086;&#1089;&#1090;&#1080; — ProBazis',hero:'&#1055;&#1086;&#1083;&#1080;&#1090;&#1080;&#1082;&#1072; &#1082;&#1086;&#1085;&#1092;&#1080;&#1076;&#1077;&#1085;&#1094;&#1080;&#1072;&#1083;&#1100;&#1085;&#1086;&#1089;&#1090;&#1080;',footer:'© 2025 ProBazis. &#1042;&#1089;&#1077; &#1087;&#1088;&#1072;&#1074;&#1072; &#1079;&#1072;&#1097;&#1080;&#1097;&#1077;&#1085;&#1099;.'},
+      en:{title:'Privacy Policy — ProBazis',hero:'Privacy Policy',footer:'© 2025 ProBazis. All rights reserved.'},
+      pl:{title:'Polityka prywatności — ProBazis',hero:'Polityka prywatności',footer:'© 2025 ProBazis. Wszelkie prawa zastrzeżone.'},
+      uk:{title:'Політика конфіденційності — ProBazis',hero:'Політика конфіденційності',footer:'© 2025 ProBazis. Усі права захищено.'},
+      de:{title:'Datenschutzrichtlinie — ProBazis',hero:'Datenschutzrichtlinie',footer:'© 2025 ProBazis. Alle Rechte vorbehalten.'}
+    };
+    var btns={ru:'btnRu',en:'btnEn',pl:'btnPl',uk:'btnUk',de:'btnDe'};
     function setLang(lang){
-      document.body.className=lang==='en'?'en':'';
-      document.getElementById('btnRu').className=lang==='ru'?'active':'';
-      document.getElementById('btnEn').className=lang==='en'?'active':'';
-      document.getElementById('heroSub').textContent=
-        lang==='en'?'Privacy Policy':'Политика конфиденциальности';
+      document.body.className=lang==='ru'?'':lang;
+      Object.keys(btns).forEach(function(l){document.getElementById(btns[l]).className=l===lang?'active':'';});
+      var m=meta[lang]||meta.ru;
+      document.title=m.title;
+      document.getElementById('heroSub').textContent=m.hero;
+      document.getElementById('footerEl').querySelector('p').textContent=m.footer;
+      document.documentElement.lang=lang;
+      try{localStorage.setItem('pp_lang',lang);}catch(e){}
     }
-    var stored=localStorage.getItem('pp_lang');
-    if(stored)setLang(stored);
+    try{var s=localStorage.getItem('pp_lang');if(s&&meta[s])setLang(s);}catch(e){}
   </script>
 </body>
 </html>
