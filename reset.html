@@ -5,51 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ProBazis — Сброс пароля</title>
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, sans-serif; display: flex; align-items: center;
-           justify-content: center; min-height: 100vh; margin: 0; background: #12121F; color: #fff; }
-    .box { text-align: center; padding: 32px; }
-    .spinner { width: 40px; height: 40px; border: 3px solid rgba(255,214,0,0.3);
+           justify-content: center; min-height: 100vh; background: #12121F; color: #fff; }
+    .box { text-align: center; padding: 32px 24px; max-width: 340px; width: 100%; }
+    .spinner { width: 44px; height: 44px; border: 3px solid rgba(255,214,0,0.25);
                border-top-color: #FFD600; border-radius: 50%;
-               animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+               animation: spin 0.8s linear infinite; margin: 0 auto 20px; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    p { color: rgba(255,255,255,0.6); font-size: 14px; }
-    .error { color: #E31E24; }
+    h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    p  { color: rgba(255,255,255,0.55); font-size: 14px; line-height: 1.5; margin-bottom: 24px; }
+    .btn { display: none; width: 100%; padding: 16px; background: #FFD600; color: #1A1A1A;
+           font-size: 16px; font-weight: 700; border: none; border-radius: 14px;
+           text-decoration: none; cursor: pointer; }
+    .btn:active { opacity: 0.85; }
+    .error { color: #E31E24; font-size: 15px; }
   </style>
 </head>
 <body>
 <div class="box">
   <div class="spinner" id="spinner"></div>
-  <p id="msg">Открываем ProBazis...</p>
+  <h2 id="title">Открываем ProBazis...</h2>
+  <p id="msg">Подождите секунду</p>
+  <a class="btn" id="btn" href="#">Открыть ProBazis →</a>
 </div>
 <script>
-  (function() {
-    var hash = window.location.hash.substring(1);
-    var params = {};
-    hash.split('&').forEach(function(p) {
-      var idx = p.indexOf('=');
-      if (idx > 0) params[p.substring(0, idx)] = decodeURIComponent(p.substring(idx + 1));
-    });
-    if (params.error) {
-      document.getElementById('spinner').style.display = 'none';
-      document.getElementById('msg').className = 'error';
-      document.getElementById('msg').textContent = params.error_description || params.error;
-      return;
-    }
-    if (params.access_token && params.refresh_token) {
-      var url = 'probazis://auth/reset'
-        + '?access_token=' + encodeURIComponent(params.access_token)
-        + '&refresh_token=' + encodeURIComponent(params.refresh_token);
-      window.location.href = url;
-      setTimeout(function() {
-        document.getElementById('msg').textContent =
-          'Если приложение не открылось — убедитесь что ProBazis установлен.';
-      }, 2000);
-    } else {
-      document.getElementById('spinner').style.display = 'none';
-      document.getElementById('msg').className = 'error';
-      document.getElementById('msg').textContent = 'Ссылка недействительна или устарела.';
-    }
-  })();
+(function() {
+  var hash = window.location.hash.substring(1);
+  var params = {};
+  hash.split('&').forEach(function(p) {
+    var idx = p.indexOf('=');
+    if (idx > 0) params[p.substring(0, idx)] = decodeURIComponent(p.substring(idx + 1));
+  });
+
+  if (params.error) {
+    document.getElementById('spinner').style.display = 'none';
+    document.getElementById('title').textContent = 'Ссылка устарела';
+    document.getElementById('msg').className = 'error';
+    document.getElementById('msg').textContent = params.error_description || params.error;
+    return;
+  }
+
+  if (!params.access_token || !params.refresh_token) {
+    document.getElementById('spinner').style.display = 'none';
+    document.getElementById('title').textContent = 'Ошибка';
+    document.getElementById('msg').className = 'error';
+    document.getElementById('msg').textContent = 'Ссылка недействительна или устарела. Запросите сброс пароля заново.';
+    return;
+  }
+
+  var appUrl = 'probazis://auth/reset'
+    + '?access_token=' + encodeURIComponent(params.access_token)
+    + '&refresh_token=' + encodeURIComponent(params.refresh_token);
+
+  // Показываем кнопку сразу — как основной вариант
+  var btn = document.getElementById('btn');
+  btn.href = appUrl;
+  btn.style.display = 'block';
+  document.getElementById('msg').textContent = 'Нажмите кнопку ниже, чтобы продолжить в приложении';
+
+  // Пробуем авто-редирект (работает когда Chrome не блокирует)
+  try { window.location.href = appUrl; } catch(e) {}
+
+  // Через 1.5с убираем спиннер если ещё здесь
+  setTimeout(function() {
+    document.getElementById('spinner').style.display = 'none';
+    document.getElementById('title').textContent = 'Откройте ProBazis';
+  }, 1500);
+})();
 </script>
 </body>
 </html>
