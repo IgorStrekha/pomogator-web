@@ -129,6 +129,7 @@
     <a class="btn btn-secondary" id="btnStore" href="#">
       Скачать ProBazis
     </a>
+    <p id="clipNote" style="font-size:12px;color:#888;margin-top:8px;display:none;">Ссылка скопирована — откроется автоматически после установки</p>
 
     <p class="footer">Специалисты для русскоязычных в Польше</p>
   </div>
@@ -144,6 +145,34 @@
     var storeLabel = isAndroid ? '⬇ Скачать ProBazis в Google Play' : '⬇ Скачать ProBazis в App Store';
 
     document.getElementById('btnStore').href = storeUrl;
+
+    // Clipboard trick: при клике на «Скачать» копируем deep link в буфер,
+    // чтобы приложение сразу открыло профиль специалиста после установки.
+    document.getElementById('btnStore').addEventListener('click', function (e) {
+      if (!specialistId) return;
+      e.preventDefault();
+      var deepLink = 'probazis://specialist?id=' + encodeURIComponent(specialistId);
+      var note = document.getElementById('clipNote');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(deepLink).catch(function () {});
+        note.style.display = 'block';
+      } else {
+        // Fallback для старых браузеров
+        try {
+          var ta = document.createElement('textarea');
+          ta.value = deepLink;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          note.style.display = 'block';
+        } catch (_) {}
+      }
+      setTimeout(function () { window.location.href = storeUrl; }, 350);
+    });
 
     function openApp() {
       window.location.href = appUrl;
