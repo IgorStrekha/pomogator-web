@@ -33,10 +33,11 @@
     ul{padding-left:18px;}li{margin-bottom:5px;}
     strong{color:var(--text-primary);}a{color:var(--link);font-weight:600;}
     .footer{text-align:center;color:var(--footer);font-size:.82rem;margin-top:40px;}
-    .section-ru,.section-en,.section-pl,.section-uk,.section-de{display:none;}
-    body:not(.en):not(.pl):not(.uk):not(.de) .section-ru{display:block;}
+    .section-ru,.section-en,.section-pl,.section-uk,.section-de,.section-be{display:none;}
+    body:not(.en):not(.pl):not(.uk):not(.de):not(.be) .section-ru{display:block;}
     body.en .section-en{display:block;}body.pl .section-pl{display:block;}
     body.uk .section-uk{display:block;}body.de .section-de{display:block;}
+    body.be .section-be{display:block;}
   </style>
 </head>
 <body>
@@ -55,6 +56,7 @@
       <a href="#" id="btnPl" onclick="setLang('pl');return false">PL</a>
       <a href="#" id="btnUk" onclick="setLang('uk');return false">UK</a>
       <a href="#" id="btnDe" onclick="setLang('de');return false">DE</a>
+      <a href="#" id="btnBe" onclick="setLang('be');return false">BE</a>
     </div>
 
     <!-- RUSSIAN -->
@@ -206,6 +208,35 @@
         <p>Datenschutzanfragen: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p></div>
     </div>
 
+    <!-- BELARUSIAN -->
+    <div class="section-be">
+      <div class="card"><div class="badge">Абноўлена: 1 ліпеня 2026</div><h2>Што мы збіраем</h2>
+        <p>Пры рэгістрацыі і выкарыстанні прыкладання мы можам збіраць:</p>
+        <ul><li>Імя і адрас электроннай пошты</li><li>Фатаграфія профілю (загружаецца па жаданні)</li>
+        <li>Дадзеныя аб выкарыстанні прыкладання і тэхнічныя звесткі аб прыладзе</li>
+        <li>Ананімныя справаздачы аб памылках і збоях</li></ul></div>
+      <div class="card"><h2>Як мы выкарыстоўваем дадзеныя</h2>
+        <ul><li>Стварэнне і вядзенне вашага акаўнту</li><li>Адлюстраванне вашага профілю ў прыкладанні</li>
+        <li>Паляпшэнне якасці і стабільнасці прыкладання</li><li>Сувязь з вамі па пытаннях сэрвісу</li></ul>
+        <p>Мы не прадаём і не перадаём вашы дадзеныя трэцім асобам у камерцыйных мэтах.</p></div>
+      <div class="card"><h2>Сэрвісы трэціх бакоў</h2>
+        <p>Прыкладанне выкарыстоўвае наступныя старонніх сэрвісы:</p>
+        <ul><li><strong>Supabase</strong> — захоўванне дадзеных акаўнту і профіляў спецыялістаў (серверы ў ЕС)</li>
+        <li><strong>Sentry</strong> — ананімныя справаздачы аб памылках для паляпшэння стабільнасці</li></ul>
+        <p>Кожны сэрвіс мае ўласную палітыку канфідэнцыяльнасці і адпавядае патрабаванням GDPR.</p></div>
+      <div class="card"><h2>Захоўванне дадзеных</h2>
+        <p>Дадзеныя захоўваюцца на серверах Supabase ў Еўрапейскім саюзе. Мы ўжываем тэхнічныя меры для абароны вашых дадзеных ад несанкцыянаванага доступу.</p>
+        <p>Токены сесіі захоўваюцца лакальна на вашай прыладзе і выкарыстоўваюцца для аўтаматычнага ўваходу.</p></div>
+      <div class="card"><h2>Вашы правы</h2>
+        <ul><li>Запытаць копію вашых дадзеных</li><li>Патрабаваць выпраўлення недакладных дадзеных</li>
+        <li>Выдаліць акаўнт і ўсе звязаныя дадзеныя</li><li>Адклікаць згоду ў любы час</li></ul>
+        <p>Для рэалізацыі любога з гэтых правоў — напішыце нам.</p></div>
+      <div class="card"><h2>Дзеці</h2>
+        <p>Прыкладанне не прызначана для асоб малодшых за 16 гадоў. Мы наўмысна не збіраем дадзеныя дзяцей.</p></div>
+      <div class="card"><h2>Кантакты</h2>
+        <p>Па пытаннях канфідэнцыяльнасці: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p></div>
+    </div>
+
     <div class="footer" id="footerEl"><p>© 2026 ProBazis. Все права защищены.</p></div>
   </div>
 
@@ -235,9 +266,14 @@
         title: 'Datenschutzrichtlinie — ProBazis',
         hero:  'Datenschutzrichtlinie',
         footer:'© 2026 ProBazis. Alle Rechte vorbehalten.'
+      },
+      be: {
+        title: 'Палітыка канфідэнцыяльнасці — ProBazis',
+        hero:  'Палітыка канфідэнцыяльнасці',
+        footer:'© 2026 ProBazis. Усе правы абаронены.'
       }
     };
-    var btns = {ru:'btnRu',en:'btnEn',pl:'btnPl',uk:'btnUk',de:'btnDe'};
+    var btns = {ru:'btnRu',en:'btnEn',pl:'btnPl',uk:'btnUk',de:'btnDe',be:'btnBe'};
     function setLang(lang) {
       document.body.className = lang === 'ru' ? '' : lang;
       Object.keys(btns).forEach(function(l) {

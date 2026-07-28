@@ -36,10 +36,11 @@
       padding:12px 16px;margin-top:10px;}
     .warn p{color:#FF9090;margin:0;}
     .footer{text-align:center;color:var(--footer);font-size:.82rem;margin-top:40px;}
-    .section-ru,.section-en,.section-pl,.section-uk,.section-de{display:none;}
-    body:not(.en):not(.pl):not(.uk):not(.de) .section-ru{display:block;}
+    .section-ru,.section-en,.section-pl,.section-uk,.section-de,.section-be{display:none;}
+    body:not(.en):not(.pl):not(.uk):not(.de):not(.be) .section-ru{display:block;}
     body.en .section-en{display:block;}body.pl .section-pl{display:block;}
     body.uk .section-uk{display:block;}body.de .section-de{display:block;}
+    body.be .section-be{display:block;}
   </style>
 </head>
 <body>
@@ -59,6 +60,7 @@
       <a href="#" id="btnPl" onclick="setLang('pl');return false">PL</a>
       <a href="#" id="btnUk" onclick="setLang('uk');return false">UK</a>
       <a href="#" id="btnDe" onclick="setLang('de');return false">DE</a>
+      <a href="#" id="btnBe" onclick="setLang('be');return false">BE</a>
     </div>
 
     <!-- RUSSIAN -->
@@ -396,6 +398,73 @@
       </div>
     </div>
 
+    <!-- BELARUSIAN -->
+    <div class="section-be">
+      <div class="card">
+        <div class="badge">Версія 1.0 — 1 жніўня 2026</div>
+        <h2>Хто можа зарэгістравацца як спецыяліст</h2>
+        <p>Рэгістрацыя адкрытая для фізічных асоб і прадстаўнікоў кампаній, якія:</p>
+        <ul>
+          <li>Дасягнулі 18 гадоў і маюць поўную дзеяздольнасць</li>
+          <li>Маюць законнае права аказваць заяўленыя паслугі на тэрыторыі Польшчы</li>
+          <li>Маюць неабходныя ліцэнзіі або дазволы (калі патрабуюцца па законе)</li>
+          <li>Гатовы мець зносіны з кліентамі на рускай або польскай мове</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Дакладнасць інфармацыі</h2>
+        <p>Вы абавязваецеся прадастаўляць толькі дакладную і актуальную інфармацыю: імя, кантактныя дадзеныя, спецыялізацыю, пералік паслуг і фатаграфіі (толькі ўласныя работы або сапраўдны партрэт).</p>
+        <p>Умысная ўвядзенне кліентаў у зман адносна кваліфікацыі або паслуг з'яўляецца парушэннем умоў і заканадаўства аб абароне правоў спажыўцоў.</p>
+        <div class="warn"><p>Недакладная інфармацыя — падстава для неадкладнага выдалення профілю.</p></div>
+      </div>
+      <div class="card">
+        <h2>Адказнасць за аказваемыя паслугі</h2>
+        <p>ProBazis — інфармацыйная платформа. Мы не з'яўляемся бокам дагавора паміж спецыялістам і кліентам і не нясём адказнасці за якасць, бяспеку або вынік паслуг, а таксама за любыя спрэчкі паміж бакамі.</p>
+        <p>Вы нясяце поўную юрыдычную адказнасць за ўсе паслугі, аказаныя кліентам праз ProBazis. Рэкамендуем афарміць прафесійнае страхаванне.</p>
+      </div>
+      <div class="card">
+        <h2>Правілы паводзін на платформе</h2>
+        <p>Забаронена:</p>
+        <ul>
+          <li>Публікаваць абразлівы, дыскрымінацыйны або незаконны кантэнт</li>
+          <li>Пакідаць водгукі пра сябе або арганізоўваць накрутку рэйтынгу</li>
+          <li>Выкарыстоўваць платформу для рэкламы канкурэнтаў</li>
+          <li>Перадаваць доступ да акаўнту трэцім асобам</li>
+          <li>Ствараць некалькі акаўнтаў для абыходу блакіроўкі</li>
+          <li>Збіраць дадзеныя кліентаў з парушэннем GDPR</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Манетызацыя і камісія</h2>
+        <p>На этапе MVP рэгістрацыя і выкарыстанне платформы для спецыялістаў з'яўляюцца <strong>бясплатнымі</strong>.</p>
+        <p>Аб увядзенні платных умоў вы будзеце апавешчаны не менш як за 30 дзён праз прыкладанне або па электроннай пошце. Працяг выкарыстання пасля апавяшчэння лічыцца прыняццем новых умоў.</p>
+      </div>
+      <div class="card">
+        <h2>Правы ProBazis адносна профіляў</h2>
+        <p>ProBazis пакідае за сабой права:</p>
+        <ul>
+          <li><strong>Прыпыніць</strong> профіль на перыяд разгляду скаргаў або праверкі</li>
+          <li><strong>Выдаліць профіль</strong> без папярэджання пры парушэнні ўмоў або па патрабаванні органаў</li>
+          <li><strong>Адрэдагаваць</strong> апісанне профілю, якое парушае правілы платформы</li>
+          <li><strong>Адмовіць у рэгістрацыі</strong> без тлумачэння прычын</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Канфідэнцыяльнасць і дадзеныя</h2>
+        <p>Апрацоўка персанальных дадзеных рэгулюецца <a href="https://igorstrekha.github.io/pomogator-web/privacy-policy.html">Палітыкай канфідэнцыяльнасці ProBazis</a>. Інфармацыя профілю (імя, спецыялізацыя, горад, фота, кантакты) з'яўляецца публічнай.</p>
+      </div>
+      <div class="card">
+        <h2>Змяненне ўмоў і прымяняльнае права</h2>
+        <p>Істотныя змяненні публікуюцца не менш як за 14 дзён да ўступлення ў сілу. Актуальная версія заўсёды даступна на гэтай старонцы.</p>
+        <p>Умовы рэгулююцца заканадаўствам Рэспублікі Польшча. Спрэчкі вырашаюцца ў судах па месцазнаходжанні ProBazis.</p>
+      </div>
+      <div class="card">
+        <h2>Кантакты</h2>
+        <p>Па пытаннях, звязаных з умовамі: <a href="mailto:igor.strekha@gmail.com">igor.strekha@gmail.com</a></p>
+        <p>Таксама даступна праз прыкладанне: Профіль → Зваротная сувязь.</p>
+      </div>
+    </div>
+
     <div class="footer" id="footerEl"><p>© 2026 ProBazis. Все права защищены.</p></div>
   </div>
 
@@ -405,9 +474,10 @@
       en: { title:'Terms of Use — ProBazis', hero:'Terms of Use for Specialists', footer:'© 2026 ProBazis. All rights reserved.' },
       pl: { title:'Warunki użytkowania — ProBazis', hero:'Warunki użytkowania dla specjalistów', footer:'© 2026 ProBazis. Wszelkie prawa zastrzeżone.' },
       uk: { title:'Умови використання — ProBazis', hero:'Умови використання для фахівців', footer:'© 2026 ProBazis. Усі права захищено.' },
-      de: { title:'Nutzungsbedingungen — ProBazis', hero:'Nutzungsbedingungen für Spezialisten', footer:'© 2026 ProBazis. Alle Rechte vorbehalten.' }
+      de: { title:'Nutzungsbedingungen — ProBazis', hero:'Nutzungsbedingungen für Spezialisten', footer:'© 2026 ProBazis. Alle Rechte vorbehalten.' },
+      be: { title:'Умовы выкарыстання — ProBazis', hero:'Умовы выкарыстання для спецыялістаў', footer:'© 2026 ProBazis. Усе правы абаронены.' }
     };
-    var btns = {ru:'btnRu',en:'btnEn',pl:'btnPl',uk:'btnUk',de:'btnDe'};
+    var btns = {ru:'btnRu',en:'btnEn',pl:'btnPl',uk:'btnUk',de:'btnDe',be:'btnBe'};
     function setLang(lang) {
       document.body.className = lang === 'ru' ? '' : lang;
       Object.keys(btns).forEach(function(l) {
