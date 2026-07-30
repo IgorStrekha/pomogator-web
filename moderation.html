@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProBazis — Модерация</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root {
+      --yellow: #FFD600;
+      --red:    #E31E24;
+      --green:  #2E7D32;
+      --bg:     #F0F2F5;
+      --card:   #FFFFFF;
+      --text:   #1A1A1A;
+      --muted:  #757575;
+      --border: #E0E0E0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* LOGIN */
+    .login-wrap {
+      display: flex; justify-content: center; align-items: center;
+      min-height: 100vh; padding: 20px;
+    }
+    .login-card {
+      background: white; border-radius: 20px; padding: 40px;
+      width: 100%; max-width: 380px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.12);
+    }
+    .login-logo { text-align: center; margin-bottom: 32px; }
+    .login-logo .lbadge {
+      width: 72px; height: 72px; background: var(--yellow);
+      border-radius: 20px; display: inline-flex;
+      align-items: center; justify-content: center;
+      font-size: 36px; margin-bottom: 14px;
+    }
+    .login-logo h2 { font-size: 24px; font-weight: 800; }
+    .login-logo p  { color: var(--muted); font-size: 14px; margin-top: 4px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block; font-size: 12px; font-weight: 700;
+      color: var(--muted); text-transform: uppercase;
+      letter-spacing: .5px; margin-bottom: 6px;
+    }
+    .form-group input {
+      width: 100%; padding: 13px 14px;
+      border: 1.5px solid var(--border); border-radius: 12px;
+      font-size: 15px; outline: none; transition: border-color .2s;
+    }
+    .form-group input:focus { border-color: var(--yellow); }
+    .btn-login {
+      width: 100%; padding: 14px;
+      background: var(--yellow); color: #1A1A1A;
+      font-size: 15px; font-weight: 800;
+      border: none; border-radius: 12px; cursor: pointer;
+      margin-top: 8px; transition: opacity .15s;
+    }
+    .btn-login:hover    { opacity: .88; }
+    .btn-login:disabled { opacity: .45; cursor: not-allowed; }
+    .err-box {
+      background: #FFEBEE; color: #C62828;
+      border-radius: 10px; padding: 11px 14px;
+      font-size: 13px; margin-top: 14px; display: none;
+    }
+
+    /* HEADER */
+    .header {
+      background: var(--yellow);
+      padding: 14px 20px;
+      display: flex; align-items: center; gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.15);
+      position: sticky; top: 0; z-index: 10;
+    }
+    .header-icon { font-size: 26px; }
+    .header h1   { font-size: 19px; font-weight: 800; color: #1A1A1A; }
+    .header-user { margin-left: auto; font-size: 13px; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
+    .btn-logout {
+      background: rgba(0,0,0,.1); border: none; border-radius: 8px;
+      padding: 6px 12px; cursor: pointer; font-size: 13px;
+      color: #333; flex-shrink: 0;
+    }
+    .btn-logout:hover { background: rgba(0,0,0,.18); }
+
+    /* MAIN */
+    .main { max-width: 800px; margin: 0 auto; padding: 20px 16px 48px; }
+
+    /* STATS */
+    .stats-bar { display: flex; gap: 12px; margin-bottom: 20px; }
+    .stat-chip {
+      background: white; border-radius: 14px; padding: 14px 16px;
+      flex: 1; text-align: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,.07);
+    }
+    .stat-chip .num { font-size: 30px; font-weight: 800; line-height: 1; }
+    .stat-chip .lbl { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .stat-chip.warn .num { color: var(--red); }
+    .stat-chip.ok   .num { color: var(--green); }
+
+    /* FILTER TABS */
+    .filter-tabs { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+    .filter-tab {
+      padding: 8px 16px; border-radius: 20px;
+      border: 1.5px solid var(--border); background: white;
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      color: var(--muted); transition: all .15s;
+    }
+    .filter-tab.active { background: var(--yellow); border-color: var(--yellow); color: #1A1A1A; }
+
+    /* REPORT CARD */
+    .report-card {
+      background: white; border-radius: 16px;
+      padding: 18px; margin-bottom: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.07);
+      transition: opacity .3s;
+    }
+    .report-card.fading { opacity: 0; }
+
+    .card-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+    .badge { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
+    .b-specialist { background: #E3F2FD; color: #1565C0; }
+    .b-review     { background: #F3E5F5; color: #6A1B9A; }
+    .b-pending    { background: #FFF3E0; color: #E65100; }
+    .b-resolved   { background: #E8F5E9; color: #2E7D32; }
+    .b-rejected   { background: #FFEBEE; color: #C62828; }
+    .card-date    { font-size: 12px; color: var(--muted); margin-left: auto; }
+
+    .field { margin-bottom: 10px; }
+    .field-lbl { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+    .field-val { font-size: 14px; color: var(--text); margin-top: 2px; }
+
+    .comment-box {
+      background: #F8F9FA; border-radius: 10px;
+      padding: 10px 14px; font-size: 13px; color: #444;
+      margin: 10px 0; font-style: italic;
+      border-left: 3px solid var(--border);
+    }
+    .resolution-box {
+      background: #E8F5E9; border-radius: 10px;
+      padding: 10px 14px; font-size: 13px; color: var(--green); margin-top: 12px;
+    }
+
+    /* ACTION BUTTONS */
+    .action-row { display: flex; gap: 8px; margin-top: 14px; }
+    .btn-action {
+      flex: 1; padding: 11px 10px; border: none; border-radius: 10px;
+      font-size: 14px; font-weight: 700; cursor: pointer; transition: opacity .15s;
+    }
+    .btn-action:hover    { opacity: .8; }
+    .btn-action:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-resolve { background: #E8F5E9; color: var(--green); }
+    .btn-reject  { background: #FFEBEE; color: var(--red);   }
+
+    /* NOTE FORM */
+    .note-form { margin-top: 12px; display: none; }
+    .note-form textarea {
+      width: 100%; padding: 10px 12px;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      font-size: 13px; resize: vertical; min-height: 64px;
+      outline: none; font-family: inherit;
+    }
+    .note-form textarea:focus { border-color: var(--yellow); }
+    .note-btns { display: flex; gap: 8px; margin-top: 8px; }
+    .btn-confirm { padding: 9px 18px; border: none; border-radius: 9px; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .btn-confirm.resolve { background: var(--green); color: white; }
+    .btn-confirm.reject  { background: var(--red);   color: white; }
+    .btn-cancel {
+      padding: 9px 18px; border: 1.5px solid var(--border);
+      border-radius: 9px; background: white; font-size: 13px;
+      cursor: pointer; color: var(--muted);
+    }
+
+    /* STATES */
+    .empty-state, .loading-state { text-align: center; padding: 64px 20px; color: var(--muted); }
+    .empty-state .icon { font-size: 52px; margin-bottom: 14px; }
+    .empty-state p     { font-size: 16px; }
+    .spinner {
+      width: 36px; height: 36px; border: 3px solid var(--border);
+      border-top-color: var(--yellow); border-radius: 50%;
+      animation: spin .7s linear infinite; margin: 0 auto 14px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 480px) {
+      .stats-bar { flex-wrap: wrap; }
+      .stat-chip { flex: 1 1 calc(50% - 6px); }
+      .header-user { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen" class="login-wrap">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="lbadge">&#x2696;&#xFE0F;</div>
+      <h2>ProBazis</h2>
+      <p>Панель модерации жалоб</p>
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="inp-email" placeholder="moderator@example.com"
+             autocomplete="email" onkeydown="onEnter(event)">
+    </div>
+    <div class="form-group">
+      <label>Пароль</label>
+      <input type="password" id="inp-pass" placeholder="••••••••"
+             autocomplete="current-password" onkeydown="onEnter(event)">
+    </div>
+    <button class="btn-login" id="btn-login" onclick="doLogin()">Войти</button>
+    <div class="err-box" id="login-err"></div>
+  </div>
+</div>
+
+<!-- PANEL -->
+<div id="mod-panel" style="display:none">
+  <div class="header">
+    <span class="header-icon">&#x2696;&#xFE0F;</span>
+    <h1>Модерация</h1>
+    <span class="header-user" id="hdr-user"></span>
+    <button class="btn-logout" onclick="doLogout()">Выйти</button>
+  </div>
+  <div class="main">
+    <div class="stats-bar">
+      <div class="stat-chip warn">
+        <div class="num" id="s-pending">—</div>
+        <div class="lbl">Ожидают</div>
+      </div>
+      <div class="stat-chip ok">
+        <div class="num" id="s-resolved">—</div>
+        <div class="lbl">Решено</div>
+      </div>
+      <div class="stat-chip">
+        <div class="num" id="s-total">—</div>
+        <div class="lbl">Всего</div>
+      </div>
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="setFilter('pending',this)">&#x23F3; Ожидают</button>
+      <button class="filter-tab" onclick="setFilter('resolved',this)">&#x2705; Решённые</button>
+      <button class="filter-tab" onclick="setFilter('rejected',this)">&#x274C; Отклонённые</button>
+      <button class="filter-tab" onclick="setFilter('all',this)">Все</button>
+    </div>
+    <div id="list"></div>
+  </div>
+</div>
+
+<script>
+var SB_URL='https://rwsaxowrrmrwzkisgkdv.supabase.co';
+var SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3c2F4b3dycm1yd3praXNna2R2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3NDYxNDMsImV4cCI6MjA5ODMyMjE0M30.YVYLGxkfwUA2i8EFZ8r7m2CzCpzQVpqYHwtryf_otAM';
+var sb=supabase.createClient(SB_URL,SB_KEY);
+
+var REASONS={
+  offensive:'Оскорбительный контент',spam:'Спам',
+  false_information:'Ложная информация',personal_information:'Персональные данные',
+  misleading_information:'Вводящая в заблуждение информация',fraud:'Мошенничество',
+  inappropriate_content:'Неприемлемый контент',fake_profile:'Фейковый профиль',other:'Другое'
+};
+
+var filter='pending', currentUid=null, allData=[], pendingActions={};
+
+window.addEventListener('DOMContentLoaded',async function(){
+  var s=await sb.auth.getSession();
+  if(s.data.session) await tryShowPanel(s.data.session.user);
+});
+
+function onEnter(e){ if(e.key==='Enter') doLogin(); }
+
+async function doLogin(){
+  var email=document.getElementById('inp-email').value.trim();
+  var pass=document.getElementById('inp-pass').value;
+  var errEl=document.getElementById('login-err');
+  var btn=document.getElementById('btn-login');
+  errEl.style.display='none';
+  btn.disabled=true; btn.textContent='Входим…';
+  try{
+    var r=await sb.auth.signInWithPassword({email:email,password:pass});
+    if(r.error) throw r.error;
+    await tryShowPanel(r.data.user);
+  }catch(e){
+    var msg=e.message==='Invalid login credentials'?'Неверный email или пароль':e.message;
+    errEl.textContent=msg; errEl.style.display='block';
+  }finally{
+    btn.disabled=false; btn.textContent='Войти';
+  }
+}
+
+async function tryShowPanel(user){
+  var pr=await sb.from('profiles').select('role,name').eq('id',user.id).single();
+  if(!pr.data||pr.data.role!==3){
+    var e=document.getElementById('login-err');
+    e.textContent='Нет доступа к панели модерации.'; e.style.display='block';
+    await sb.auth.signOut(); return;
+  }
+  currentUid=user.id;
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('mod-panel').style.display='block';
+  document.getElementById('hdr-user').textContent=pr.data.name||user.email;
+  await loadReports();
+}
+
+async function doLogout(){ await sb.auth.signOut(); location.reload(); }
+
+function setFilter(f,btn){
+  filter=f;
+  document.querySelectorAll('.filter-tab').forEach(function(t){t.classList.remove('active');});
+  btn.classList.add('active');
+  renderList();
+}
+
+async function loadReports(){
+  document.getElementById('list').innerHTML=
+    '<div class="loading-state"><div class="spinner"></div><p>Загрузка…</p></div>';
+  var r=await sb.rpc('get_reports_for_moderator',{p_status:'all'});
+  if(r.error){
+    document.getElementById('list').innerHTML=
+      '<div class="empty-state"><div class="icon">&#x26A0;&#xFE0F;</div><p>'+esc(r.error.message)+'</p></div>';
+    return;
+  }
+  allData=r.data||[];
+  refreshStats();
+  renderList();
+}
+
+function refreshStats(){
+  var p=allData.filter(function(r){return r.status==='pending';}).length;
+  var rv=allData.filter(function(r){return r.status==='resolved';}).length;
+  document.getElementById('s-pending').textContent=p;
+  document.getElementById('s-resolved').textContent=rv;
+  document.getElementById('s-total').textContent=allData.length;
+}
+
+function renderList(){
+  var list=filter==='all'?allData:allData.filter(function(r){return r.status===filter;});
+  if(!list.length){
+    document.getElementById('list').innerHTML=
+      '<div class="empty-state"><div class="icon">&#x1F389;</div><p>Жалоб в этой категории нет</p></div>';
+    return;
+  }
+  document.getElementById('list').innerHTML=list.map(renderCard).join('');
+}
+
+function renderCard(r){
+  var date=new Date(r.created_at).toLocaleString('ru',{
+    day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'
+  });
+  var typeCls=r.target_type==='specialist'?'b-specialist':'b-review';
+  var typeLbl=r.target_type==='specialist'?'Специалист':'Отзыв';
+  var stCls=r.status==='pending'?'b-pending':r.status==='resolved'?'b-resolved':'b-rejected';
+  var stLbl=r.status==='pending'?'&#x23F3; Ожидает':r.status==='resolved'?'&#x2705; Решено':'&#x274C; Отклонено';
+  var reason=REASONS[r.reason]||r.reason;
+
+  var commentHtml=r.comment?'<div class="comment-box">&#x00AB;'+esc(r.comment)+'&#x00BB;</div>':'';
+  var resHtml=r.resolution_note?'<div class="resolution-box">&#x1F4DD; '+esc(r.resolution_note)+'</div>':'';
+
+  var actHtml=r.status==='pending'?
+    '<div class="action-row">'+
+      '<button class="btn-action btn-resolve" onclick="startAction(\''+r.id+'\',\'resolved\')">&#x2713; Решено</button>'+
+      '<button class="btn-action btn-reject" onclick="startAction(\''+r.id+'\',\'rejected\')">&#x2717; Отклонить</button>'+
+    '</div>'+
+    '<div class="note-form" id="nf-'+r.id+'">'+
+      '<textarea id="nt-'+r.id+'" placeholder="Заметка для себя (необязательно)…"></textarea>'+
+      '<div class="note-btns">'+
+        '<button class="btn-confirm" id="nc-'+r.id+'" onclick="confirmAction(\''+r.id+'\')">Подтвердить</button>'+
+        '<button class="btn-cancel" onclick="cancelAction(\''+r.id+'\')">Отмена</button>'+
+      '</div>'+
+    '</div>' : resHtml;
+
+  return '<div class="report-card" id="card-'+r.id+'">'+
+    '<div class="card-meta">'+
+      '<span class="badge '+typeCls+'">'+typeLbl+'</span>'+
+      '<span class="badge '+stCls+'">'+stLbl+'</span>'+
+      '<span class="card-date">'+date+'</span>'+
+    '</div>'+
+    '<div class="field"><div class="field-lbl">На кого жалоба</div><div class="field-val"><strong>'+esc(r.target_name||'—')+'</strong></div></div>'+
+    '<div class="field"><div class="field-lbl">Кто пожаловался</div><div class="field-val">'+esc(r.reporter_name||r.reporter_email||'—')+'</div></div>'+
+    '<div class="field"><div class="field-lbl">Причина</div><div class="field-val">'+esc(reason)+'</div></div>'+
+    commentHtml+actHtml+
+  '</div>';
+}
+
+function startAction(id,status){
+  pendingActions[id]=status;
+  var nf=document.getElementById('nf-'+id);
+  var btn=document.getElementById('nc-'+id);
+  nf.style.display='block';
+  btn.className='btn-confirm '+status;
+  btn.textContent=status==='resolved'?'&#x2713; Подтвердить решение':'&#x2717; Подтвердить отклонение';
+}
+
+function cancelAction(id){
+  document.getElementById('nf-'+id).style.display='none';
+  delete pendingActions[id];
+}
+
+async function confirmAction(id){
+  var status=pendingActions[id]; if(!status) return;
+  var note=(document.getElementById('nt-'+id).value||'').trim()||null;
+  var cfm=document.getElementById('nc-'+id);
+  cfm.disabled=true; cfm.textContent='Сохраняем…';
+
+  var r=await sb.from('reports').update({
+    status:status,
+    reviewed_at:new Date().toISOString(),
+    reviewed_by:currentUid,
+    resolution_note:note
+  }).eq('id',id);
+
+  if(r.error){ alert('Ошибка: '+r.error.message); cfm.disabled=false; return; }
+
+  var idx=allData.findIndex(function(x){return x.id===id;});
+  if(idx!==-1) allData[idx]=Object.assign({},allData[idx],{status:status,resolution_note:note});
+  delete pendingActions[id];
+  refreshStats();
+
+  if(filter==='pending'){
+    var card=document.getElementById('card-'+id);
+    card.classList.add('fading');
+    setTimeout(renderList,320);
+  } else { renderList(); }
+}
+
+function esc(str){
+  return String(str==null?'':str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>
