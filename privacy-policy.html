@@ -33,10 +33,11 @@
     ul{padding-left:18px;}li{margin-bottom:5px;}
     strong{color:var(--text-primary);}a{color:var(--link);font-weight:600;}
     .footer{text-align:center;color:var(--footer);font-size:.82rem;margin-top:40px;}
-    .section-ru,.section-en,.section-pl,.section-uk,.section-de{display:none;}
-    body:not(.en):not(.pl):not(.uk):not(.de) .section-ru{display:block;}
+    .section-ru,.section-en,.section-pl,.section-uk,.section-de,.section-be{display:none;}
+    body:not(.en):not(.pl):not(.uk):not(.de):not(.be) .section-ru{display:block;}
     body.en .section-en{display:block;}body.pl .section-pl{display:block;}
     body.uk .section-uk{display:block;}body.de .section-de{display:block;}
+    body.be .section-be{display:block;}
   </style>
 </head>
 <body>
@@ -55,155 +56,409 @@
       <a href="#" id="btnPl" onclick="setLang('pl');return false">PL</a>
       <a href="#" id="btnUk" onclick="setLang('uk');return false">UK</a>
       <a href="#" id="btnDe" onclick="setLang('de');return false">DE</a>
+      <a href="#" id="btnBe" onclick="setLang('be');return false">BE</a>
     </div>
 
     <!-- RUSSIAN -->
     <div class="section-ru">
-      <div class="card"><div class="badge">Обновлено: 1 июля 2026</div><h2>Что мы собираем</h2>
+      <div class="card">
+        <div class="badge">Версия 1.0 — 28 июля 2026</div>
+        <h2>Что мы собираем</h2>
         <p>При регистрации и использовании приложения мы можем собирать:</p>
-        <ul><li>Имя и адрес электронной почты</li><li>Фотография профиля (загружается по желанию)</li>
-        <li>Данные об использовании приложения и технические сведения об устройстве</li>
-        <li>Анонимные отчёты об ошибках и сбоях</li></ul></div>
-      <div class="card"><h2>Как мы используем данные</h2>
-        <ul><li>Создание и ведение вашего аккаунта</li><li>Отображение вашего профиля в приложении</li>
-        <li>Улучшение качества и стабильности приложения</li><li>Связь с вами по вопросам сервиса</li></ul>
-        <p>Мы не продаём и не передаём ваши данные третьим лицам в коммерческих целях.</p></div>
-      <div class="card"><h2>Сервисы третьих сторон</h2>
+        <ul>
+          <li>Имя и адрес электронной почты</li>
+          <li>Фотография профиля (загружается по желанию)</li>
+          <li>Технические сведения об устройстве (ОС, версия приложения)</li>
+          <li>Анонимные отчёты об ошибках и сбоях</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Как мы используем данные</h2>
+        <ul>
+          <li>Создание и ведение вашего аккаунта</li>
+          <li>Отображение вашего профиля в приложении</li>
+          <li>Улучшение качества и стабильности приложения</li>
+          <li>Связь с вами по вопросам сервиса</li>
+        </ul>
+        <p>Мы не продаём и не передаём ваши данные третьим лицам в коммерческих целях.</p>
+        <p>Правовые основания обработки (GDPR ст. 6): <strong>согласие пользователя</strong> — при регистрации; <strong>исполнение договора</strong> — для предоставления услуг платформы; <strong>законные интересы</strong> — безопасность и предотвращение мошенничества; <strong>правовые обязательства</strong> — при наличии требований законодательства.</p>
+      </div>
+      <div class="card">
+        <h2>Сервисы третьих сторон</h2>
         <p>Приложение использует следующие сторонние сервисы:</p>
-        <ul><li><strong>Supabase</strong> — хранение данных аккаунта и профилей специалистов (серверы в ЕС)</li>
-        <li><strong>Sentry</strong> — анонимные отчёты об ошибках для улучшения стабильности</li></ul>
-        <p>Каждый сервис имеет собственную политику конфиденциальности и соответствует требованиям GDPR.</p></div>
-      <div class="card"><h2>Хранение данных</h2>
+        <ul>
+          <li><strong>Supabase</strong> — хранение данных аккаунта и профилей специалистов (серверы в ЕС)</li>
+          <li><strong>Sentry</strong> — анонимные отчёты об ошибках для улучшения стабильности</li>
+        </ul>
+        <p>Каждый сервис имеет собственную политику конфиденциальности и соответствует требованиям GDPR.</p>
+      </div>
+      <div class="card">
+        <h2>Аналитика</h2>
+        <p>На текущем этапе приложение <strong>не использует</strong> аналитические сервисы для отслеживания поведения пользователей.</p>
+      </div>
+      <div class="card">
+        <h2>Файлы cookie</h2>
+        <p>Связанные веб-страницы могут использовать технические файлы cookie, необходимые для корректной работы. Мы не используем cookie для отслеживания поведения или в рекламных целях.</p>
+      </div>
+      <div class="card">
+        <h2>Хранение и удаление данных</h2>
         <p>Данные хранятся на серверах Supabase в Европейском союзе. Мы применяем технические меры для защиты ваших данных от несанкционированного доступа.</p>
-        <p>Токены сессии хранятся локально на вашем устройстве и используются для автоматического входа.</p></div>
-      <div class="card"><h2>Ваши права</h2>
-        <ul><li>Запросить копию ваших данных</li><li>Потребовать исправления неточных данных</li>
-        <li>Удалить аккаунт и все связанные данные</li><li>Отозвать согласие в любое время</li></ul>
-        <p>Для реализации любого из этих прав — напишите нам.</p></div>
-      <div class="card"><h2>Дети</h2>
-        <p>Приложение не предназначено для лиц младше 16 лет. Мы намеренно не собираем данные детей.</p></div>
-      <div class="card"><h2>Контакты</h2>
-        <p>По вопросам конфиденциальности: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p></div>
+        <p>Токены сессии хранятся локально на вашем устройстве и используются для автоматического входа.</p>
+        <p>После удаления аккаунта ваши персональные данные удаляются в течение <strong>30 дней</strong>, за исключением данных, которые мы обязаны хранить в соответствии с применимым законодательством.</p>
+      </div>
+      <div class="card">
+        <h2>Ваши права</h2>
+        <ul>
+          <li>Запросить копию ваших данных</li>
+          <li>Потребовать исправления неточных данных</li>
+          <li>Удалить аккаунт и все связанные данные</li>
+          <li>Отозвать согласие в любое время</li>
+        </ul>
+        <p>Для реализации любого из этих прав — напишите нам.</p>
+      </div>
+      <div class="card">
+        <h2>Дети</h2>
+        <p>Приложение не предназначено для лиц младше 16 лет. Мы намеренно не собираем данные детей.</p>
+      </div>
+      <div class="card">
+        <h2>Контакты</h2>
+        <p>По вопросам конфиденциальности: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
+      </div>
     </div>
 
     <!-- ENGLISH -->
     <div class="section-en">
-      <div class="card"><div class="badge">Updated: July 1, 2026</div><h2>What We Collect</h2>
+      <div class="card">
+        <div class="badge">Version 1.0 — July 28, 2026</div>
+        <h2>What We Collect</h2>
         <p>When you register and use the app, we may collect:</p>
-        <ul><li>Name and email address</li><li>Profile photo (optional, uploaded by you)</li>
-        <li>App usage data and technical device information</li><li>Anonymous crash and error reports</li></ul></div>
-      <div class="card"><h2>How We Use Your Data</h2>
-        <ul><li>Creating and maintaining your account</li><li>Displaying your profile in the app</li>
-        <li>Improving app quality and stability</li><li>Contacting you regarding service matters</li></ul>
-        <p>We do not sell or share your personal data with third parties for commercial purposes.</p></div>
-      <div class="card"><h2>Third-Party Services</h2>
+        <ul>
+          <li>Name and email address</li>
+          <li>Profile photo (optional, uploaded by you)</li>
+          <li>Technical device information (OS, app version)</li>
+          <li>Anonymous crash and error reports</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>How We Use Your Data</h2>
+        <ul>
+          <li>Creating and maintaining your account</li>
+          <li>Displaying your profile in the app</li>
+          <li>Improving app quality and stability</li>
+          <li>Contacting you regarding service matters</li>
+        </ul>
+        <p>We do not sell or share your personal data with third parties for commercial purposes.</p>
+        <p>Legal bases for processing (GDPR Art. 6): <strong>consent</strong> — at registration; <strong>contract performance</strong> — to provide platform services; <strong>legitimate interests</strong> — security and fraud prevention; <strong>legal obligations</strong> — where required by law.</p>
+      </div>
+      <div class="card">
+        <h2>Third-Party Services</h2>
         <p>The app uses the following third-party services:</p>
-        <ul><li><strong>Supabase</strong> — account and specialist profile storage (EU servers)</li>
-        <li><strong>Sentry</strong> — anonymous error reporting to improve stability</li></ul>
-        <p>Each service has its own privacy policy and complies with GDPR requirements.</p></div>
-      <div class="card"><h2>Data Storage</h2>
+        <ul>
+          <li><strong>Supabase</strong> — account and specialist profile storage (EU servers)</li>
+          <li><strong>Sentry</strong> — anonymous error reporting to improve stability</li>
+        </ul>
+        <p>Each service has its own privacy policy and complies with GDPR requirements.</p>
+      </div>
+      <div class="card">
+        <h2>Analytics</h2>
+        <p>At this time, the application <strong>does not use</strong> analytics services for tracking user behavior.</p>
+      </div>
+      <div class="card">
+        <h2>Cookies</h2>
+        <p>Associated web pages may use essential technical cookies required for proper operation. We do not use cookies for tracking behavior or advertising purposes.</p>
+      </div>
+      <div class="card">
+        <h2>Data Storage and Deletion</h2>
         <p>Data is stored on Supabase servers in the European Union. We apply technical measures to protect your data from unauthorized access.</p>
-        <p>Session tokens are stored locally on your device and used for automatic sign-in.</p></div>
-      <div class="card"><h2>Your Rights</h2>
-        <ul><li>Request a copy of your data</li><li>Request correction of inaccurate data</li>
-        <li>Delete your account and all associated data</li><li>Withdraw consent at any time</li></ul>
-        <p>To exercise any of these rights, please contact us.</p></div>
-      <div class="card"><h2>Children</h2>
-        <p>The app is not intended for users under 16 years of age. We do not knowingly collect data from children.</p></div>
-      <div class="card"><h2>Contact</h2>
-        <p>Privacy inquiries: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p></div>
+        <p>Session tokens are stored locally on your device and used for automatic sign-in.</p>
+        <p>After account deletion, your personal data is removed within <strong>30 days</strong>, except for data we are legally required to retain.</p>
+      </div>
+      <div class="card">
+        <h2>Your Rights</h2>
+        <ul>
+          <li>Request a copy of your data</li>
+          <li>Request correction of inaccurate data</li>
+          <li>Delete your account and all associated data</li>
+          <li>Withdraw consent at any time</li>
+        </ul>
+        <p>To exercise any of these rights, please contact us.</p>
+      </div>
+      <div class="card">
+        <h2>Children</h2>
+        <p>The app is not intended for users under 16 years of age. We do not knowingly collect data from children.</p>
+      </div>
+      <div class="card">
+        <h2>Contact</h2>
+        <p>Privacy inquiries: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
+      </div>
     </div>
 
     <!-- POLISH -->
     <div class="section-pl">
-      <div class="card"><div class="badge">Zaktualizowano: 1 lipca 2026</div><h2>Co zbieramy</h2>
-        <p>Podczas rejestracji i korzystania z aplikacji mozemy zbierac:</p>
-        <ul><li>Imie i adres e-mail</li><li>Zdjecie profilowe (opcjonalne, przesylane przez uzytkownika)</li>
-        <li>Dane dotyczace korzystania z aplikacji i informacje techniczne o urzadzeniu</li>
-        <li>Anonimowe raporty o bledach i awariach</li></ul></div>
-      <div class="card"><h2>Jak uzywamy danych</h2>
-        <ul><li>Tworzenie i zarzadzanie Twoim kontem</li><li>Wyswietlanie Twojego profilu w aplikacji</li>
-        <li>Poprawa jakosci i stabilnosci aplikacji</li><li>Kontakt z Toba w sprawach dotyczacych uslugi</li></ul>
-        <p>Nie sprzedajemy ani nie udostepniamy Twoich danych osobowych stronom trzecim w celach komercyjnych.</p></div>
-      <div class="card"><h2>Uslugi stron trzecich</h2>
-        <p>Aplikacja korzysta z nastepujacych uslug zewnetrznych:</p>
-        <ul><li><strong>Supabase</strong> — przechowywanie danych konta i profili specjalistow (serwery w UE)</li>
-        <li><strong>Sentry</strong> — anonimowe raporty bledow w celu poprawy stabilnosci</li></ul>
-        <p>Kazda usluga ma wlasna polityke prywatnosci i spelnia wymogi RODO.</p></div>
-      <div class="card"><h2>Przechowywanie danych</h2>
-        <p>Dane sa przechowywane na serwerach Supabase w Unii Europejskiej. Stosujemy srodki techniczne chronione Twoje dane przed nieuprawnionym dostepem.</p>
-        <p>Tokeny sesji sa przechowywane lokalnie na Twoim urzadzeniu i sluga do automatycznego logowania.</p></div>
-      <div class="card"><h2>Twoje prawa</h2>
-        <ul><li>Zazadac kopii swoich danych</li><li>Zazadac poprawienia niedokladnych danych</li>
-        <li>Usunac konto i wszystkie powiazane dane</li><li>Wycofac zgode w dowolnym momencie</li></ul>
-        <p>Aby skorzystac z ktoregolwiek z tych praw, skontaktuj sie z nami.</p></div>
-      <div class="card"><h2>Dzieci</h2>
-        <p>Aplikacja nie jest przeznaczona dla osob ponizej 16 roku zycia. Swiadomie nie zbieramy danych dzieci.</p></div>
-      <div class="card"><h2>Kontakt</h2>
-        <p>Zapytania dotyczace prywatnosci: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p></div>
+      <div class="card">
+        <div class="badge">Wersja 1.0 — 28 lipca 2026</div>
+        <h2>Co zbieramy</h2>
+        <p>Podczas rejestracji i korzystania z aplikacji możemy zbierać:</p>
+        <ul>
+          <li>Imię i adres e-mail</li>
+          <li>Zdjęcie profilowe (opcjonalne, przesyłane przez użytkownika)</li>
+          <li>Techniczne informacje o urządzeniu (OS, wersja aplikacji)</li>
+          <li>Anonimowe raporty o błędach i awariach</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Jak używamy danych</h2>
+        <ul>
+          <li>Tworzenie i zarządzanie Twoim kontem</li>
+          <li>Wyświetlanie Twojego profilu w aplikacji</li>
+          <li>Poprawa jakości i stabilności aplikacji</li>
+          <li>Kontakt z Tobą w sprawach dotyczących usługi</li>
+        </ul>
+        <p>Nie sprzedajemy ani nie udostępniamy Twoich danych osobowych stronom trzecim w celach komercyjnych.</p>
+        <p>Podstawy prawne przetwarzania (RODO art. 6): <strong>zgoda użytkownika</strong> — przy rejestracji; <strong>wykonanie umowy</strong> — świadczenie usług platformy; <strong>uzasadniony interes</strong> — bezpieczeństwo i zapobieganie nadużyciom; <strong>obowiązek prawny</strong> — gdy wymagają tego przepisy.</p>
+      </div>
+      <div class="card">
+        <h2>Usługi stron trzecich</h2>
+        <p>Aplikacja korzysta z następujących usług zewnętrznych:</p>
+        <ul>
+          <li><strong>Supabase</strong> — przechowywanie danych konta i profili specjalistów (serwery w UE)</li>
+          <li><strong>Sentry</strong> — anonimowe raporty błędów w celu poprawy stabilności</li>
+        </ul>
+        <p>Każda usługa ma własną politykę prywatności i spełnia wymogi RODO.</p>
+      </div>
+      <div class="card">
+        <h2>Analityka</h2>
+        <p>Na obecnym etapie aplikacja <strong>nie korzysta</strong> z usług analitycznych do śledzenia zachowań użytkowników.</p>
+      </div>
+      <div class="card">
+        <h2>Pliki cookie</h2>
+        <p>Powiązane strony internetowe mogą używać technicznych plików cookie niezbędnych do prawidłowego działania. Nie używamy plików cookie do śledzenia zachowań ani w celach reklamowych.</p>
+      </div>
+      <div class="card">
+        <h2>Przechowywanie i usuwanie danych</h2>
+        <p>Dane są przechowywane na serwerach Supabase w Unii Europejskiej. Stosujemy środki techniczne chroniące Twoje dane przed nieuprawnionym dostępem.</p>
+        <p>Tokeny sesji są przechowywane lokalnie na Twoim urządzeniu i służą do automatycznego logowania.</p>
+        <p>Po usunięciu konta Twoje dane osobowe są usuwane w ciągu <strong>30 dni</strong>, z wyjątkiem danych, które musimy przechowywać zgodnie z obowiązującym prawem.</p>
+      </div>
+      <div class="card">
+        <h2>Twoje prawa</h2>
+        <ul>
+          <li>Zażądać kopii swoich danych</li>
+          <li>Zażądać poprawienia niedokładnych danych</li>
+          <li>Usunąć konto i wszystkie powiązane dane</li>
+          <li>Wycofać zgodę w dowolnym momencie</li>
+        </ul>
+        <p>Aby skorzystać z któregokolwiek z tych praw, skontaktuj się z nami.</p>
+      </div>
+      <div class="card">
+        <h2>Dzieci</h2>
+        <p>Aplikacja nie jest przeznaczona dla osób poniżej 16 roku życia. Świadomie nie zbieramy danych dzieci.</p>
+      </div>
+      <div class="card">
+        <h2>Kontakt</h2>
+        <p>Zapytania dotyczące prywatności: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
+      </div>
     </div>
 
     <!-- UKRAINIAN -->
     <div class="section-uk">
-      <div class="card"><div class="badge">Оновлено: 1 липня 2026</div><h2>Що ми збираємо</h2>
+      <div class="card">
+        <div class="badge">Версія 1.0 — 28 липня 2026</div>
+        <h2>Що ми збираємо</h2>
         <p>При реєстрації та використанні застосунку ми можемо збирати:</p>
-        <ul><li>Ім'я та адресу електронної пошти</li>
-        <li>Фотографія профілю (завантажується за бажанням)</li>
-        <li>Дані про використання застосунку та технічні відомості про пристрій</li>
-        <li>Анонімні звіти про помилки та збої</li></ul></div>
-      <div class="card"><h2>Як ми використовуємо дані</h2>
-        <ul><li>Створення та ведення вашого облікового запису</li>
-        <li>Відображення вашого профілю в застосунку</li>
-        <li>Покращення якості та стабільності застосунку</li>
-        <li>Зв'язок з вами з питань сервісу</li></ul>
-        <p>Ми не продаємо і не передаємо ваші дані третім особам у комерційних цілях.</p></div>
-      <div class="card"><h2>Сторонні сервіси</h2>
+        <ul>
+          <li>Ім'я та адресу електронної пошти</li>
+          <li>Фотографія профілю (завантажується за бажанням)</li>
+          <li>Технічні відомості про пристрій (ОС, версія застосунку)</li>
+          <li>Анонімні звіти про помилки та збої</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Як ми використовуємо дані</h2>
+        <ul>
+          <li>Створення та ведення вашого облікового запису</li>
+          <li>Відображення вашого профілю в застосунку</li>
+          <li>Покращення якості та стабільності застосунку</li>
+          <li>Зв'язок з вами з питань сервісу</li>
+        </ul>
+        <p>Ми не продаємо і не передаємо ваші дані третім особам у комерційних цілях.</p>
+        <p>Правові підстави обробки (GDPR ст. 6): <strong>згода користувача</strong> — при реєстрації; <strong>виконання договору</strong> — надання послуг платформи; <strong>законні інтереси</strong> — безпека та запобігання шахрайству; <strong>правові зобов'язання</strong> — за вимогою законодавства.</p>
+      </div>
+      <div class="card">
+        <h2>Сторонні сервіси</h2>
         <p>Застосунок використовує такі сторонні сервіси:</p>
-        <ul><li><strong>Supabase</strong> — зберігання даних облікового запису та профілів фахівців (сервери в ЄС)</li>
-        <li><strong>Sentry</strong> — анонімні звіти про помилки для покращення стабільності</li></ul>
-        <p>Кожен сервіс має власну політику конфіденційності та відповідає вимогам GDPR.</p></div>
-      <div class="card"><h2>Зберігання даних</h2>
+        <ul>
+          <li><strong>Supabase</strong> — зберігання даних облікового запису та профілів фахівців (сервери в ЄС)</li>
+          <li><strong>Sentry</strong> — анонімні звіти про помилки для покращення стабільності</li>
+        </ul>
+        <p>Кожен сервіс має власну політику конфіденційності та відповідає вимогам GDPR.</p>
+      </div>
+      <div class="card">
+        <h2>Аналітика</h2>
+        <p>На поточному етапі застосунок <strong>не використовує</strong> аналітичні сервіси для відстеження поведінки користувачів.</p>
+      </div>
+      <div class="card">
+        <h2>Файли cookie</h2>
+        <p>Пов'язані веб-сторінки можуть використовувати технічні файли cookie, необхідні для коректної роботи. Ми не використовуємо cookie для відстеження поведінки або в рекламних цілях.</p>
+      </div>
+      <div class="card">
+        <h2>Зберігання та видалення даних</h2>
         <p>Дані зберігаються на серверах Supabase в Європейському союзі. Ми застосовуємо технічні заходи для захисту ваших даних від несанкціонованого доступу.</p>
-        <p>Токени сесії зберігаються локально на вашому пристрої та використовуються для автоматичного входу.</p></div>
-      <div class="card"><h2>Ваші права</h2>
-        <ul><li>Запросити копію ваших даних</li>
-        <li>Вимагати виправлення неточних даних</li>
-        <li>Видалити обліковий запис та всі пов'язані дані</li>
-        <li>Відкликати згоду в будь-який час</li></ul>
-        <p>Для реалізації будь-якого з цих прав — напишіть нам.</p></div>
-      <div class="card"><h2>Діти</h2>
-        <p>Застосунок не призначений для осіб молодше 16 років. Ми свідомо не збираємо дані дітей.</p></div>
-      <div class="card"><h2>Контакти</h2>
-        <p>З питань конфіденційності: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p></div>
+        <p>Токени сесії зберігаються локально на вашому пристрої та використовуються для автоматичного входу.</p>
+        <p>Після видалення облікового запису ваші персональні дані видаляються протягом <strong>30 днів</strong>, за винятком даних, які ми зобов'язані зберігати відповідно до чинного законодавства.</p>
+      </div>
+      <div class="card">
+        <h2>Ваші права</h2>
+        <ul>
+          <li>Запросити копію ваших даних</li>
+          <li>Вимагати виправлення неточних даних</li>
+          <li>Видалити обліковий запис та всі пов'язані дані</li>
+          <li>Відкликати згоду в будь-який час</li>
+        </ul>
+        <p>Для реалізації будь-якого з цих прав — напишіть нам.</p>
+      </div>
+      <div class="card">
+        <h2>Діти</h2>
+        <p>Застосунок не призначений для осіб молодше 16 років. Ми свідомо не збираємо дані дітей.</p>
+      </div>
+      <div class="card">
+        <h2>Контакти</h2>
+        <p>З питань конфіденційності: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
+      </div>
     </div>
 
     <!-- GERMAN -->
     <div class="section-de">
-      <div class="card"><div class="badge">Aktualisiert: 1. Juli 2026</div><h2>Was wir sammeln</h2>
-        <p>Bei der Registrierung und Nutzung der App k&#246;nnen wir folgende Daten erfassen:</p>
-        <ul><li>Name und E-Mail-Adresse</li><li>Profilbild (optional, vom Nutzer hochgeladen)</li>
-        <li>App-Nutzungsdaten und technische Ger&#228;teinformationen</li>
-        <li>Anonyme Absturz- und Fehlerberichte</li></ul></div>
-      <div class="card"><h2>Wie wir Ihre Daten verwenden</h2>
-        <ul><li>Erstellung und Pflege Ihres Kontos</li><li>Anzeige Ihres Profils in der App</li>
-        <li>Verbesserung der App-Qualit&#228;t und -Stabilit&#228;t</li><li>Kontaktaufnahme in Serviceangelegenheiten</li></ul>
-        <p>Wir verkaufen oder teilen Ihre personenbezogenen Daten nicht zu kommerziellen Zwecken mit Dritten.</p></div>
-      <div class="card"><h2>Drittanbieter-Dienste</h2>
+      <div class="card">
+        <div class="badge">Version 1.0 — 28. Juli 2026</div>
+        <h2>Was wir sammeln</h2>
+        <p>Bei der Registrierung und Nutzung der App können wir folgende Daten erfassen:</p>
+        <ul>
+          <li>Name und E-Mail-Adresse</li>
+          <li>Profilbild (optional, vom Nutzer hochgeladen)</li>
+          <li>Technische Geräteinformationen (OS, App-Version)</li>
+          <li>Anonyme Absturz- und Fehlerberichte</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Wie wir Ihre Daten verwenden</h2>
+        <ul>
+          <li>Erstellung und Pflege Ihres Kontos</li>
+          <li>Anzeige Ihres Profils in der App</li>
+          <li>Verbesserung der App-Qualität und -Stabilität</li>
+          <li>Kontaktaufnahme in Serviceangelegenheiten</li>
+        </ul>
+        <p>Wir verkaufen oder teilen Ihre personenbezogenen Daten nicht zu kommerziellen Zwecken mit Dritten.</p>
+        <p>Rechtsgrundlagen der Verarbeitung (DSGVO Art. 6): <strong>Einwilligung</strong> — bei der Registrierung; <strong>Vertragserfüllung</strong> — Bereitstellung der Plattformdienste; <strong>berechtigte Interessen</strong> — Sicherheit und Betrugsvorbeugung; <strong>rechtliche Verpflichtungen</strong> — soweit gesetzlich erforderlich.</p>
+      </div>
+      <div class="card">
+        <h2>Drittanbieter-Dienste</h2>
         <p>Die App nutzt folgende Drittanbieter-Dienste:</p>
-        <ul><li><strong>Supabase</strong> — Speicherung von Konto- und Spezialistenprofilen (Server in der EU)</li>
-        <li><strong>Sentry</strong> — anonyme Fehlerberichte zur Verbesserung der Stabilit&#228;t</li></ul>
-        <p>Jeder Dienst hat seine eigene Datenschutzrichtlinie und entspricht den DSGVO-Anforderungen.</p></div>
-      <div class="card"><h2>Datenspeicherung</h2>
-        <p>Daten werden auf Supabase-Servern in der Europ&#228;ischen Union gespeichert. Wir wenden technische Ma&#223;nahmen an, um Ihre Daten vor unbefugtem Zugriff zu sch&#252;tzen.</p>
-        <p>Sitzungstoken werden lokal auf Ihrem Ger&#228;t gespeichert und f&#252;r die automatische Anmeldung verwendet.</p></div>
-      <div class="card"><h2>Ihre Rechte</h2>
-        <ul><li>Kopie Ihrer Daten anfordern</li><li>Berichtigung ungenauer Daten verlangen</li>
-        <li>Konto und alle zugeh&#246;rigen Daten l&#246;schen</li><li>Einwilligung jederzeit widerrufen</li></ul>
-        <p>Zur Aus&#252;bung dieser Rechte kontaktieren Sie uns bitte.</p></div>
-      <div class="card"><h2>Kinder</h2>
-        <p>Die App ist nicht f&#252;r Nutzer unter 16 Jahren bestimmt. Wir erheben wissentlich keine Daten von Kindern.</p></div>
-      <div class="card"><h2>Kontakt</h2>
-        <p>Datenschutzanfragen: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p></div>
+        <ul>
+          <li><strong>Supabase</strong> — Speicherung von Konto- und Spezialistenprofilen (Server in der EU)</li>
+          <li><strong>Sentry</strong> — anonyme Fehlerberichte zur Verbesserung der Stabilität</li>
+        </ul>
+        <p>Jeder Dienst hat seine eigene Datenschutzrichtlinie und entspricht den DSGVO-Anforderungen.</p>
+      </div>
+      <div class="card">
+        <h2>Analyse</h2>
+        <p>Zum gegenwärtigen Zeitpunkt verwendet die Anwendung <strong>keine</strong> Analysedienste zur Verfolgung des Nutzerverhaltens.</p>
+      </div>
+      <div class="card">
+        <h2>Cookies</h2>
+        <p>Zugehörige Webseiten können technisch notwendige Cookies verwenden, die für den ordnungsgemäßen Betrieb erforderlich sind. Wir verwenden keine Cookies zur Verhaltens­verfolgung oder zu Werbezwecken.</p>
+      </div>
+      <div class="card">
+        <h2>Datenspeicherung und -löschung</h2>
+        <p>Daten werden auf Supabase-Servern in der Europäischen Union gespeichert. Wir wenden technische Maßnahmen an, um Ihre Daten vor unbefugtem Zugriff zu schützen.</p>
+        <p>Sitzungstoken werden lokal auf Ihrem Gerät gespeichert und für die automatische Anmeldung verwendet.</p>
+        <p>Nach der Kontolöschung werden Ihre personenbezogenen Daten innerhalb von <strong>30 Tagen</strong> gelöscht, außer Daten, die wir gesetzlich aufbewahren müssen.</p>
+      </div>
+      <div class="card">
+        <h2>Ihre Rechte</h2>
+        <ul>
+          <li>Kopie Ihrer Daten anfordern</li>
+          <li>Berichtigung ungenauer Daten verlangen</li>
+          <li>Konto und alle zugehörigen Daten löschen</li>
+          <li>Einwilligung jederzeit widerrufen</li>
+        </ul>
+        <p>Zur Ausübung dieser Rechte kontaktieren Sie uns bitte.</p>
+      </div>
+      <div class="card">
+        <h2>Kinder</h2>
+        <p>Die App ist nicht für Nutzer unter 16 Jahren bestimmt. Wir erheben wissentlich keine Daten von Kindern.</p>
+      </div>
+      <div class="card">
+        <h2>Kontakt</h2>
+        <p>Datenschutzanfragen: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
+      </div>
+    </div>
+
+    <!-- BELARUSIAN -->
+    <div class="section-be">
+      <div class="card">
+        <div class="badge">Версія 1.0 — 28 ліпеня 2026</div>
+        <h2>Што мы збіраем</h2>
+        <p>Пры рэгістрацыі і выкарыстанні прыкладання мы можам збіраць:</p>
+        <ul>
+          <li>Імя і адрас электроннай пошты</li>
+          <li>Фатаграфія профілю (загружаецца па жаданні)</li>
+          <li>Тэхнічныя звесткі аб прыладзе (АС, версія прыкладання)</li>
+          <li>Ананімныя справаздачы аб памылках і збоях</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Як мы выкарыстоўваем дадзеныя</h2>
+        <ul>
+          <li>Стварэнне і вядзенне вашага акаўнту</li>
+          <li>Адлюстраванне вашага профілю ў прыкладанні</li>
+          <li>Паляпшэнне якасці і стабільнасці прыкладання</li>
+          <li>Сувязь з вамі па пытаннях сэрвісу</li>
+        </ul>
+        <p>Мы не прадаём і не перадаём вашы дадзеныя трэцім асобам у камерцыйных мэтах.</p>
+        <p>Прававыя падставы апрацоўкі (GDPR арт. 6): <strong>згода карыстальніка</strong> — пры рэгістрацыі; <strong>выкананне дамовы</strong> — аказанне паслуг платформы; <strong>законныя інтарэсы</strong> — бяспека і прадухіленне махлярства; <strong>прававыя абавязкі</strong> — па патрабаванні заканадаўства.</p>
+      </div>
+      <div class="card">
+        <h2>Сэрвісы трэціх бакоў</h2>
+        <p>Прыкладанне выкарыстоўвае наступныя старонніх сэрвісы:</p>
+        <ul>
+          <li><strong>Supabase</strong> — захоўванне дадзеных акаўнту і профіляў спецыялістаў (серверы ў ЕС)</li>
+          <li><strong>Sentry</strong> — ананімныя справаздачы аб памылках для паляпшэння стабільнасці</li>
+        </ul>
+        <p>Кожны сэрвіс мае ўласную палітыку канфідэнцыяльнасці і адпавядае патрабаванням GDPR.</p>
+      </div>
+      <div class="card">
+        <h2>Аналітыка</h2>
+        <p>На бягучым этапе прыкладанне <strong>не выкарыстоўвае</strong> аналітычныя сэрвісы для адсочвання паводзін карыстальнікаў.</p>
+      </div>
+      <div class="card">
+        <h2>Файлы cookie</h2>
+        <p>Звязаныя вэб-старонкі могуць выкарыстоўваць тэхнічныя файлы cookie, неабходныя для карэктнай працы. Мы не выкарыстоўваем cookie для адсочвання паводзін або ў рэкламных мэтах.</p>
+      </div>
+      <div class="card">
+        <h2>Захоўванне і выдаленне дадзеных</h2>
+        <p>Дадзеныя захоўваюцца на серверах Supabase ў Еўрапейскім саюзе. Мы ўжываем тэхнічныя меры для абароны вашых дадзеных ад несанкцыянаванага доступу.</p>
+        <p>Токены сесіі захоўваюцца лакальна на вашай прыладзе і выкарыстоўваюцца для аўтаматычнага ўваходу.</p>
+        <p>Пасля выдалення акаўнту вашы персанальныя дадзеныя выдаляюцца ў цягу <strong>30 дзён</strong>, за выключэннем дадзеных, якія мы абавязаны захоўваць паводле закону.</p>
+      </div>
+      <div class="card">
+        <h2>Вашы правы</h2>
+        <ul>
+          <li>Запытаць копію вашых дадзеных</li>
+          <li>Патрабаваць выпраўлення недакладных дадзеных</li>
+          <li>Выдаліць акаўнт і ўсе звязаныя дадзеныя</li>
+          <li>Адклікаць згоду ў любы час</li>
+        </ul>
+        <p>Для рэалізацыі любога з гэтых правоў — напішыце нам.</p>
+      </div>
+      <div class="card">
+        <h2>Дзеці</h2>
+        <p>Прыкладанне не прызначана для асоб малодшых за 16 гадоў. Мы наўмысна не збіраем дадзеныя дзяцей.</p>
+      </div>
+      <div class="card">
+        <h2>Кантакты</h2>
+        <p>Па пытаннях канфідэнцыяльнасці: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
+      </div>
     </div>
 
     <div class="footer" id="footerEl"><p>© 2026 ProBazis. Все права защищены.</p></div>
@@ -211,33 +466,14 @@
 
   <script>
     var meta = {
-      ru: {
-        title: 'Политика конфиденциальности — ProBazis',
-        hero:  'Политика конфиденциальности',
-        footer:'© 2026 ProBazis. Все права защищены.'
-      },
-      en: {
-        title: 'Privacy Policy — ProBazis',
-        hero:  'Privacy Policy',
-        footer:'© 2026 ProBazis. All rights reserved.'
-      },
-      pl: {
-        title: 'Polityka prywatności — ProBazis',
-        hero:  'Polityka prywatności',
-        footer:'© 2026 ProBazis. Wszelkie prawa zastrzeżone.'
-      },
-      uk: {
-        title: 'Політика конфіденційності — ProBazis',
-        hero:  'Політика конфіденційності',
-        footer:'© 2026 ProBazis. Усі права захищено.'
-      },
-      de: {
-        title: 'Datenschutzrichtlinie — ProBazis',
-        hero:  'Datenschutzrichtlinie',
-        footer:'© 2026 ProBazis. Alle Rechte vorbehalten.'
-      }
+      ru: { title:'Политика конфиденциальности — ProBazis', hero:'Политика конфиденциальности', footer:'© 2026 ProBazis. Все права защищены.' },
+      en: { title:'Privacy Policy — ProBazis', hero:'Privacy Policy', footer:'© 2026 ProBazis. All rights reserved.' },
+      pl: { title:'Polityka prywatności — ProBazis', hero:'Polityka prywatności', footer:'© 2026 ProBazis. Wszelkie prawa zastrzeżone.' },
+      uk: { title:'Політика конфіденційності — ProBazis', hero:'Політика конфіденційності', footer:'© 2026 ProBazis. Усі права захищено.' },
+      de: { title:'Datenschutzrichtlinie — ProBazis', hero:'Datenschutzrichtlinie', footer:'© 2026 ProBazis. Alle Rechte vorbehalten.' },
+      be: { title:'Палітыка канфідэнцыяльнасці — ProBazis', hero:'Палітыка канфідэнцыяльнасці', footer:'© 2026 ProBazis. Усе правы абаронены.' }
     };
-    var btns = {ru:'btnRu',en:'btnEn',pl:'btnPl',uk:'btnUk',de:'btnDe'};
+    var btns = {ru:'btnRu',en:'btnEn',pl:'btnPl',uk:'btnUk',de:'btnDe',be:'btnBe'};
     function setLang(lang) {
       document.body.className = lang === 'ru' ? '' : lang;
       Object.keys(btns).forEach(function(l) {
