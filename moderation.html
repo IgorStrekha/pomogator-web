@@ -243,6 +243,7 @@
     .btn-action:disabled { opacity: .45; cursor: not-allowed; }
     .btn-resolve { background: #E8F5E9; color: var(--green); }
     .btn-reject  { background: #FFEBEE; color: var(--red);   }
+    .btn-apply   { background: var(--yellow); color: #1A1A1A; }
 
     /* STATES */
     .empty-state, .loading-state { text-align: center; padding: 64px 20px; color: var(--muted); }
@@ -527,20 +528,29 @@ function renderCard(r){
   var actionHtml='';
   if(r.status==='pending'){
     var picks=r.target_type==='review'?PICKER_REVIEW:PICKER_SPECIALIST;
+    var isRev=r.target_type==='review';
     var options=picks.map(function(p){
       return '<option value="'+esc(p.val)+'">'+esc(p.lbl)+'</option>';
     }).join('');
     actionHtml=
       '<div class="action-picker">'+
         '<label>Причина решения</label>'+
-        '<select id="picker-'+rid+'">'+
+        '<select id="picker-'+rid+'"'+(isRev?' onchange="onReasonChange(\''+rid+'\')"':'')+'>'+
           '<option value="">— выберите перед подтверждением —</option>'+
           options+
         '</select>'+
       '</div>'+
+      (isRev?
+        '<div class="action-picker" id="action-wrap-'+rid+'" style="display:none">'+
+          '<label>Действие с отзывом</label>'+
+          '<select id="action-picker-'+rid+'">'+
+            '<option value="hide">Скрыть (будет скрыт от пользователей)</option>'+
+            '<option value="delete">Удалить безвозвратно</option>'+
+          '</select>'+
+        '</div>'
+      :'')+
       '<div class="action-row">'+
-        '<button class="btn-action btn-resolve" onclick="confirmDirect(\''+rid+'\',\'resolved\')">&#x2713; Решено</button>'+
-        '<button class="btn-action btn-reject"  onclick="confirmDirect(\''+rid+'\',\'rejected\')">&#x2717; Отклонить</button>'+
+        '<button class="btn-action btn-apply" onclick="applyAction(\''+rid+'\',\''+r.target_type+'\',\''+esc(String(tid))+'\')">&#x2713; Применить</button>'+
       '</div>';
   } else if(r.resolution_note){
     /* найти href по значению */
@@ -663,30 +673,58 @@ async function loadAccordionData(dataType, reportId, targetId, el){
   }
 }
 
-/* ── CONFIRM ACTION ── */
-async function confirmDirect(id, status){
-  var picker=document.getElementById('picker-'+id);
-  var note=picker?picker.value.trim():'';
-  if(!note){ alert('Выберите причину решения перед подтверждением.'); return; }
+/* ── REASON CHANGE (показать/скрыть второй пикер) ── */
+function onReasonChange(rid){
+  var picker1=document.getElementById('picker-'+rid);
+  var val=picker1?picker1.value:'';
+  var isUnfounded=val&&val.indexOf('Жалоба необоснована')===0;
+  var actionWrap=document.getElementById('action-wrap-'+rid);
+  if(actionWrap) actionWrap.style.display=(!val||isUnfounded)?'none':'block';
+}
 
-  var card=document.getElementById('card-'+id);
+/* ── APPLY ACTION ── */
+async function applyAction(rid, targetType, targetId){
+  var picker1=document.getElementById('picker-'+rid);
+  var reason=picker1?picker1.value.trim():'';
+  if(!reason){ alert('Выберите причину решения перед подтверждением.'); return; }
+
+  var isUnfounded=reason.indexOf('Жалоба необоснована')===0;
+  var card=document.getElementById('card-'+rid);
   card.querySelectorAll('.btn-action').forEach(function(b){b.disabled=true;});
 
-  var r=await sb.from('reports').update({
-    status:status,
-    reviewed_at:new Date().toISOString(),
-    reviewed_by:currentUid,
-    resolution_note:note
-  }).eq('id',id);
+  var newStatus, rErr;
 
-  if(r.error){
-    alert('Ошибка: '+r.error.message);
+  if(targetType==='review'&&!isUnfounded){
+    /* Вызываем RPC: скрыть или удалить отзыв + закрыть жалобу */
+    var picker2=document.getElementById('action-picker-'+rid);
+    var action=picker2?picker2.value:'hide';
+    var rpc=await sb.rpc('moderate_review',{
+      p_report_id:rid,
+      p_review_id:String(targetId),
+      p_action:action,
+      p_reason:reason
+    });
+    rErr=rpc.error; newStatus='resolved';
+  } else {
+    /* Жалоба необоснована ИЛИ жалоба на специалиста — прямое обновление */
+    var status2=isUnfounded?'rejected':'resolved';
+    var upd=await sb.from('reports').update({
+      status:status2,
+      reviewed_at:new Date().toISOString(),
+      reviewed_by:currentUid,
+      resolution_note:reason
+    }).eq('id',rid);
+    rErr=upd.error; newStatus=status2;
+  }
+
+  if(rErr){
+    alert('Ошибка: '+rErr.message);
     card.querySelectorAll('.btn-action').forEach(function(b){b.disabled=false;});
     return;
   }
 
-  var idx=allData.findIndex(function(x){return (x.report_id||x.id)===id;});
-  if(idx!==-1) allData[idx]=Object.assign({},allData[idx],{status:status,resolution_note:note});
+  var idx=allData.findIndex(function(x){return (x.report_id||x.id)===rid;});
+  if(idx!==-1) allData[idx]=Object.assign({},allData[idx],{status:newStatus,resolution_note:reason});
   refreshStats();
 
   if(filter==='pending'){
