@@ -24,7 +24,7 @@
       color:var(--text-secondary);border:1px solid var(--card-border);transition:all .15s;}
     .lang a.active{background:var(--accent);color:#fff;border-color:var(--accent);}
     .lang a:hover:not(.active){color:var(--text-primary);border-color:rgba(255,255,255,0.2);}
-    .card{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:28px 28px 24px;margin-bottom:14px;}
+    .card{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:28px 28px 24px;margin-bottom:14px;scroll-margin-top:20px;}
     .badge{display:inline-block;background:var(--accent-dim);color:var(--accent);
       font-size:.76rem;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:16px;
       border:1px solid rgba(52,139,254,0.2);}
@@ -65,9 +65,9 @@
 
     <!-- RUSSIAN -->
     <div class="section-ru">
-      <div class="card">
+      <div class="card" id="s1">
         <div class="badge">Версия 1.1 — 28 июля 2026</div>
-        <h2>Кто может зарегистрироваться как специалист</h2>
+        <h2>1. Кто может зарегистрироваться как специалист</h2>
         <p>К регистрации допускаются физические лица и представители компаний, которые:</p>
         <ul>
           <li>Достигли 18 лет и обладают полной дееспособностью</li>
@@ -76,20 +76,20 @@
           <li>Готовы общаться с клиентами на русском или польском языке</li>
         </ul>
       </div>
-      <div class="card">
-        <h2>Достоверность информации</h2>
+      <div class="card" id="s2">
+        <h2>2. Достоверность информации</h2>
         <p>Вы обязуетесь предоставлять только точную и актуальную информацию: имя, контакты, специализацию, перечень услуг и фотографии (только собственные работы или реальный портрет).</p>
         <p>Намеренное введение клиентов в заблуждение относительно квалификации или услуг является нарушением условий и законодательства о защите прав потребителей.</p>
         <p>Загружая фотографии, вы подтверждаете, что являетесь правообладателем или имеете законное право на их использование. Если на фотографиях изображены клиенты или их имущество и получение согласия требуется по закону — ответственность за его получение лежит исключительно на вас.</p>
         <div class="warn"><p>Недостоверная информация — основание для немедленного удаления профиля.</p></div>
       </div>
-      <div class="card">
-        <h2>Ответственность за оказываемые услуги</h2>
+      <div class="card" id="s3">
+        <h2>3. Ответственность за оказываемые услуги</h2>
         <p>ProBazis является исключительно посреднической платформой и не является стороной договора между специалистом и клиентом. ProBazis не несёт ответственности за: качество и безопасность оказанных услуг; условия договорённостей между сторонами; оплату и финансовые споры; любой ущерб, прямой или косвенный, возникший в результате взаимодействия пользователей платформы.</p>
         <p>Каждый специалист самостоятельно несёт ответственность за наличие необходимых лицензий, сертификатов и разрешений, соответствие профессиональным стандартам и соблюдение применимого законодательства. Рекомендуем оформить профессиональное страхование.</p>
       </div>
-      <div class="card">
-        <h2>Правила поведения на платформе</h2>
+      <div class="card" id="s4">
+        <h2>4. Правила поведения на платформе</h2>
         <p>Запрещается:</p>
         <ul>
           <li>Публиковать оскорбительный, дискриминационный или незаконный контент</li>
@@ -100,8 +100,8 @@
           <li>Собирать данные клиентов в нарушение GDPR</li>
         </ul>
       </div>
-      <div class="card">
-        <h2>Правила для клиентов</h2>
+      <div class="card" id="s5">
+        <h2>5. Правила для клиентов</h2>
         <p>Клиентам запрещается:</p>
         <ul>
           <li>Преследовать, оскорблять или угрожать специалистам</li>
@@ -110,8 +110,8 @@
           <li>Использовать платформу в целях, нарушающих законодательство</li>
         </ul>
       </div>
-      <div class="card">
-        <h2>Политика отзывов</h2>
+      <div class="card" id="s6">
+        <h2>6. Политика отзывов</h2>
         <p>ProBazis оставляет за собой право удалять отзывы, содержащие:</p>
         <ul>
           <li>Оскорбительные выражения или язык ненависти</li>
@@ -121,13 +121,13 @@
           <li>Заведомо ложные обвинения</li>
         </ul>
       </div>
-      <div class="card">
-        <h2>Монетизация и комиссия</h2>
+      <div class="card" id="s7">
+        <h2>7. Монетизация и комиссия</h2>
         <p>На этапе MVP регистрация и использование платформы для специалистов <strong>бесплатны</strong>.</p>
         <p>О введении платных условий вы будете уведомлены не менее чем за 30 дней через приложение или по электронной почте. Продолжение использования после уведомления считается принятием новых условий.</p>
       </div>
-      <div class="card">
-        <h2>Права ProBazis в отношении профилей</h2>
+      <div class="card" id="s8">
+        <h2>8. Права ProBazis в отношении профилей</h2>
         <p>ProBazis вправе:</p>
         <ul>
           <li><strong>Приостановить</strong> профиль на период рассмотрения жалоб или проверки</li>
@@ -136,17 +136,17 @@
           <li><strong>Отказать в регистрации</strong> без объяснения причин</li>
         </ul>
       </div>
-      <div class="card">
-        <h2>Конфиденциальность и данные</h2>
+      <div class="card" id="s9">
+        <h2>9. Конфиденциальность и данные</h2>
         <p>Обработка персональных данных регулируется <a href="https://igorstrekha.github.io/pomogator-web/privacy-policy.html">Политикой конфиденциальности ProBazis</a>. Информация вашего профиля (имя, специализация, город, фото, контакты) является публичной.</p>
       </div>
-      <div class="card">
-        <h2>Изменение условий и применимое право</h2>
+      <div class="card" id="s10">
+        <h2>10. Изменение условий и применимое право</h2>
         <p>Существенные изменения публикуются не менее чем за 14 дней до вступления в силу. Актуальная версия всегда доступна на этой странице.</p>
         <p>Условия регулируются законодательством Республики Польша. Споры разрешаются в судах по месту нахождения ProBazis.</p>
       </div>
-      <div class="card">
-        <h2>Контакты</h2>
+      <div class="card" id="s11">
+        <h2>11. Контакты</h2>
         <p>По вопросам, связанным с условиями: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
         <p>Также доступно через приложение: раздел «Профиль» → «Обратная связь».</p>
       </div>
@@ -156,7 +156,7 @@
     <div class="section-en">
       <div class="card">
         <div class="badge">Version 1.1 — July 28, 2026</div>
-        <h2>Who Can Register as a Specialist</h2>
+        <h2>1. Who Can Register as a Specialist</h2>
         <p>Registration is open to individuals and company representatives who:</p>
         <ul>
           <li>Are 18 years of age or older and legally competent</li>
@@ -166,19 +166,19 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Accuracy of Information</h2>
+        <h2>2. Accuracy of Information</h2>
         <p>You agree to provide only accurate and up-to-date information: your name, contact details, specialization, service list, and photos (only your own work or a genuine portrait).</p>
         <p>Intentionally misleading clients about your qualifications or services violates these terms and consumer protection law.</p>
         <p>By uploading photos, you confirm that you are the rights holder or have a lawful right to use them. If photos depict clients or their property and consent is required by law, obtaining that consent is solely your responsibility.</p>
         <div class="warn"><p>Providing false information is grounds for immediate removal of your profile.</p></div>
       </div>
       <div class="card">
-        <h2>Responsibility for Services Provided</h2>
+        <h2>3. Responsibility for Services Provided</h2>
         <p>ProBazis is exclusively an intermediary platform and is not a party to the contract between the specialist and the client. ProBazis bears no responsibility for: the quality and safety of services rendered; the terms of agreements between parties; payment and financial disputes; or any direct or indirect damage arising from interactions between platform users.</p>
         <p>Each specialist is solely responsible for holding the required licenses, certifications, and permits, complying with professional standards, and observing applicable law. We recommend obtaining professional liability insurance.</p>
       </div>
       <div class="card">
-        <h2>Platform Conduct Rules</h2>
+        <h2>4. Platform Conduct Rules</h2>
         <p>The following are prohibited:</p>
         <ul>
           <li>Publishing offensive, discriminatory, or illegal content</li>
@@ -190,7 +190,7 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Rules for Clients</h2>
+        <h2>5. Rules for Clients</h2>
         <p>Clients are prohibited from:</p>
         <ul>
           <li>Harassing, insulting, or threatening specialists</li>
@@ -200,7 +200,7 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Review Policy</h2>
+        <h2>6. Review Policy</h2>
         <p>ProBazis reserves the right to remove reviews containing:</p>
         <ul>
           <li>Offensive language or hate speech</li>
@@ -211,12 +211,12 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Monetization and Commission</h2>
+        <h2>7. Monetization and Commission</h2>
         <p>During the MVP stage, registration and use of the platform for specialists is <strong>free of charge</strong>.</p>
         <p>You will be notified at least 30 days in advance of any paid conditions via the app or email. Continued use after notification constitutes acceptance of the new terms.</p>
       </div>
       <div class="card">
-        <h2>ProBazis Rights Regarding Profiles</h2>
+        <h2>8. ProBazis Rights Regarding Profiles</h2>
         <p>ProBazis reserves the right to:</p>
         <ul>
           <li><strong>Suspend</strong> a profile during review of complaints or verification</li>
@@ -226,16 +226,16 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Privacy and Data</h2>
+        <h2>9. Privacy and Data</h2>
         <p>The processing of personal data is governed by the <a href="https://igorstrekha.github.io/pomogator-web/privacy-policy.html">ProBazis Privacy Policy</a>. Your profile information (name, specialization, city, photo, contacts) is publicly visible.</p>
       </div>
       <div class="card">
-        <h2>Changes to Terms and Applicable Law</h2>
+        <h2>10. Changes to Terms and Applicable Law</h2>
         <p>Material changes will be published at least 14 days before taking effect. The current version is always available on this page.</p>
         <p>These terms are governed by the laws of the Republic of Poland. Disputes are resolved in courts at ProBazis's place of business.</p>
       </div>
       <div class="card">
-        <h2>Contact</h2>
+        <h2>11. Contact</h2>
         <p>Questions about these terms: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
         <p>Also available in the app: Profile → Feedback.</p>
       </div>
@@ -245,7 +245,7 @@
     <div class="section-pl">
       <div class="card">
         <div class="badge">Wersja 1.1 — 28 lipca 2026</div>
-        <h2>Kto może zarejestrować się jako specjalista</h2>
+        <h2>1. Kto może zarejestrować się jako specjalista</h2>
         <p>Rejestracja jest otwarta dla osób fizycznych i przedstawicieli firm, którzy:</p>
         <ul>
           <li>Ukończyli 18 lat i posiadają pełną zdolność do czynności prawnych</li>
@@ -255,19 +255,19 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Rzetelność informacji</h2>
+        <h2>2. Rzetelność informacji</h2>
         <p>Zobowiązujesz się do podawania wyłącznie dokładnych i aktualnych informacji: imienia, danych kontaktowych, specjalizacji, listy usług i zdjęć (wyłącznie własnych prac lub prawdziwego portretu).</p>
         <p>Celowe wprowadzanie klientów w błąd co do kwalifikacji lub usług stanowi naruszenie niniejszych warunków i przepisów o ochronie konsumentów.</p>
         <p>Przesyłając zdjęcia, potwierdzasz, że jesteś posiadaczem praw lub masz prawne uprawnienie do ich użycia. Jeśli na zdjęciach widoczni są klienci lub ich mienie i wymagana jest zgoda — obowiązek jej uzyskania spoczywa wyłącznie na Tobie.</p>
         <div class="warn"><p>Podanie fałszywych informacji jest podstawą do natychmiastowego usunięcia profilu.</p></div>
       </div>
       <div class="card">
-        <h2>Odpowiedzialność za świadczone usługi</h2>
+        <h2>3. Odpowiedzialność za świadczone usługi</h2>
         <p>ProBazis jest wyłącznie platformą pośredniczącą i nie jest stroną umowy między specjalistą a klientem. ProBazis nie ponosi odpowiedzialności za: jakość i bezpieczeństwo świadczonych usług; warunki ustaleń między stronami; płatności i spory finansowe; jakiekolwiek bezpośrednie lub pośrednie szkody powstałe w wyniku interakcji użytkowników platformy.</p>
         <p>Każdy specjalista ponosi wyłączną odpowiedzialność za posiadanie wymaganych licencji, certyfikatów i zezwoleń, przestrzeganie standardów zawodowych i obowiązującego prawa. Zalecamy wykupienie ubezpieczenia od odpowiedzialności zawodowej.</p>
       </div>
       <div class="card">
-        <h2>Zasady korzystania z platformy</h2>
+        <h2>4. Zasady korzystania z platformy</h2>
         <p>Zabronione jest:</p>
         <ul>
           <li>Publikowanie treści obraźliwych, dyskryminacyjnych lub niezgodnych z prawem</li>
@@ -279,7 +279,7 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Zasady dla klientów</h2>
+        <h2>5. Zasady dla klientów</h2>
         <p>Klientom zabrania się:</p>
         <ul>
           <li>Nękania, obrażania lub grożenia specjalistom</li>
@@ -289,7 +289,7 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Polityka opinii</h2>
+        <h2>6. Polityka opinii</h2>
         <p>ProBazis zastrzega sobie prawo do usuwania opinii zawierających:</p>
         <ul>
           <li>Obraźliwy język lub mowę nienawiści</li>
@@ -300,12 +300,12 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Monetyzacja i prowizja</h2>
+        <h2>7. Monetyzacja i prowizja</h2>
         <p>Na etapie MVP rejestracja i korzystanie z platformy dla specjalistów jest <strong>bezpłatne</strong>.</p>
         <p>O wprowadzeniu płatnych warunków zostaniesz poinformowany co najmniej 30 dni wcześniej przez aplikację lub e-mail. Dalsze korzystanie po powiadomieniu oznacza akceptację nowych warunków.</p>
       </div>
       <div class="card">
-        <h2>Prawa ProBazis dotyczące profili</h2>
+        <h2>8. Prawa ProBazis dotyczące profili</h2>
         <p>ProBazis zastrzega sobie prawo do:</p>
         <ul>
           <li><strong>Zawieszenia</strong> profilu na czas rozpatrywania skarg lub weryfikacji</li>
@@ -315,16 +315,16 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Prywatność i dane</h2>
+        <h2>9. Prywatność i dane</h2>
         <p>Przetwarzanie danych osobowych reguluje <a href="https://igorstrekha.github.io/pomogator-web/privacy-policy.html">Polityka prywatności ProBazis</a>. Informacje z profilu (imię, specjalizacja, miasto, zdjęcie, kontakty) są publicznie widoczne.</p>
       </div>
       <div class="card">
-        <h2>Zmiany warunków i prawo właściwe</h2>
+        <h2>10. Zmiany warunków i prawo właściwe</h2>
         <p>Istotne zmiany będą publikowane co najmniej 14 dni przed wejściem w życie. Aktualna wersja jest zawsze dostępna na tej stronie.</p>
         <p>Warunki podlegają prawu Rzeczypospolitej Polskiej. Spory rozstrzygane są przez sądy właściwe dla siedziby ProBazis.</p>
       </div>
       <div class="card">
-        <h2>Kontakt</h2>
+        <h2>11. Kontakt</h2>
         <p>Pytania dotyczące warunków: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
         <p>Dostępne też w aplikacji: Profil → Opinie.</p>
       </div>
@@ -334,7 +334,7 @@
     <div class="section-uk">
       <div class="card">
         <div class="badge">Версія 1.1 — 28 липня 2026</div>
-        <h2>Хто може зареєструватися як фахівець</h2>
+        <h2>1. Хто може зареєструватися як фахівець</h2>
         <p>Реєстрація відкрита для фізичних осіб та представників компаній, які:</p>
         <ul>
           <li>Досягли 18 років і мають повну дієздатність</li>
@@ -344,19 +344,19 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Достовірність інформації</h2>
+        <h2>2. Достовірність інформації</h2>
         <p>Ви зобов'язуєтеся надавати лише точну та актуальну інформацію: ім'я, контактні дані, спеціалізацію, перелік послуг і фотографії (лише власні роботи або реальний портрет).</p>
         <p>Навмисне введення клієнтів в оману щодо кваліфікації або послуг є порушенням умов і законодавства про захист прав споживачів.</p>
         <p>Завантажуючи фотографії, ви підтверджуєте, що є правовласником або маєте законне право на їх використання. Якщо на фотографіях зображені клієнти або їхнє майно і отримання згоди вимагається законом — відповідальність за її отримання лежить виключно на вас.</p>
         <div class="warn"><p>Недостовірна інформація є підставою для негайного видалення профілю.</p></div>
       </div>
       <div class="card">
-        <h2>Відповідальність за надавані послуги</h2>
+        <h2>3. Відповідальність за надавані послуги</h2>
         <p>ProBazis є виключно посередницькою платформою і не є стороною договору між фахівцем і клієнтом. ProBazis не несе відповідальності за: якість і безпеку наданих послуг; умови домовленостей між сторонами; оплату та фінансові суперечки; будь-яку пряму або непряму шкоду, що виникла внаслідок взаємодії користувачів платформи.</p>
         <p>Кожен фахівець самостійно несе відповідальність за наявність необхідних ліцензій, сертифікатів і дозволів, відповідність професійним стандартам і дотримання чинного законодавства. Рекомендуємо оформити професійне страхування.</p>
       </div>
       <div class="card">
-        <h2>Правила поведінки на платформі</h2>
+        <h2>4. Правила поведінки на платформі</h2>
         <p>Забороняється:</p>
         <ul>
           <li>Публікувати образливий, дискримінаційний або незаконний контент</li>
@@ -368,7 +368,7 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Правила для клієнтів</h2>
+        <h2>5. Правила для клієнтів</h2>
         <p>Клієнтам забороняється:</p>
         <ul>
           <li>Переслідувати, ображати або погрожувати фахівцям</li>
@@ -378,7 +378,7 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Політика відгуків</h2>
+        <h2>6. Політика відгуків</h2>
         <p>ProBazis залишає за собою право видаляти відгуки, що містять:</p>
         <ul>
           <li>Образливі вирази або мову ненависті</li>
@@ -389,12 +389,12 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Монетизація та комісія</h2>
+        <h2>7. Монетизація та комісія</h2>
         <p>На етапі MVP реєстрація та використання платформи для фахівців є <strong>безкоштовними</strong>.</p>
         <p>Про введення платних умов ви будете повідомлені не менш ніж за 30 днів через застосунок або електронну пошту. Продовження використання після повідомлення вважається прийняттям нових умов.</p>
       </div>
       <div class="card">
-        <h2>Права ProBazis щодо профілів</h2>
+        <h2>8. Права ProBazis щодо профілів</h2>
         <p>ProBazis залишає за собою право:</p>
         <ul>
           <li><strong>Призупинити</strong> профіль на час розгляду скарг або перевірки</li>
@@ -404,16 +404,16 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Конфіденційність та дані</h2>
+        <h2>9. Конфіденційність та дані</h2>
         <p>Обробка персональних даних регулюється <a href="https://igorstrekha.github.io/pomogator-web/privacy-policy.html">Політикою конфіденційності ProBazis</a>. Інформація профілю (ім'я, спеціалізація, місто, фото, контакти) є публічною.</p>
       </div>
       <div class="card">
-        <h2>Зміна умов та застосовне право</h2>
+        <h2>10. Зміна умов та застосовне право</h2>
         <p>Суттєві зміни публікуються не менш ніж за 14 днів до набрання чинності. Актуальна версія завжди доступна на цій сторінці.</p>
         <p>Умови регулюються законодавством Республіки Польща. Суперечки вирішуються в судах за місцезнаходженням ProBazis.</p>
       </div>
       <div class="card">
-        <h2>Контакти</h2>
+        <h2>11. Контакти</h2>
         <p>З питань щодо умов: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
         <p>Також доступно через застосунок: Профіль → Зворотній зв'язок.</p>
       </div>
@@ -423,7 +423,7 @@
     <div class="section-de">
       <div class="card">
         <div class="badge">Version 1.1 — 28. Juli 2026</div>
-        <h2>Wer kann sich als Spezialist registrieren</h2>
+        <h2>1. Wer kann sich als Spezialist registrieren</h2>
         <p>Die Registrierung steht Einzelpersonen und Unternehmensvertretern offen, die:</p>
         <ul>
           <li>18 Jahre oder älter und voll geschäftsfähig sind</li>
@@ -433,19 +433,19 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Richtigkeit der Angaben</h2>
+        <h2>2. Richtigkeit der Angaben</h2>
         <p>Sie verpflichten sich, nur genaue und aktuelle Informationen anzugeben: Name, Kontaktdaten, Spezialisierung, Dienstleistungsliste und Fotos (nur eigene Arbeiten oder ein echtes Portrait).</p>
         <p>Das absichtliche Irreführen von Kunden bezüglich Qualifikationen oder Dienstleistungen verstößt gegen diese Bedingungen und das Verbraucherschutzrecht.</p>
         <p>Mit dem Hochladen von Fotos bestätigen Sie, dass Sie Rechteinhaber sind oder ein rechtmäßiges Nutzungsrecht besitzen. Falls auf Fotos Kunden oder deren Eigentum abgebildet sind und eine Einwilligung gesetzlich erforderlich ist, liegt die Einholung dieser Einwilligung ausschließlich in Ihrer Verantwortung.</p>
         <div class="warn"><p>Falsche Angaben sind ein Grund für die sofortige Löschung des Profils.</p></div>
       </div>
       <div class="card">
-        <h2>Haftung für erbrachte Dienstleistungen</h2>
+        <h2>3. Haftung für erbrachte Dienstleistungen</h2>
         <p>ProBazis ist ausschließlich eine Vermittlungsplattform und keine Vertragspartei zwischen Spezialist und Kunde. ProBazis übernimmt keine Haftung für: die Qualität und Sicherheit erbrachter Dienstleistungen; die Bedingungen von Vereinbarungen zwischen den Parteien; Zahlungen und Finanzstreitigkeiten; direkte oder indirekte Schäden, die aus Interaktionen zwischen Plattformnutzern entstehen.</p>
         <p>Jeder Spezialist ist allein verantwortlich für das Vorhandensein der erforderlichen Lizenzen, Zertifikate und Genehmigungen, die Einhaltung beruflicher Standards und des geltenden Rechts. Wir empfehlen den Abschluss einer Berufshaftpflichtversicherung.</p>
       </div>
       <div class="card">
-        <h2>Verhaltensregeln auf der Plattform</h2>
+        <h2>4. Verhaltensregeln auf der Plattform</h2>
         <p>Folgendes ist verboten:</p>
         <ul>
           <li>Veröffentlichung beleidigender, diskriminierender oder illegaler Inhalte</li>
@@ -457,7 +457,7 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Regeln für Kunden</h2>
+        <h2>5. Regeln für Kunden</h2>
         <p>Kunden ist Folgendes untersagt:</p>
         <ul>
           <li>Belästigung, Beleidigung oder Bedrohung von Spezialisten</li>
@@ -467,7 +467,7 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Bewertungsrichtlinien</h2>
+        <h2>6. Bewertungsrichtlinien</h2>
         <p>ProBazis behält sich das Recht vor, Bewertungen zu entfernen, die Folgendes enthalten:</p>
         <ul>
           <li>Beleidigende Sprache oder Hassrede</li>
@@ -478,12 +478,12 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Monetarisierung und Provision</h2>
+        <h2>7. Monetarisierung und Provision</h2>
         <p>In der MVP-Phase ist die Registrierung und Nutzung der Plattform für Spezialisten <strong>kostenlos</strong>.</p>
         <p>Über die Einführung kostenpflichtiger Bedingungen werden Sie mindestens 30 Tage im Voraus über die App oder per E-Mail informiert. Die weitere Nutzung nach der Benachrichtigung gilt als Zustimmung zu den neuen Bedingungen.</p>
       </div>
       <div class="card">
-        <h2>Rechte von ProBazis bezüglich Profile</h2>
+        <h2>8. Rechte von ProBazis bezüglich Profile</h2>
         <p>ProBazis behält sich das Recht vor:</p>
         <ul>
           <li>Ein Profil während der Prüfung von Beschwerden oder Verifizierungen zu <strong>sperren</strong></li>
@@ -493,16 +493,16 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Datenschutz und Daten</h2>
+        <h2>9. Datenschutz und Daten</h2>
         <p>Die Verarbeitung personenbezogener Daten wird durch die <a href="https://igorstrekha.github.io/pomogator-web/privacy-policy.html">ProBazis-Datenschutzrichtlinie</a> geregelt. Ihre Profilinformationen (Name, Spezialisierung, Stadt, Foto, Kontakte) sind öffentlich sichtbar.</p>
       </div>
       <div class="card">
-        <h2>Änderungen der Bedingungen und anwendbares Recht</h2>
+        <h2>10. Änderungen der Bedingungen und anwendbares Recht</h2>
         <p>Wesentliche Änderungen werden mindestens 14 Tage vor Inkrafttreten veröffentlicht. Die aktuelle Version ist stets auf dieser Seite verfügbar.</p>
         <p>Diese Bedingungen unterliegen dem Recht der Republik Polen. Streitigkeiten werden vor den Gerichten am Sitz von ProBazis entschieden.</p>
       </div>
       <div class="card">
-        <h2>Kontakt</h2>
+        <h2>11. Kontakt</h2>
         <p>Fragen zu diesen Bedingungen: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
         <p>Auch in der App verfügbar: Profil → Feedback.</p>
       </div>
@@ -512,7 +512,7 @@
     <div class="section-be">
       <div class="card">
         <div class="badge">Версія 1.1 — 28 ліпеня 2026</div>
-        <h2>Хто можа зарэгістравацца як спецыяліст</h2>
+        <h2>1. Хто можа зарэгістравацца як спецыяліст</h2>
         <p>Рэгістрацыя адкрыта для фізічных асоб і прадстаўнікоў кампаній, якія:</p>
         <ul>
           <li>Дасягнулі 18 гадоў і валодаюць поўнай дзеяздольнасцю</li>
@@ -522,19 +522,19 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Дакладнасць інфармацыі</h2>
+        <h2>2. Дакладнасць інфармацыі</h2>
         <p>Вы абавязуецеся прадастаўляць толькі дакладную і актуальную інфармацыю: імя, кантакты, спецыялізацыю, пералік паслуг і фатаграфіі (толькі ўласныя працы або рэальны партрэт).</p>
         <p>Наўмыснае ўвядзенне кліентаў у зман адносна кваліфікацыі або паслуг з'яўляецца парушэннем умоў і заканадаўства аб абароне правоў спажыўцоў.</p>
         <p>Загружаючы фатаграфіі, вы пацвярджаеце, што з'яўляецеся правааблашчальнікам або маеце законнае права на іх выкарыстанне. Калі на фатаграфіях адлюстраваны кліенты або іх маёмасць і атрыманне згоды патрабуецца па законе — адказнасць за яго атрыманне ляжыць выключна на вас.</p>
         <div class="warn"><p>Недакладная інфармацыя — падстава для неадкладнага выдалення профілю.</p></div>
       </div>
       <div class="card">
-        <h2>Адказнасць за аказваемыя паслугі</h2>
+        <h2>3. Адказнасць за аказваемыя паслугі</h2>
         <p>ProBazis з'яўляецца выключна пасрэдніцкай платформай і не з'яўляецца бокам дамовы паміж спецыялістам і кліентам. ProBazis не нясе адказнасці за: якасць і бяспеку аказаных паслуг; умовы дамоўленасцей паміж бакамі; аплату і фінансавыя спрэчкі; любую прамую або ўскосную шкоду, якая ўзнікла ў выніку ўзаемадзеяння карыстальнікаў платформы.</p>
         <p>Кожны спецыяліст самастойна нясе адказнасць за наяўнасць неабходных ліцэнзій, сертыфікатаў і дазволаў, адпаведнасць прафесійным стандартам і захаванне дзеючага заканадаўства. Рэкамендуем аформіць прафесійнае страхаванне.</p>
       </div>
       <div class="card">
-        <h2>Правілы паводзін на платформе</h2>
+        <h2>4. Правілы паводзін на платформе</h2>
         <p>Забараняецца:</p>
         <ul>
           <li>Публікаваць абразлівы, дыскрымінацыйны або незаконны кантэнт</li>
@@ -546,7 +546,7 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Правілы для кліентаў</h2>
+        <h2>5. Правілы для кліентаў</h2>
         <p>Кліентам забараняецца:</p>
         <ul>
           <li>Пераследаваць, абражаць або пагражаць спецыялістам</li>
@@ -556,7 +556,7 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Палітыка водгукаў</h2>
+        <h2>6. Палітыка водгукаў</h2>
         <p>ProBazis пакідае за сабой права выдаляць водгукі, якія змяшчаюць:</p>
         <ul>
           <li>Абразлівыя выразы або мову нянавісці</li>
@@ -567,12 +567,12 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Манетызацыя і камісія</h2>
+        <h2>7. Манетызацыя і камісія</h2>
         <p>На этапе MVP рэгістрацыя і выкарыстанне платформы для спецыялістаў <strong>бясплатныя</strong>.</p>
         <p>Аб увядзенні платных умоў вы будзеце апавешчаны не менш чым за 30 дзён праз прыкладанне або па электроннай пошце. Працяг выкарыстання пасля апавяшчэння лічыцца прыняццем новых умоў.</p>
       </div>
       <div class="card">
-        <h2>Правы ProBazis у дачыненні да профіляў</h2>
+        <h2>8. Правы ProBazis у дачыненні да профіляў</h2>
         <p>ProBazis мае права:</p>
         <ul>
           <li><strong>Прыпыніць</strong> профіль на перыяд разгляду скаргаў або праверкі</li>
@@ -582,16 +582,16 @@
         </ul>
       </div>
       <div class="card">
-        <h2>Канфідэнцыяльнасць і даныя</h2>
+        <h2>9. Канфідэнцыяльнасць і даныя</h2>
         <p>Апрацоўка персанальных даных рэгулюецца <a href="https://igorstrekha.github.io/pomogator-web/privacy-policy.html">Палітыкай канфідэнцыяльнасці ProBazis</a>. Інфармацыя вашага профілю (імя, спецыялізацыя, горад, фота, кантакты) з'яўляецца публічнай.</p>
       </div>
       <div class="card">
-        <h2>Змяненне ўмоў і прымяняльнае права</h2>
+        <h2>10. Змяненне ўмоў і прымяняльнае права</h2>
         <p>Істотныя змены публікуюцца не менш чым за 14 дзён да ўступлення ў сілу. Актуальная версія заўсёды даступна на гэтай старонцы.</p>
         <p>Умовы рэгулююцца заканадаўствам Рэспублікі Польшча. Спрэчкі вырашаюцца ў судах па месцы знаходжання ProBazis.</p>
       </div>
       <div class="card">
-        <h2>Кантакты</h2>
+        <h2>11. Кантакты</h2>
         <p>Па пытаннях, звязаных з умовамі: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
         <p>Таксама даступна праз прыкладанне: раздзел «Профіль» → «Зваротная сувязь».</p>
       </div>
