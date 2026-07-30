@@ -176,6 +176,21 @@
       cursor: pointer; color: var(--muted);
     }
 
+    /* TYPE TABS */
+    .type-tabs { display: flex; gap: 0; margin-bottom: 20px; border-radius: 14px; overflow: hidden; border: 1.5px solid var(--border); background: white; }
+    .type-tab {
+      flex: 1; padding: 14px 10px; border: none; background: none;
+      font-size: 14px; font-weight: 700; cursor: pointer; color: var(--muted);
+      transition: all .15s; display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .type-tab:first-child { border-right: 1.5px solid var(--border); }
+    .type-tab.active { background: var(--yellow); color: #1A1A1A; }
+    .type-tab .tab-count {
+      background: rgba(0,0,0,.08); border-radius: 20px;
+      padding: 2px 8px; font-size: 12px; font-weight: 800;
+    }
+    .type-tab.active .tab-count { background: rgba(0,0,0,.12); }
+
     /* STATES */
     .empty-state, .loading-state { text-align: center; padding: 64px 20px; color: var(--muted); }
     .empty-state .icon { font-size: 52px; margin-bottom: 14px; }
@@ -242,12 +257,25 @@
         <div class="lbl">Всего</div>
       </div>
     </div>
+
+    <!-- ТИП ОБЪЕКТА -->
+    <div class="type-tabs">
+      <button class="type-tab active" id="ttab-specialist" onclick="setTypeTab('specialist',this)">
+        &#x1F9D1; Специалисты <span class="tab-count" id="tc-specialist">—</span>
+      </button>
+      <button class="type-tab" id="ttab-review" onclick="setTypeTab('review',this)">
+        &#x1F4AC; Отзывы <span class="tab-count" id="tc-review">—</span>
+      </button>
+    </div>
+
+    <!-- СТАТУС-ФИЛЬТРЫ -->
     <div class="filter-tabs">
       <button class="filter-tab active" onclick="setFilter('pending',this)">&#x23F3; Ожидают</button>
       <button class="filter-tab" onclick="setFilter('resolved',this)">&#x2705; Решённые</button>
       <button class="filter-tab" onclick="setFilter('rejected',this)">&#x274C; Отклонённые</button>
       <button class="filter-tab" onclick="setFilter('all',this)">Все</button>
     </div>
+
     <div id="list"></div>
 
     <!-- DEBUG LOG -->
@@ -272,7 +300,7 @@ var REASONS={
   inappropriate_content:'Неприемлемый контент',fake_profile:'Фейковый профиль',other:'Другое'
 };
 
-var filter='pending', currentUid=null, allData=[], pendingActions={};
+var filter='pending', typeTab='specialist', currentUid=null, allData=[], pendingActions={};
 
 window.addEventListener('DOMContentLoaded',async function(){
   var s=await sb.auth.getSession();
@@ -316,6 +344,14 @@ async function tryShowPanel(user){
 
 async function doLogout(){ await sb.auth.signOut(); location.reload(); }
 
+function setTypeTab(type,btn){
+  typeTab=type;
+  document.querySelectorAll('.type-tab').forEach(function(t){t.classList.remove('active');});
+  btn.classList.add('active');
+  refreshStats();
+  renderList();
+}
+
 function setFilter(f,btn){
   filter=f;
   document.querySelectorAll('.filter-tab').forEach(function(t){t.classList.remove('active');});
@@ -341,15 +377,22 @@ async function loadReports(){
 }
 
 function refreshStats(){
-  var p=allData.filter(function(r){return r.status==='pending';}).length;
-  var rv=allData.filter(function(r){return r.status==='resolved';}).length;
+  var byType=allData.filter(function(r){return r.target_type===typeTab;});
+  var p=byType.filter(function(r){return r.status==='pending';}).length;
+  var rv=byType.filter(function(r){return r.status==='resolved';}).length;
   document.getElementById('s-pending').textContent=p;
   document.getElementById('s-resolved').textContent=rv;
-  document.getElementById('s-total').textContent=allData.length;
+  document.getElementById('s-total').textContent=byType.length;
+  // счётчики на табах
+  document.getElementById('tc-specialist').textContent=
+    allData.filter(function(r){return r.target_type==='specialist'&&r.status==='pending';}).length;
+  document.getElementById('tc-review').textContent=
+    allData.filter(function(r){return r.target_type==='review'&&r.status==='pending';}).length;
 }
 
 function renderList(){
-  var list=filter==='all'?allData:allData.filter(function(r){return r.status===filter;});
+  var list=allData.filter(function(r){return r.target_type===typeTab;});
+  if(filter!=='all') list=list.filter(function(r){return r.status===filter;});
   if(!list.length){
     document.getElementById('list').innerHTML=
       '<div class="empty-state"><div class="icon">&#x1F389;</div><p>Жалоб в этой категории нет</p></div>';
