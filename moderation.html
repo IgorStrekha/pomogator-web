@@ -249,6 +249,14 @@
       <button class="filter-tab" onclick="setFilter('all',this)">Все</button>
     </div>
     <div id="list"></div>
+
+    <!-- DEBUG LOG -->
+    <div style="margin-top:32px">
+      <button onclick="toggleLog()" style="background:none;border:none;cursor:pointer;font-size:12px;color:#999;padding:0">
+        &#x1F50D; Лог отладки
+      </button>
+      <div id="debug-log" style="display:none;margin-top:8px;background:#1a1a1a;border-radius:12px;padding:12px;font-family:monospace;font-size:12px;max-height:200px;overflow-y:auto"></div>
+    </div>
   </div>
 </div>
 
@@ -318,13 +326,16 @@ function setFilter(f,btn){
 async function loadReports(){
   document.getElementById('list').innerHTML=
     '<div class="loading-state"><div class="spinner"></div><p>Загрузка…</p></div>';
+  addLog('RPC вызов: get_reports_for_moderator(all)…');
   var r=await sb.rpc('get_reports_for_moderator',{p_status:'all'});
   if(r.error){
+    addLog('ОШИБКА: '+r.error.message, 'error');
     document.getElementById('list').innerHTML=
       '<div class="empty-state"><div class="icon">&#x26A0;&#xFE0F;</div><p>'+esc(r.error.message)+'</p></div>';
     return;
   }
   allData=r.data||[];
+  addLog('Получено записей: '+allData.length+(allData.length?'. Первая: '+JSON.stringify(Object.keys(allData[0])):''), 'ok');
   refreshStats();
   renderList();
 }
@@ -432,6 +443,22 @@ function esc(str){
   return String(str==null?'':str)
     .replace(/&/g,'&amp;').replace(/</g,'&lt;')
     .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function addLog(msg, type){
+  var el=document.getElementById('debug-log');
+  if(!el) return;
+  var color=type==='error'?'#ff6b6b':type==='ok'?'#69db7c':'#aaa';
+  var time=new Date().toLocaleTimeString('ru');
+  el.innerHTML+='<div style="color:'+color+';margin-bottom:4px">['+time+'] '+esc(msg)+'</div>';
+  el.scrollTop=el.scrollHeight;
+  // автооткрытие при ошибке
+  if(type==='error') el.style.display='block';
+}
+
+function toggleLog(){
+  var el=document.getElementById('debug-log');
+  el.style.display=el.style.display==='none'?'block':'none';
 }
 </script>
 </body>
