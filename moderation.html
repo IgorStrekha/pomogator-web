@@ -113,69 +113,6 @@
     }
     .filter-tab.active { background: var(--yellow); border-color: var(--yellow); color: #1A1A1A; }
 
-    /* REPORT CARD */
-    .report-card {
-      background: white; border-radius: 16px;
-      padding: 18px; margin-bottom: 12px;
-      box-shadow: 0 1px 4px rgba(0,0,0,.07);
-      transition: opacity .3s;
-    }
-    .report-card.fading { opacity: 0; }
-
-    .card-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
-    .badge { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
-    .b-specialist { background: #E3F2FD; color: #1565C0; }
-    .b-review     { background: #F3E5F5; color: #6A1B9A; }
-    .b-pending    { background: #FFF3E0; color: #E65100; }
-    .b-resolved   { background: #E8F5E9; color: #2E7D32; }
-    .b-rejected   { background: #FFEBEE; color: #C62828; }
-    .card-date    { font-size: 12px; color: var(--muted); margin-left: auto; }
-
-    .field { margin-bottom: 10px; }
-    .field-lbl { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
-    .field-val { font-size: 14px; color: var(--text); margin-top: 2px; }
-
-    .comment-box {
-      background: #F8F9FA; border-radius: 10px;
-      padding: 10px 14px; font-size: 13px; color: #444;
-      margin: 10px 0; font-style: italic;
-      border-left: 3px solid var(--border);
-    }
-    .resolution-box {
-      background: #E8F5E9; border-radius: 10px;
-      padding: 10px 14px; font-size: 13px; color: var(--green); margin-top: 12px;
-    }
-
-    /* ACTION BUTTONS */
-    .action-row { display: flex; gap: 8px; margin-top: 14px; }
-    .btn-action {
-      flex: 1; padding: 11px 10px; border: none; border-radius: 10px;
-      font-size: 14px; font-weight: 700; cursor: pointer; transition: opacity .15s;
-    }
-    .btn-action:hover    { opacity: .8; }
-    .btn-action:disabled { opacity: .45; cursor: not-allowed; }
-    .btn-resolve { background: #E8F5E9; color: var(--green); }
-    .btn-reject  { background: #FFEBEE; color: var(--red);   }
-
-    /* NOTE FORM */
-    .note-form { margin-top: 12px; display: none; }
-    .note-form textarea {
-      width: 100%; padding: 10px 12px;
-      border: 1.5px solid var(--border); border-radius: 10px;
-      font-size: 13px; resize: vertical; min-height: 64px;
-      outline: none; font-family: inherit;
-    }
-    .note-form textarea:focus { border-color: var(--yellow); }
-    .note-btns { display: flex; gap: 8px; margin-top: 8px; }
-    .btn-confirm { padding: 9px 18px; border: none; border-radius: 9px; font-size: 13px; font-weight: 700; cursor: pointer; }
-    .btn-confirm.resolve { background: var(--green); color: white; }
-    .btn-confirm.reject  { background: var(--red);   color: white; }
-    .btn-cancel {
-      padding: 9px 18px; border: 1.5px solid var(--border);
-      border-radius: 9px; background: white; font-size: 13px;
-      cursor: pointer; color: var(--muted);
-    }
-
     /* TYPE TABS */
     .type-tabs { display: flex; gap: 0; margin-bottom: 20px; border-radius: 14px; overflow: hidden; border: 1.5px solid var(--border); background: white; }
     .type-tab {
@@ -190,6 +127,122 @@
       padding: 2px 8px; font-size: 12px; font-weight: 800;
     }
     .type-tab.active .tab-count { background: rgba(0,0,0,.12); }
+
+    /* REPORT CARD */
+    .report-card {
+      background: white; border-radius: 16px;
+      padding: 18px; margin-bottom: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.07);
+      transition: opacity .3s;
+    }
+    .report-card.fading { opacity: 0; }
+
+    .card-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    .badge { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
+    .b-specialist { background: #E3F2FD; color: #1565C0; }
+    .b-review     { background: #F3E5F5; color: #6A1B9A; }
+    .b-pending    { background: #FFF3E0; color: #E65100; }
+    .b-resolved   { background: #E8F5E9; color: #2E7D32; }
+    .b-rejected   { background: #FFEBEE; color: #C62828; }
+    .card-date    { font-size: 12px; color: var(--muted); margin-left: auto; }
+
+    /* SECTION LABEL */
+    .section-lbl {
+      font-size: 10px; font-weight: 800; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .8px;
+      margin: 14px 0 6px;
+    }
+    .section-lbl:first-child { margin-top: 0; }
+
+    /* ACCORDION */
+    .accordion {
+      border: 1.5px solid var(--border); border-radius: 12px;
+      overflow: hidden; margin-bottom: 6px;
+    }
+    .accordion-trigger {
+      width: 100%; padding: 12px 14px;
+      background: #F8F9FA; border: none;
+      text-align: left; cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 600; color: var(--text);
+      transition: background .15s;
+    }
+    .accordion-trigger:hover { background: #F0F2F5; }
+    .acc-chevron { margin-left: auto; font-size: 12px; color: var(--muted); transition: transform .2s; }
+    .accordion-body {
+      padding: 12px 14px;
+      border-top: 1.5px solid var(--border);
+      background: white;
+    }
+    .acc-row {
+      display: flex; gap: 10px; align-items: flex-start;
+      margin-bottom: 8px; font-size: 13px;
+    }
+    .acc-row:last-child { margin-bottom: 0; }
+    .acc-lbl {
+      font-size: 10px; font-weight: 800; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .5px;
+      min-width: 90px; padding-top: 2px; flex-shrink: 0;
+    }
+    .acc-val { color: var(--text); flex: 1; line-height: 1.5; }
+    .acc-loading { font-size: 13px; color: var(--muted); text-align: center; padding: 8px 0; }
+
+    /* CONNECTS */
+    .acc-connector {
+      font-size: 11px; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .5px;
+      padding: 4px 2px; display: flex; align-items: center; gap: 6px;
+      margin-bottom: 6px;
+    }
+    .acc-connector::before { content: ''; flex: 0 0 14px; height: 1.5px; background: var(--border); }
+
+    /* FIELDS */
+    .field { margin-bottom: 10px; }
+    .field-lbl { font-size: 10px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; }
+    .field-val { font-size: 14px; color: var(--text); margin-top: 3px; }
+
+    .comment-box {
+      background: #F8F9FA; border-radius: 10px;
+      padding: 10px 14px; font-size: 13px; color: #444;
+      margin-top: 4px; font-style: italic;
+      border-left: 3px solid var(--border);
+    }
+    .resolution-box {
+      background: #E8F5E9; border-radius: 10px;
+      padding: 10px 14px; font-size: 13px; color: var(--green); margin-top: 12px;
+    }
+    .resolution-box a { color: var(--green); }
+
+    /* ACTION PICKER */
+    .action-picker { margin: 14px 0 10px; }
+    .action-picker label {
+      display: block; font-size: 10px; font-weight: 800;
+      color: var(--muted); text-transform: uppercase;
+      letter-spacing: .8px; margin-bottom: 6px;
+    }
+    .action-picker select {
+      width: 100%; padding: 11px 14px;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      font-size: 13px; color: var(--text);
+      background: white; outline: none; cursor: pointer;
+      appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23757575' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+    .action-picker select:focus { border-color: var(--yellow); }
+
+    /* ACTION BUTTONS */
+    .action-row { display: flex; gap: 8px; margin-top: 10px; }
+    .btn-action {
+      flex: 1; padding: 13px 10px; border: none; border-radius: 10px;
+      font-size: 14px; font-weight: 700; cursor: pointer; transition: opacity .15s;
+    }
+    .btn-action:hover    { opacity: .8; }
+    .btn-action:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-resolve { background: #E8F5E9; color: var(--green); }
+    .btn-reject  { background: #FFEBEE; color: var(--red);   }
 
     /* STATES */
     .empty-state, .loading-state { text-align: center; padding: 64px 20px; color: var(--muted); }
@@ -258,7 +311,6 @@
       </div>
     </div>
 
-    <!-- ТИП ОБЪЕКТА -->
     <div class="type-tabs">
       <button class="type-tab active" id="ttab-specialist" onclick="setTypeTab('specialist',this)">
         &#x1F9D1; Специалисты <span class="tab-count" id="tc-specialist">—</span>
@@ -268,7 +320,6 @@
       </button>
     </div>
 
-    <!-- СТАТУС-ФИЛЬТРЫ -->
     <div class="filter-tabs">
       <button class="filter-tab active" onclick="setFilter('pending',this)">&#x23F3; Ожидают</button>
       <button class="filter-tab" onclick="setFilter('resolved',this)">&#x2705; Решённые</button>
@@ -293,6 +344,8 @@ var SB_URL='https://rwsaxowrrmrwzkisgkdv.supabase.co';
 var SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3c2F4b3dycm1yd3praXNna2R2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3NDYxNDMsImV4cCI6MjA5ODMyMjE0M30.YVYLGxkfwUA2i8EFZ8r7m2CzCpzQVpqYHwtryf_otAM';
 var sb=supabase.createClient(SB_URL,SB_KEY);
 
+var TERMS_BASE='https://igorstrekha.github.io/pomogator-web/terms.html';
+
 var REASONS={
   offensive:'Оскорбительный контент',spam:'Спам',
   false_information:'Ложная информация',personal_information:'Персональные данные',
@@ -300,7 +353,26 @@ var REASONS={
   inappropriate_content:'Неприемлемый контент',fake_profile:'Фейковый профиль',other:'Другое'
 };
 
-var filter='pending', typeTab='specialist', currentUid=null, allData=[], pendingActions={};
+var PICKER_REVIEW=[
+  {val:'п. 6 — Оскорбительные выражения или язык ненависти', lbl:'п. 6 — Оскорбительные выражения', href:'#s6'},
+  {val:'п. 6 — Реклама или коммерческое предложение',        lbl:'п. 6 — Реклама в отзыве',          href:'#s6'},
+  {val:'п. 6 — Персональные данные третьих лиц',             lbl:'п. 6 — Персональные данные',        href:'#s6'},
+  {val:'п. 6 — Заведомо ложные обвинения',                   lbl:'п. 6 — Ложные обвинения',           href:'#s6'},
+  {val:'п. 5 — Заведомо ложный или вводящий в заблуждение отзыв', lbl:'п. 5 — Ложный отзыв',         href:'#s5'},
+  {val:'п. 5 — Спам или злоупотребление платформой',         lbl:'п. 5 — Спам',                      href:'#s5'},
+  {val:'п. 4 — Оскорбительный или незаконный контент',       lbl:'п. 4 — Незаконный контент',         href:'#s4'},
+  {val:'Жалоба необоснована — отзыв соответствует правилам сервиса', lbl:'Жалоба необоснована',       href:''}
+];
+
+var PICKER_SPECIALIST=[
+  {val:'п. 2 — Недостоверная информация о специалисте',           lbl:'п. 2 — Недостоверные данные', href:'#s2'},
+  {val:'п. 4 — Оскорбительный или незаконный контент в профиле',  lbl:'п. 4 — Незаконный контент',   href:'#s4'},
+  {val:'п. 4 — Использование платформы для рекламы конкурентов',  lbl:'п. 4 — Реклама конкурентов',  href:'#s4'},
+  {val:'п. 8 — Нарушение условий использования платформы',        lbl:'п. 8 — Нарушение условий',    href:'#s8'},
+  {val:'Жалоба необоснована — профиль соответствует правилам сервиса', lbl:'Жалоба необоснована',    href:''}
+];
+
+var filter='pending', typeTab='specialist', currentUid=null, allData=[];
 
 window.addEventListener('DOMContentLoaded',async function(){
   var s=await sb.auth.getSession();
@@ -365,13 +437,13 @@ async function loadReports(){
   addLog('RPC вызов: get_reports_for_moderator(all)…');
   var r=await sb.rpc('get_reports_for_moderator',{p_status:'all'});
   if(r.error){
-    addLog('ОШИБКА: '+r.error.message, 'error');
+    addLog('ОШИБКА: '+r.error.message,'error');
     document.getElementById('list').innerHTML=
       '<div class="empty-state"><div class="icon">&#x26A0;&#xFE0F;</div><p>'+esc(r.error.message)+'</p></div>';
     return;
   }
   allData=r.data||[];
-  addLog('Получено записей: '+allData.length+(allData.length?'. Первая: '+JSON.stringify(Object.keys(allData[0])):''), 'ok');
+  addLog('Получено записей: '+allData.length,'ok');
   refreshStats();
   renderList();
 }
@@ -383,7 +455,6 @@ function refreshStats(){
   document.getElementById('s-pending').textContent=p;
   document.getElementById('s-resolved').textContent=rv;
   document.getElementById('s-total').textContent=byType.length;
-  // счётчики на табах
   document.getElementById('tc-specialist').textContent=
     allData.filter(function(r){return r.target_type==='specialist'&&r.status==='pending';}).length;
   document.getElementById('tc-review').textContent=
@@ -401,7 +472,9 @@ function renderList(){
   document.getElementById('list').innerHTML=list.map(renderCard).join('');
 }
 
+/* ── RENDER CARD ── */
 function renderCard(r){
+  var rid=r.report_id||r.id;
   var date=new Date(r.created_at).toLocaleString('ru',{
     day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'
   });
@@ -409,24 +482,76 @@ function renderCard(r){
   var typeLbl=r.target_type==='specialist'?'Специалист':'Отзыв';
   var stCls=r.status==='pending'?'b-pending':r.status==='resolved'?'b-resolved':'b-rejected';
   var stLbl=r.status==='pending'?'&#x23F3; Ожидает':r.status==='resolved'?'&#x2705; Решено':'&#x274C; Отклонено';
-  var reason=REASONS[r.reason]||r.reason;
+  var reason=REASONS[r.reason]||r.reason||'—';
+  var tid=r.target_id||'';
 
-  var commentHtml=r.comment?'<div class="comment-box">&#x00AB;'+esc(r.comment)+'&#x00BB;</div>':'';
-  var resHtml=r.resolution_note?'<div class="resolution-box">&#x1F4DD; '+esc(r.resolution_note)+'</div>':'';
+  /* распарсить target_name */
+  var reviewAuthorDisplay='—', specialistDisplay='—';
+  if(r.target_type==='review'){
+    var m=(r.target_name||'').match(/^Отзыв от (.+?) на (.+)$/);
+    if(m){ reviewAuthorDisplay=m[1]; specialistDisplay=m[2]; }
+    else { reviewAuthorDisplay=r.target_name||'—'; }
+  } else {
+    specialistDisplay=r.target_name||'—';
+  }
 
-  var rid=r.report_id||r.id;
-  var actHtml=r.status==='pending'?
-    '<div class="action-row">'+
-      '<button class="btn-action btn-resolve" onclick="startAction(\''+rid+'\',\'resolved\')">&#x2713; Решено</button>'+
-      '<button class="btn-action btn-reject" onclick="startAction(\''+rid+'\',\'rejected\')">&#x2717; Отклонить</button>'+
-    '</div>'+
-    '<div class="note-form" id="nf-'+rid+'">'+
-      '<textarea id="nt-'+rid+'" placeholder="Заметка для себя (необязательно)…"></textarea>'+
-      '<div class="note-btns">'+
-        '<button class="btn-confirm" id="nc-'+rid+'" onclick="confirmAction(\''+rid+'\')">Подтвердить</button>'+
-        '<button class="btn-cancel" onclick="cancelAction(\''+rid+'\')">Отмена</button>'+
+  /* аккордионы */
+  var accordionsHtml='';
+  if(r.target_type==='review'){
+    accordionsHtml=
+      '<div class="section-lbl">Жалоба на отзыв</div>'+
+      buildAccordion('Отзыв от <strong>'+esc(reviewAuthorDisplay)+'</strong>',
+                     rid+'-rv','review',rid,tid)+
+      '<div class="acc-connector">на</div>'+
+      buildAccordion('<strong>'+esc(specialistDisplay)+'</strong>',
+                     rid+'-sp','review-specialist',rid,tid);
+  } else {
+    accordionsHtml=
+      '<div class="section-lbl">Жалоба на специалиста</div>'+
+      buildAccordion('<strong>'+esc(specialistDisplay)+'</strong>',
+                     rid+'-sp','specialist',rid,tid);
+  }
+
+  var reporterAccordion=
+    '<div class="section-lbl">Кто пожаловался</div>'+
+    buildAccordion('<strong>'+esc(r.reporter_name||r.reporter_email||'—')+'</strong>',
+                   rid+'-rep','reporter',rid,tid);
+
+  /* причина и комментарий */
+  var detailsHtml=
+    '<div class="section-lbl" style="margin-top:14px">Причина жалобы</div>'+
+    '<div class="field-val" style="font-size:14px;margin-bottom:10px">'+esc(reason)+'</div>'+
+    (r.comment?'<div class="section-lbl">Комментарий</div><div class="comment-box">&#x00AB;'+esc(r.comment)+'&#x00BB;</div>':'');
+
+  /* блок действий */
+  var actionHtml='';
+  if(r.status==='pending'){
+    var picks=r.target_type==='review'?PICKER_REVIEW:PICKER_SPECIALIST;
+    var options=picks.map(function(p){
+      return '<option value="'+esc(p.val)+'">'+esc(p.lbl)+'</option>';
+    }).join('');
+    actionHtml=
+      '<div class="action-picker">'+
+        '<label>Причина решения</label>'+
+        '<select id="picker-'+rid+'">'+
+          '<option value="">— выберите перед подтверждением —</option>'+
+          options+
+        '</select>'+
       '</div>'+
-    '</div>' : resHtml;
+      '<div class="action-row">'+
+        '<button class="btn-action btn-resolve" onclick="confirmDirect(\''+rid+'\',\'resolved\')">&#x2713; Решено</button>'+
+        '<button class="btn-action btn-reject"  onclick="confirmDirect(\''+rid+'\',\'rejected\')">&#x2717; Отклонить</button>'+
+      '</div>';
+  } else if(r.resolution_note){
+    /* найти href по значению */
+    var allPicks=PICKER_REVIEW.concat(PICKER_SPECIALIST);
+    var match2=allPicks.filter(function(p){return p.val===r.resolution_note;})[0];
+    var noteHtml=esc(r.resolution_note);
+    if(match2&&match2.href){
+      noteHtml='<a href="'+TERMS_BASE+match2.href+'" target="_blank" rel="noopener">'+esc(r.resolution_note)+'</a>';
+    }
+    actionHtml='<div class="resolution-box">&#x1F4DD; '+noteHtml+'</div>';
+  }
 
   return '<div class="report-card" id="card-'+rid+'">'+
     '<div class="card-meta">'+
@@ -434,32 +559,108 @@ function renderCard(r){
       '<span class="badge '+stCls+'">'+stLbl+'</span>'+
       '<span class="card-date">'+date+'</span>'+
     '</div>'+
-    '<div class="field"><div class="field-lbl">На кого жалоба</div><div class="field-val"><strong>'+esc(r.target_name||'—')+'</strong></div></div>'+
-    '<div class="field"><div class="field-lbl">Кто пожаловался</div><div class="field-val">'+esc(r.reporter_name||r.reporter_email||'—')+'</div></div>'+
-    '<div class="field"><div class="field-lbl">Причина</div><div class="field-val">'+esc(reason)+'</div></div>'+
-    commentHtml+actHtml+
+    accordionsHtml+
+    reporterAccordion+
+    detailsHtml+
+    actionHtml+
   '</div>';
 }
 
-function startAction(id,status){
-  pendingActions[id]=status;
-  var nf=document.getElementById('nf-'+id);
-  var btn=document.getElementById('nc-'+id);
-  nf.style.display='block';
-  btn.className='btn-confirm '+status;
-  btn.textContent=status==='resolved'?'&#x2713; Подтвердить решение':'&#x2717; Подтвердить отклонение';
+/* ── ACCORDION ── */
+function buildAccordion(titleHtml, accId, dataType, reportId, targetId){
+  return '<div class="accordion" id="acc-'+accId+'">'+
+    '<button class="accordion-trigger" onclick="toggleAccordion(\''+accId+'\',\''+dataType+'\',\''+reportId+'\',\''+targetId+'\')">'+
+      titleHtml+
+      '<span class="acc-chevron" id="chev-'+accId+'">&#x25BE;</span>'+
+    '</button>'+
+    '<div class="accordion-body" id="abody-'+accId+'" style="display:none">'+
+      '<div class="acc-loading">Загрузка…</div>'+
+    '</div>'+
+  '</div>';
 }
 
-function cancelAction(id){
-  document.getElementById('nf-'+id).style.display='none';
-  delete pendingActions[id];
+function toggleAccordion(accId, dataType, reportId, targetId){
+  var body=document.getElementById('abody-'+accId);
+  var chev=document.getElementById('chev-'+accId);
+  if(!body) return;
+  var isOpen=body.style.display!=='none';
+  if(isOpen){
+    body.style.display='none';
+    chev.innerHTML='&#x25BE;';
+  } else {
+    body.style.display='block';
+    chev.innerHTML='&#x25B4;';
+    if(!body.dataset.loaded){
+      loadAccordionData(dataType, reportId, targetId, body);
+    }
+  }
 }
 
-async function confirmAction(id){
-  var status=pendingActions[id]; if(!status) return;
-  var note=(document.getElementById('nt-'+id).value||'').trim()||null;
-  var cfm=document.getElementById('nc-'+id);
-  cfm.disabled=true; cfm.textContent='Сохраняем…';
+async function loadAccordionData(dataType, reportId, targetId, el){
+  el.innerHTML='<div class="acc-loading">Загрузка…</div>';
+  try{
+    var rows=[];
+    if(dataType==='reporter'){
+      var rep=allData.find(function(r){return (r.report_id||r.id)===reportId;});
+      rows=[
+        ['ФИО',   rep?(rep.reporter_name||'—'):'—'],
+        ['Email',  rep?(rep.reporter_email||'—'):'—']
+      ];
+    } else if(dataType==='review'){
+      var rv=await sb.from('reviews').select('*').eq('id',String(targetId)).single();
+      if(rv.error) throw rv.error;
+      var d=rv.data;
+      var txt=d.text||d.review_text||d.body||d.content||d.comment||'—';
+      var stars=d.rating?('&#x2B50;'.repeat(Math.min(d.rating,5))+' ('+d.rating+'/5)'):'—';
+      rows=[
+        ['ФИО',           d.author_name||'—'],
+        ['Рейтинг',       stars],
+        ['Текст отзыва',  txt]
+      ];
+    } else if(dataType==='review-specialist'){
+      var rv2=await sb.from('reviews').select('specialist_id').eq('id',String(targetId)).single();
+      if(rv2.error) throw rv2.error;
+      var sp2=await sb.from('specialists').select('*').eq('id',rv2.data.specialist_id).single();
+      if(sp2.error) throw sp2.error;
+      var s2=sp2.data;
+      rows=[
+        ['ФИО',        s2.name||'—'],
+        ['Телефон',    s2.phone||s2.phone_number||'—'],
+        ['Город',      s2.city||'—'],
+        ['Категория',  s2.category||'—']
+      ];
+    } else if(dataType==='specialist'){
+      var sp3=await sb.from('specialists').select('*').eq('id',String(targetId)).single();
+      if(sp3.error) throw sp3.error;
+      var s3=sp3.data;
+      rows=[
+        ['ФИО',        s3.name||'—'],
+        ['Телефон',    s3.phone||s3.phone_number||'—'],
+        ['Город',      s3.city||'—'],
+        ['Категория',  s3.category||'—']
+      ];
+    }
+    el.innerHTML=rows.map(function(row){
+      return '<div class="acc-row">'+
+        '<span class="acc-lbl">'+esc(row[0])+'</span>'+
+        '<span class="acc-val">'+esc(String(row[1]))+'</span>'+
+      '</div>';
+    }).join('');
+    el.dataset.loaded='1';
+  } catch(e){
+    addLog('Accordion error ('+dataType+'): '+e.message,'error');
+    el.innerHTML='<div style="color:#E31E24;font-size:13px;padding:4px 0">Объект не найден или ошибка загрузки</div>';
+  }
+}
+
+/* ── CONFIRM ACTION ── */
+async function confirmDirect(id, status){
+  var picker=document.getElementById('picker-'+id);
+  var note=picker?picker.value.trim():'';
+  if(!note){ alert('Выберите причину решения перед подтверждением.'); return; }
+
+  var card=document.getElementById('card-'+id);
+  card.querySelectorAll('.btn-action').forEach(function(b){b.disabled=true;});
 
   var r=await sb.from('reports').update({
     status:status,
@@ -468,34 +669,36 @@ async function confirmAction(id){
     resolution_note:note
   }).eq('id',id);
 
-  if(r.error){ alert('Ошибка: '+r.error.message); cfm.disabled=false; return; }
+  if(r.error){
+    alert('Ошибка: '+r.error.message);
+    card.querySelectorAll('.btn-action').forEach(function(b){b.disabled=false;});
+    return;
+  }
 
   var idx=allData.findIndex(function(x){return (x.report_id||x.id)===id;});
   if(idx!==-1) allData[idx]=Object.assign({},allData[idx],{status:status,resolution_note:note});
-  delete pendingActions[id];
   refreshStats();
 
   if(filter==='pending'){
-    var card=document.getElementById('card-'+id);
     card.classList.add('fading');
     setTimeout(renderList,320);
   } else { renderList(); }
 }
 
+/* ── UTILS ── */
 function esc(str){
   return String(str==null?'':str)
     .replace(/&/g,'&amp;').replace(/</g,'&lt;')
     .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-function addLog(msg, type){
+function addLog(msg,type){
   var el=document.getElementById('debug-log');
   if(!el) return;
   var color=type==='error'?'#ff6b6b':type==='ok'?'#69db7c':'#aaa';
   var time=new Date().toLocaleTimeString('ru');
   el.innerHTML+='<div style="color:'+color+';margin-bottom:4px">['+time+'] '+esc(msg)+'</div>';
   el.scrollTop=el.scrollHeight;
-  // автооткрытие при ошибке
   if(type==='error') el.style.display='block';
 }
 
