@@ -603,41 +603,51 @@ async function loadAccordionData(dataType, reportId, targetId, el){
     if(dataType==='reporter'){
       var rep=allData.find(function(r){return (r.report_id||r.id)===reportId;});
       rows=[
-        ['ФИО',   rep?(rep.reporter_name||'—'):'—'],
-        ['Email',  rep?(rep.reporter_email||'—'):'—']
+        ['ФИО',  rep?(rep.reporter_name||'—'):'—'],
+        ['Email', rep?(rep.reporter_email||'—'):'—']
       ];
     } else if(dataType==='review'){
-      var rv=await sb.from('reviews').select('*').eq('id',String(targetId)).single();
+      var rv=await sb.from('reviews').select('author_name,rating,text,created_at').eq('id',String(targetId)).single();
       if(rv.error) throw rv.error;
       var d=rv.data;
-      var txt=d.text||d.review_text||d.body||d.content||d.comment||'—';
-      var stars=d.rating?('&#x2B50;'.repeat(Math.min(d.rating,5))+' ('+d.rating+'/5)'):'—';
+      var rating=d.rating||0;
+      var stars='★'.repeat(Math.min(rating,5))+'☆'.repeat(Math.max(0,5-rating))+' ('+rating+'/5)';
+      var dateStr=new Date(d.created_at).toLocaleDateString('ru',{day:'2-digit',month:'long',year:'numeric'});
       rows=[
-        ['ФИО',           d.author_name||'—'],
-        ['Рейтинг',       stars],
-        ['Текст отзыва',  txt]
+        ['ФИО',         d.author_name||'—'],
+        ['Дата',   dateStr],
+        ['Рейтинг', stars],
+        ['Текст',             d.text||'—']
       ];
     } else if(dataType==='review-specialist'){
       var rv2=await sb.from('reviews').select('specialist_id').eq('id',String(targetId)).single();
       if(rv2.error) throw rv2.error;
-      var sp2=await sb.from('specialists').select('*').eq('id',rv2.data.specialist_id).single();
+      var sp2=await sb.from('specialists').select('name,phone,user_id').eq('id',rv2.data.specialist_id).single();
       if(sp2.error) throw sp2.error;
       var s2=sp2.data;
+      var email2='—';
+      if(s2.user_id){
+        var pr2=await sb.from('profiles').select('email').eq('id',s2.user_id).single();
+        if(!pr2.error&&pr2.data) email2=pr2.data.email||'—';
+      }
       rows=[
-        ['ФИО',        s2.name||'—'],
-        ['Телефон',    s2.phone||s2.phone_number||'—'],
-        ['Город',      s2.city||'—'],
-        ['Категория',  s2.category||'—']
+        ['ФИО',      s2.name||'—'],
+        ['Телефон', s2.phone||'—'],
+        ['Email',                   email2]
       ];
     } else if(dataType==='specialist'){
-      var sp3=await sb.from('specialists').select('*').eq('id',String(targetId)).single();
+      var sp3=await sb.from('specialists').select('name,phone,user_id').eq('id',String(targetId)).single();
       if(sp3.error) throw sp3.error;
       var s3=sp3.data;
+      var email3='—';
+      if(s3.user_id){
+        var pr3=await sb.from('profiles').select('email').eq('id',s3.user_id).single();
+        if(!pr3.error&&pr3.data) email3=pr3.data.email||'—';
+      }
       rows=[
-        ['ФИО',        s3.name||'—'],
-        ['Телефон',    s3.phone||s3.phone_number||'—'],
-        ['Город',      s3.city||'—'],
-        ['Категория',  s3.category||'—']
+        ['ФИО',      s3.name||'—'],
+        ['Телефон', s3.phone||'—'],
+        ['Email',                   email3]
       ];
     }
     el.innerHTML=rows.map(function(row){
