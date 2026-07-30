@@ -360,20 +360,21 @@ function renderCard(r){
   var commentHtml=r.comment?'<div class="comment-box">&#x00AB;'+esc(r.comment)+'&#x00BB;</div>':'';
   var resHtml=r.resolution_note?'<div class="resolution-box">&#x1F4DD; '+esc(r.resolution_note)+'</div>':'';
 
+  var rid=r.report_id||r.id;
   var actHtml=r.status==='pending'?
     '<div class="action-row">'+
-      '<button class="btn-action btn-resolve" onclick="startAction(\''+r.id+'\',\'resolved\')">&#x2713; Решено</button>'+
-      '<button class="btn-action btn-reject" onclick="startAction(\''+r.id+'\',\'rejected\')">&#x2717; Отклонить</button>'+
+      '<button class="btn-action btn-resolve" onclick="startAction(\''+rid+'\',\'resolved\')">&#x2713; Решено</button>'+
+      '<button class="btn-action btn-reject" onclick="startAction(\''+rid+'\',\'rejected\')">&#x2717; Отклонить</button>'+
     '</div>'+
-    '<div class="note-form" id="nf-'+r.id+'">'+
-      '<textarea id="nt-'+r.id+'" placeholder="Заметка для себя (необязательно)…"></textarea>'+
+    '<div class="note-form" id="nf-'+rid+'">'+
+      '<textarea id="nt-'+rid+'" placeholder="Заметка для себя (необязательно)…"></textarea>'+
       '<div class="note-btns">'+
-        '<button class="btn-confirm" id="nc-'+r.id+'" onclick="confirmAction(\''+r.id+'\')">Подтвердить</button>'+
-        '<button class="btn-cancel" onclick="cancelAction(\''+r.id+'\')">Отмена</button>'+
+        '<button class="btn-confirm" id="nc-'+rid+'" onclick="confirmAction(\''+rid+'\')">Подтвердить</button>'+
+        '<button class="btn-cancel" onclick="cancelAction(\''+rid+'\')">Отмена</button>'+
       '</div>'+
     '</div>' : resHtml;
 
-  return '<div class="report-card" id="card-'+r.id+'">'+
+  return '<div class="report-card" id="card-'+rid+'">'+
     '<div class="card-meta">'+
       '<span class="badge '+typeCls+'">'+typeLbl+'</span>'+
       '<span class="badge '+stCls+'">'+stLbl+'</span>'+
@@ -415,7 +416,7 @@ async function confirmAction(id){
 
   if(r.error){ alert('Ошибка: '+r.error.message); cfm.disabled=false; return; }
 
-  var idx=allData.findIndex(function(x){return x.id===id;});
+  var idx=allData.findIndex(function(x){return (x.report_id||x.id)===id;});
   if(idx!==-1) allData[idx]=Object.assign({},allData[idx],{status:status,resolution_note:note});
   delete pendingActions[id];
   refreshStats();
