@@ -1,401 +1,246 @@
-<title>Удаление аккаунта ProBazis</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Удаление аккаунта — ProBazis</title>
 <style>
-  :root {
-    --bg:         #12121F;
-    --card:       #1C1C30;
-    --card-border:rgba(255,255,255,0.07);
-    --accent:     #348BFE;
-    --accent-dim: rgba(52,139,254,0.12);
-    --danger:     #FF4D4D;
-    --danger-dim: rgba(255,77,77,0.12);
-    --text:       #F0F0F5;
-    --text-sec:   #9090A8;
-    --footer:     #404058;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.75;
-    -webkit-font-smoothing: antialiased;
-    min-height: 100vh;
-  }
-
-  /* ── header ── */
-  .site-header {
-    background: #000B1D;
-    border-bottom: 1px solid rgba(52,139,254,0.15);
-    padding: 18px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-  }
-  .logo-dot {
-    width: 10px; height: 10px;
-    background: var(--accent);
-    border-radius: 50%;
-  }
-  .logo-name {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text);
-    letter-spacing: -0.01em;
-  }
-
-  /* language toggle */
-  .lang-switch {
-    display: flex;
-    gap: 4px;
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 8px;
-    padding: 4px;
-  }
-  .lang-btn {
-    padding: 4px 12px;
-    border: none;
-    border-radius: 5px;
-    font-family: inherit;
-    font-size: 0.76rem;
-    font-weight: 700;
-    cursor: pointer;
-    background: transparent;
-    color: var(--text-sec);
-    transition: background 0.15s, color 0.15s;
-  }
-  .lang-btn.active {
-    background: var(--accent);
-    color: #fff;
-  }
-
-  /* ── hero ── */
-  .hero {
-    background: #000B1D;
-    border-bottom: 1px solid rgba(52,139,254,0.15);
-    padding: 52px 24px 44px;
-    text-align: center;
-  }
-  .hero-badge {
-    display: inline-block;
-    background: var(--accent-dim);
-    color: var(--accent);
-    font-size: 0.76rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 4px 12px;
-    border-radius: 100px;
-    margin-bottom: 18px;
-  }
-  .hero h1 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    text-wrap: balance;
-    color: var(--text);
-    margin-bottom: 10px;
-  }
-  .hero p {
-    font-size: 0.95rem;
-    color: var(--text-sec);
-    max-width: 44ch;
-    margin: 0 auto;
-  }
-
-  /* ── content ── */
-  .container {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 40px 24px 64px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .section-label {
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-sec);
-    margin-bottom: 4px;
-  }
-
-  /* steps card */
-  .card {
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 16px;
-    padding: 28px;
-  }
-  .card-title {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 20px;
-  }
-
-  .steps { display: flex; flex-direction: column; gap: 0; }
-  .step {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--card-border);
-  }
-  .step:last-child { border-bottom: none; padding-bottom: 0; }
-  .step:first-child { padding-top: 0; }
-  .step-num {
-    width: 26px; height: 26px;
-    background: var(--accent-dim);
-    color: var(--accent);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700;
-    font-size: 0.78rem;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-  .step-body strong {
-    display: block;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 2px;
-  }
-  .step-body span {
-    font-size: 0.875rem;
-    color: var(--text-sec);
-    line-height: 1.55;
-  }
-
-  /* warning */
-  .warning {
-    background: var(--danger-dim);
-    border: 1px solid rgba(255,77,77,0.2);
-    border-radius: 12px;
-    padding: 16px 20px;
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    font-size: 0.875rem;
-    color: var(--text-sec);
-    line-height: 1.55;
-  }
-  .warning strong { color: var(--danger); }
-  .warning-icon { flex-shrink: 0; font-size: 1rem; line-height: 1.55; }
-
-  /* contact */
-  .contact-card {
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 16px;
-    padding: 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .contact-card p {
-    font-size: 0.9rem;
-    color: var(--text-sec);
-    max-width: 52ch;
-  }
-  .contact-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--accent);
-    color: #fff;
-    font-family: inherit;
-    font-weight: 700;
-    font-size: 0.875rem;
-    padding: 10px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    align-self: flex-start;
-    transition: opacity 0.15s;
-  }
-  .contact-btn:hover { opacity: 0.85; }
-  .contact-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-
-  /* footer */
-  footer {
-    text-align: center;
-    padding: 24px;
-    font-size: 0.82rem;
-    color: var(--footer);
-  }
-  footer a { color: var(--footer); text-decoration: none; }
-  footer a:hover { color: var(--text-sec); }
-
-  .lang-block { display: none; }
-  .lang-block.visible { display: contents; }
-
-  @media (max-width: 480px) {
-    .hero h1 { font-size: 1.4rem; }
-    .card, .contact-card { padding: 20px; }
-  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#12121F;--card:#1C1C30;--card-border:rgba(255,255,255,0.07);
+  --accent:#348BFE;--accent-dim:rgba(52,139,254,0.1);
+  --danger:#FF4D4D;--danger-dim:rgba(255,77,77,0.1);
+  --text-primary:#F0F0F5;--text-secondary:#9090A8;--link:#348BFE;--footer:#404058;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--bg);color:var(--text-primary);line-height:1.75;}
+.hero{background:#000B1D;padding:52px 24px 44px;text-align:center;
+  border-bottom:1px solid rgba(52,139,254,0.15);}
+.hero-logo{width:60px;height:60px;margin:0 auto 18px;display:block;border-radius:14px;overflow:hidden;}
+.hero h1{font-size:2rem;font-weight:900;color:#F0F0F5;letter-spacing:-.5px;margin-bottom:6px;}
+.hero p{color:#9090A8;font-size:.95rem;font-weight:500;}
+.container{max-width:720px;margin:0 auto;padding:32px 20px 72px;}
+.lang{display:flex;gap:6px;justify-content:flex-end;margin-bottom:22px;flex-wrap:wrap;}
+.lang a{font-size:.78rem;font-weight:700;padding:5px 12px;border-radius:20px;text-decoration:none;
+  color:var(--text-secondary);border:1px solid var(--card-border);transition:all .15s;}
+.lang a.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.lang a:hover:not(.active){color:var(--text-primary);border-color:rgba(255,255,255,0.2);}
+.card{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:28px 28px 24px;margin-bottom:14px;}
+.badge{display:inline-block;background:var(--accent-dim);color:var(--accent);
+  font-size:.76rem;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:16px;
+  border:1px solid rgba(52,139,254,0.2);}
+h2{font-size:1.08rem;font-weight:700;margin-bottom:10px;color:var(--text-primary);}
+p,li{color:var(--text-secondary);font-size:.95rem;margin-bottom:8px;}
+ol{padding-left:20px;}
+ol li{margin-bottom:8px;}
+strong{color:var(--text-primary);}
+a{color:var(--link);font-weight:600;}
+.warning{background:var(--danger-dim);border:1px solid rgba(255,77,77,0.2);
+  border-radius:16px;padding:28px 28px 24px;margin-bottom:14px;}
+.warning h2{color:var(--danger);}
+.warning p,.warning li{color:var(--text-secondary);}
+.contact-btn{display:inline-block;background:var(--accent);color:#fff;font-weight:700;
+  font-size:.9rem;padding:10px 22px;border-radius:8px;text-decoration:none;
+  margin-top:8px;transition:opacity .15s;}
+.contact-btn:hover{opacity:.85;}
+.footer{text-align:center;color:var(--footer);font-size:.82rem;margin-top:40px;}
+.footer a{color:var(--footer);text-decoration:none;}
+.footer a:hover{color:var(--text-secondary);}
+.section-ru,.section-en,.section-pl,.section-uk,.section-de,.section-be{display:none;}
+body:not(.en):not(.pl):not(.uk):not(.de):not(.be) .section-ru{display:block;}
+body.en .section-en{display:block;}
+body.pl .section-pl{display:block;}
+body.uk .section-uk{display:block;}
+body.de .section-de{display:block;}
+body.be .section-be{display:block;}
 </style>
+</head>
+<body>
 
-<header class="site-header">
-  <a class="logo" href="https://probazis.com">
-    <div class="logo-dot"></div>
-    <span class="logo-name">ProBazis</span>
-  </a>
-  <div class="lang-switch" role="group" aria-label="Language">
-    <button class="lang-btn active" onclick="setLang('ru')" id="btn-ru">RU</button>
-    <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
-  </div>
-</header>
-
-<!-- RU HERO -->
-<div id="hero-ru" class="hero">
-  <div class="hero-badge">Аккаунт</div>
-  <h1>Удаление аккаунта</h1>
-  <p>Как удалить свой аккаунт ProBazis и все связанные данные</p>
-</div>
-
-<!-- EN HERO -->
-<div id="hero-en" class="hero" style="display:none">
-  <div class="hero-badge">Account</div>
-  <h1>Delete Your Account</h1>
-  <p>How to delete your ProBazis account and all associated data</p>
+<div class="hero">
+  <svg class="hero-logo" viewBox="0 0 1500 1500" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1500" height="1500" fill="#000B1D"/>
+    <path d="M704.146 636.514C706.139 636.509 708.133 636.506 710.187 636.501C715.015 637.259 715.015 637.259 717.955 639.46C720.524 645.552 720.25 651.384 720.206 657.932C720.218 660.141 720.218 660.141 720.231 662.395C720.251 667.263 720.237 672.132 720.222 677.001C720.225 680.382 720.23 683.762 720.235 687.143C720.242 694.227 720.231 701.311 720.21 708.396C720.184 717.487 720.199 726.578 720.227 735.669C720.243 742.649 720.239 749.629 720.227 756.608C720.224 759.961 720.227 763.314 720.237 766.667C720.249 771.347 720.232 776.027 720.206 780.707C720.215 782.099 720.225 783.492 720.234 784.926C720.215 786.836 720.214 786.836 720.194 788.785C720.193 789.891 720.191 790.997 720.189 792.137C719.429 795.974 718.108 797.307 715.016 799.65C705.768 801.435 696.625 801.343 687.235 801.224C684.231 801.204 681.228 801.186 678.224 801.167C673.555 801.129 668.887 801.087 664.219 801.035C629.403 800.676 596.238 802.348 569.283 827.292C555.183 842.009 548.414 859.72 546.306 879.727C546.114 881.517 546.114 881.517 545.918 883.344C544.581 896.906 544.567 910.419 544.64 924.033C544.643 926.857 544.645 929.682 544.646 932.506C544.65 938.524 544.665 944.543 544.687 950.562C544.721 960.084 544.733 969.607 544.742 979.13C544.76 994.183 544.791 1009.24 544.829 1024.29C544.897 1051.29 544.948 1078.28 544.982 1105.28C544.995 1114.74 545.017 1124.2 545.046 1133.66C545.062 1139.54 545.072 1145.42 545.08 1151.3C545.085 1154.02 545.094 1156.74 545.105 1159.46C545.119 1163.18 545.124 1166.89 545.127 1170.61C545.137 1172.22 545.137 1172.22 545.147 1173.86C545.127 1190.83 545.127 1190.83 541.487 1196.29C538.046 1198.47 535.703 1198.63 531.636 1198.77C530.142 1198.82 528.648 1198.88 527.109 1198.94C524.64 1198.99 524.64 1198.99 522.121 1199.05C520.378 1199.1 518.633 1199.15 516.837 1199.2C494.705 1199.76 472.567 1199.53 450.433 1199.21C444.297 1199.13 438.161 1199.07 432.024 1199.03C427.247 1198.98 422.47 1198.92 417.692 1198.85C415.426 1198.82 413.158 1198.8 410.892 1198.79C407.76 1198.76 404.628 1198.71 401.497 1198.66C398.835 1198.62 398.835 1198.62 396.119 1198.59C391.179 1197.89 390.182 1197.19 387.167 1193.37C386.573 1188.92 386.247 1184.76 386.126 1180.29C386.075 1178.99 386.025 1177.69 385.973 1176.35C385.492 1162.96 385.419 1149.56 385.437 1136.16C385.434 1133.49 385.432 1130.82 385.429 1128.15C385.422 1121 385.425 1113.84 385.43 1106.69C385.434 1099.14 385.43 1091.59 385.428 1084.04C385.425 1071.37 385.428 1058.69 385.436 1046.02C385.444 1031.45 385.441 1016.89 385.433 1002.32C385.426 989.725 385.425 977.131 385.429 964.537C385.431 957.054 385.432 949.57 385.427 942.087C385.38 862.234 385.38 862.234 389.753 837.95C390.159 835.66 390.158 835.66 390.572 833.324C399.848 783.264 421.438 739.151 457.64 703.134C458.815 701.953 458.815 701.953 460.014 700.748C504.42 656.563 564.258 636.801 625.985 636.744C628.554 636.734 631.124 636.724 633.692 636.713C639.026 636.695 644.36 636.689 649.694 636.69C656.532 636.691 663.369 636.649 670.206 636.597C675.488 636.563 680.77 636.556 686.052 636.558C688.575 636.554 691.099 636.54 693.622 636.517C697.131 636.487 700.637 636.495 704.146 636.514ZM798.857 300.01C873.304 299.957 873.304 299.958 900.195 304.336C902.738 304.735 902.738 304.735 905.333 305.143C975.889 316.862 1044.52 355.443 1087.29 413.587C1093.71 422.592 1099.77 431.819 1105.67 441.162C1106.31 442.159 1106.94 443.157 1107.59 444.184C1125.4 472.728 1136.3 505.09 1143.97 537.679C1144.23 538.739 1144.48 539.8 1144.74 540.893C1146.28 547.446 1147.51 554.012 1148.57 560.658C1148.88 562.617 1149.2 564.576 1149.52 566.595C1161.69 653.612 1142.03 747.474 1089.18 818.347C1086.08 822.393 1082.86 826.345 1079.63 830.29C1078.99 831.084 1078.35 831.878 1077.7 832.696C1061 853.434 1042.42 872.266 1020.98 888.096C1018.37 890.021 1015.79 891.979 1013.21 893.939C977.136 920.933 934.867 938.066 890.907 947.105C889.783 947.336 888.658 947.568 887.499 947.807C866.201 951.889 845.011 953.333 823.374 953.311C820.953 953.317 818.532 953.324 816.11 953.331C811.099 953.342 806.087 953.341 801.075 953.333C794.659 953.324 788.243 953.351 781.826 953.386C776.854 953.408 771.882 953.41 766.91 953.405C764.542 953.406 762.174 953.414 759.807 953.43C756.516 953.449 753.226 953.438 749.935 953.42C748.067 953.421 746.2 953.422 744.276 953.423C739.118 952.8 737.012 951.926 733.398 948.254C731.604 942.871 731.629 938.011 731.62 932.41C731.613 931.269 731.605 930.126 731.597 928.95C731.574 925.17 731.564 921.389 731.556 917.608C731.547 914.973 731.538 912.336 731.529 909.7C731.513 904.166 731.504 898.633 731.499 893.099C731.491 886.04 731.454 878.981 731.41 871.923C731.382 866.472 731.373 861.022 731.371 855.571C731.367 852.971 731.354 850.371 731.334 847.772C731.095 814.625 731.094 814.625 741.25 802.81C752.506 791.414 769.555 792.879 784.314 792.785C843.675 792.321 900.867 781.279 944.814 738.37C949.761 732.987 954.239 727.38 958.603 721.519C959.525 720.348 960.447 719.176 961.398 717.97C988.676 681.742 995.559 633.701 989.593 589.6C983.365 550.802 965.628 514.572 934.066 490.276C905.544 470.602 875.334 465.451 841.225 465.428C838.803 465.421 836.38 465.413 833.958 465.404C827.402 465.384 820.846 465.375 814.29 465.368C810.183 465.364 806.076 465.357 801.969 465.351C789.085 465.33 776.202 465.315 763.318 465.309C748.508 465.302 733.697 465.275 718.887 465.231C707.399 465.197 695.912 465.182 684.425 465.18C677.583 465.178 670.74 465.169 663.898 465.142C657.45 465.116 651.001 465.114 644.553 465.127C642.206 465.128 639.86 465.122 637.514 465.106C607.077 464.92 576.668 470.17 552.623 490.187C551.464 491.138 550.304 492.091 549.109 493.071C530.226 510.167 520.038 535.578 517.058 560.473C515.204 565.479 512.719 567.03 508.194 569.851C503.349 570.734 498.579 570.657 493.665 570.595C492.212 570.601 490.758 570.606 489.261 570.612C484.465 570.624 479.67 570.591 474.874 570.557C471.537 570.553 468.2 570.552 464.863 570.553C457.873 570.548 450.883 570.523 443.893 570.481C434.934 570.429 425.975 570.418 417.017 570.42C410.127 570.419 403.238 570.402 396.349 570.38C393.046 570.37 389.743 570.364 386.439 570.361C381.823 570.355 377.206 570.329 372.589 570.296C371.225 570.297 369.86 570.298 368.454 570.3C361.855 570.232 356.272 570.166 350.398 566.786C343.504 556.443 348.854 539.929 351.175 528.274C361.114 481.292 379.667 436.128 411.679 399.799C412.885 398.424 414.092 397.05 415.335 395.634C421.086 389.17 426.926 382.856 433.127 376.818C434.187 375.681 434.188 375.681 435.27 374.521C481.977 325.307 553.457 302.964 619.596 300.901C621.613 300.837 623.631 300.773 625.709 300.706C647.072 300.055 668.431 299.996 689.803 300.016C693.966 300.015 698.129 300.013 702.292 300.011C710.931 300.008 719.571 300.011 728.21 300.019C738.068 300.027 747.926 300.025 757.784 300.017C766.396 300.01 775.008 300.009 783.62 300.013C788.699 300.015 793.778 300.014 798.857 300.01Z" fill="#348BFE"/>
+  </svg>
+  <h1>ProBazis</h1>
+  <p id="heroSub">Удаление аккаунта</p>
 </div>
 
 <div class="container">
-
-  <!-- RU -->
-  <div class="lang-block visible" id="lang-ru">
-    <p class="section-label">Шаги в приложении</p>
-    <div class="card">
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-body">
-            <strong>Откройте приложение ProBazis</strong>
-            <span>Убедитесь, что вы вошли в аккаунт, который хотите удалить.</span>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-body">
-            <strong>Перейдите во вкладку «Профиль»</strong>
-            <span>Нажмите иконку профиля в нижней панели навигации.</span>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-body">
-            <strong>Откройте Настройки</strong>
-            <span>Нажмите на иконку шестерёнки в правом верхнем углу.</span>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">4</div>
-          <div class="step-body">
-            <strong>Нажмите «Удалить аккаунт»</strong>
-            <span>Кнопка находится внизу страницы настроек.</span>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">5</div>
-          <div class="step-body">
-            <strong>Подтвердите удаление</strong>
-            <span>Прочитайте предупреждение и подтвердите своё решение.</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="warning">
-      <span class="warning-icon">⚠️</span>
-      <span><strong>Внимание:</strong> удаление аккаунта необратимо. Профиль, отзывы и избранное будут удалены навсегда в течение 30 дней.</span>
-    </div>
-
-    <p class="section-label" style="margin-top:8px">Нет доступа к приложению?</p>
-    <div class="contact-card">
-      <p>Если вы не можете войти в приложение, отправьте запрос на удаление по email. Укажите адрес электронной почты вашего аккаунта.</p>
-      <a class="contact-btn" href="mailto:igor.strekha@gmail.com?subject=Запрос на удаление аккаунта ProBazis">Написать нам</a>
-    </div>
+  <div class="lang">
+    <a href="#" class="active" id="btnRu" onclick="setLang('ru');return false;">RU</a>
+    <a href="#" id="btnEn" onclick="setLang('en');return false;">EN</a>
+    <a href="#" id="btnPl" onclick="setLang('pl');return false;">PL</a>
+    <a href="#" id="btnUk" onclick="setLang('uk');return false;">UK</a>
+    <a href="#" id="btnDe" onclick="setLang('de');return false;">DE</a>
+    <a href="#" id="btnBe" onclick="setLang('be');return false;">BE</a>
   </div>
 
-  <!-- EN -->
-  <div class="lang-block" id="lang-en">
-    <p class="section-label">Steps in the app</p>
+  <!-- ── RU ── -->
+  <div class="section-ru">
     <div class="card">
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-body">
-            <strong>Open the ProBazis app</strong>
-            <span>Make sure you are signed in to the account you want to delete.</span>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-body">
-            <strong>Go to the Profile tab</strong>
-            <span>Tap the profile icon in the bottom navigation bar.</span>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-body">
-            <strong>Open Settings</strong>
-            <span>Tap the gear icon in the top-right corner of the screen.</span>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">4</div>
-          <div class="step-body">
-            <strong>Tap "Delete Account"</strong>
-            <span>The button is at the bottom of the Settings page.</span>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">5</div>
-          <div class="step-body">
-            <strong>Confirm deletion</strong>
-            <span>Read the warning and confirm your decision.</span>
-          </div>
-        </div>
-      </div>
+      <div class="badge">Удаление аккаунта</div>
+      <h2>Как удалить аккаунт в приложении</h2>
+      <ol>
+        <li>Откройте приложение ProBazis и войдите в аккаунт, который хотите удалить.</li>
+        <li>Перейдите во вкладку <strong>«Профиль»</strong> в нижней панели навигации.</li>
+        <li>Нажмите на иконку <strong>шестерёнки</strong> (настройки) в правом верхнем углу.</li>
+        <li>Прокрутите вниз и нажмите <strong>«Удалить аккаунт»</strong>.</li>
+        <li>Прочитайте предупреждение и подтвердите своё решение.</li>
+      </ol>
     </div>
-
     <div class="warning">
-      <span class="warning-icon">⚠️</span>
-      <span><strong>Warning:</strong> account deletion is permanent. Your profile, reviews, and favorites will be removed within 30 days.</span>
+      <h2>Внимание</h2>
+      <p>Удаление аккаунта <strong>необратимо</strong>. Все ваши данные — профиль, отзывы и избранное — будут удалены навсегда в течение <strong>30 дней</strong>.</p>
     </div>
+    <div class="card">
+      <h2>Нет доступа к приложению?</h2>
+      <p>Если вы не можете войти в приложение, отправьте запрос на удаление по электронной почте. Укажите email адрес вашего аккаунта.</p>
+      <a class="contact-btn" href="mailto:igor.strekha@gmail.com?subject=Запрос на удаление аккаунта ProBazis">Написать нам</a>
+    </div>
+    <div class="footer"><a href="/privacy-policy.html">Политика конфиденциальности</a> · © 2026 ProBazis</div>
+  </div>
 
-    <p class="section-label" style="margin-top:8px">Can't access the app?</p>
-    <div class="contact-card">
+  <!-- ── EN ── -->
+  <div class="section-en">
+    <div class="card">
+      <div class="badge">Account Deletion</div>
+      <h2>How to delete your account in the app</h2>
+      <ol>
+        <li>Open the ProBazis app and sign in to the account you want to delete.</li>
+        <li>Go to the <strong>Profile</strong> tab in the bottom navigation bar.</li>
+        <li>Tap the <strong>gear icon</strong> (Settings) in the top-right corner.</li>
+        <li>Scroll down and tap <strong>"Delete Account"</strong>.</li>
+        <li>Read the warning and confirm your decision.</li>
+      </ol>
+    </div>
+    <div class="warning">
+      <h2>Warning</h2>
+      <p>Account deletion is <strong>permanent</strong>. All your data — profile, reviews, and favorites — will be deleted forever within <strong>30 days</strong>.</p>
+    </div>
+    <div class="card">
+      <h2>Can't access the app?</h2>
       <p>If you can't sign in to the app, send a deletion request by email. Include the email address associated with your account.</p>
       <a class="contact-btn" href="mailto:igor.strekha@gmail.com?subject=ProBazis Account Deletion Request">Contact us</a>
     </div>
+    <div class="footer"><a href="/privacy-policy.html">Privacy Policy</a> · © 2026 ProBazis</div>
+  </div>
+
+  <!-- ── PL ── -->
+  <div class="section-pl">
+    <div class="card">
+      <div class="badge">Usunięcie konta</div>
+      <h2>Jak usunąć konto w aplikacji</h2>
+      <ol>
+        <li>Otwórz aplikację ProBazis i zaloguj się na konto, które chcesz usunąć.</li>
+        <li>Przejdź do zakładki <strong>„Profil"</strong> w dolnym pasku nawigacji.</li>
+        <li>Kliknij ikonę <strong>koła zębatego</strong> (Ustawienia) w prawym górnym rogu.</li>
+        <li>Przewiń w dół i kliknij <strong>„Usuń konto"</strong>.</li>
+        <li>Przeczytaj ostrzeżenie i potwierdź swoją decyzję.</li>
+      </ol>
+    </div>
+    <div class="warning">
+      <h2>Uwaga</h2>
+      <p>Usunięcie konta jest <strong>nieodwracalne</strong>. Wszystkie Twoje dane — profil, opinie i ulubione — zostaną trwale usunięte w ciągu <strong>30 dni</strong>.</p>
+    </div>
+    <div class="card">
+      <h2>Nie możesz zalogować się do aplikacji?</h2>
+      <p>Jeśli nie możesz zalogować się do aplikacji, wyślij prośbę o usunięcie konta e-mailem. Podaj adres e-mail powiązany z kontem.</p>
+      <a class="contact-btn" href="mailto:igor.strekha@gmail.com?subject=Prośba o usunięcie konta ProBazis">Napisz do nas</a>
+    </div>
+    <div class="footer"><a href="/privacy-policy.html">Polityka prywatności</a> · © 2026 ProBazis</div>
+  </div>
+
+  <!-- ── UK ── -->
+  <div class="section-uk">
+    <div class="card">
+      <div class="badge">Видалення облікового запису</div>
+      <h2>Як видалити обліковий запис у додатку</h2>
+      <ol>
+        <li>Відкрийте додаток ProBazis і увійдіть в обліковий запис, який хочете видалити.</li>
+        <li>Перейдіть на вкладку <strong>«Профіль»</strong> у нижній панелі навігації.</li>
+        <li>Натисніть іконку <strong>шестерні</strong> (Налаштування) у правому верхньому куті.</li>
+        <li>Прокрутіть вниз і натисніть <strong>«Видалити обліковий запис»</strong>.</li>
+        <li>Прочитайте попередження і підтвердіть своє рішення.</li>
+      </ol>
+    </div>
+    <div class="warning">
+      <h2>Увага</h2>
+      <p>Видалення облікового запису є <strong>незворотним</strong>. Усі ваші дані — профіль, відгуки та обрані — будуть видалені назавжди протягом <strong>30 днів</strong>.</p>
+    </div>
+    <div class="card">
+      <h2>Немає доступу до додатку?</h2>
+      <p>Якщо ви не можете увійти в додаток, надішліть запит на видалення електронною поштою. Вкажіть email-адресу вашого облікового запису.</p>
+      <a class="contact-btn" href="mailto:igor.strekha@gmail.com?subject=Запит на видалення облікового запису ProBazis">Написати нам</a>
+    </div>
+    <div class="footer"><a href="/privacy-policy.html">Політика конфіденційності</a> · © 2026 ProBazis</div>
+  </div>
+
+  <!-- ── DE ── -->
+  <div class="section-de">
+    <div class="card">
+      <div class="badge">Konto löschen</div>
+      <h2>So löschen Sie Ihr Konto in der App</h2>
+      <ol>
+        <li>Öffnen Sie die ProBazis-App und melden Sie sich mit dem Konto an, das Sie löschen möchten.</li>
+        <li>Gehen Sie zum Tab <strong>„Profil"</strong> in der unteren Navigationsleiste.</li>
+        <li>Tippen Sie auf das <strong>Zahnrad-Symbol</strong> (Einstellungen) in der oberen rechten Ecke.</li>
+        <li>Scrollen Sie nach unten und tippen Sie auf <strong>„Konto löschen"</strong>.</li>
+        <li>Lesen Sie die Warnung und bestätigen Sie Ihre Entscheidung.</li>
+      </ol>
+    </div>
+    <div class="warning">
+      <h2>Achtung</h2>
+      <p>Das Löschen des Kontos ist <strong>unwiderruflich</strong>. Alle Ihre Daten — Profil, Bewertungen und Favoriten — werden innerhalb von <strong>30 Tagen</strong> dauerhaft gelöscht.</p>
+    </div>
+    <div class="card">
+      <h2>Kein Zugang zur App?</h2>
+      <p>Wenn Sie sich nicht in der App anmelden können, senden Sie eine Löschanfrage per E-Mail. Geben Sie die mit Ihrem Konto verknüpfte E-Mail-Adresse an.</p>
+      <a class="contact-btn" href="mailto:igor.strekha@gmail.com?subject=ProBazis Kontolöschung Anfrage">Kontaktieren Sie uns</a>
+    </div>
+    <div class="footer"><a href="/privacy-policy.html">Datenschutzrichtlinie</a> · © 2026 ProBazis</div>
+  </div>
+
+  <!-- ── BE ── -->
+  <div class="section-be">
+    <div class="card">
+      <div class="badge">Выдаленне акаўнта</div>
+      <h2>Як выдаліць акаўнт у дадатку</h2>
+      <ol>
+        <li>Адкрыйце дадатак ProBazis і ўвайдзіце ў акаўнт, які хочаце выдаліць.</li>
+        <li>Перайдзіце на ўкладку <strong>«Профіль»</strong> у ніжняй панэлі навігацыі.</li>
+        <li>Націсніце на іконку <strong>шасцярні</strong> (Налады) у правым верхнім куце.</li>
+        <li>Пракруціце ўніз і націсніце <strong>«Выдаліць акаўнт»</strong>.</li>
+        <li>Прачытайце папярэджанне і пацвердзіце сваё рашэнне.</li>
+      </ol>
+    </div>
+    <div class="warning">
+      <h2>Увага</h2>
+      <p>Выдаленне акаўнта з'яўляецца <strong>незваротным</strong>. Усе вашы дадзеныя — профіль, водгукі і абраныя — будуць выдалены назаўжды на працягу <strong>30 дзён</strong>.</p>
+    </div>
+    <div class="card">
+      <h2>Няма доступу да дадатку?</h2>
+      <p>Калі вы не можаце ўвайсці ў дадатак, адпраўце запыт на выдаленне па электроннай пошце. Укажыце email-адрас вашага акаўнта.</p>
+      <a class="contact-btn" href="mailto:igor.strekha@gmail.com?subject=Запыт на выдаленне акаўнта ProBazis">Напісаць нам</a>
+    </div>
+    <div class="footer"><a href="/privacy-policy.html">Палітыка канфідэнцыяльнасці</a> · © 2026 ProBazis</div>
   </div>
 
 </div>
 
-<footer>
-  <a href="https://probazis.com/privacy-policy.html">Privacy Policy</a> · © 2026 ProBazis
-</footer>
-
 <script>
-  function setLang(lang) {
-    ['ru','en'].forEach(l => {
-      document.getElementById('lang-' + l).classList.toggle('visible', l === lang);
-      document.getElementById('hero-' + l).style.display = l === lang ? '' : 'none';
-      document.getElementById('btn-' + l).classList.toggle('active', l === lang);
-    });
-  }
+const heroSubs = {
+  ru:'Удаление аккаунта', en:'Account Deletion',
+  pl:'Usunięcie konta', uk:'Видалення облікового запису',
+  de:'Konto löschen', be:'Выдаленне акаўнта'
+};
+function setLang(l) {
+  document.body.className = l === 'ru' ? '' : l;
+  document.getElementById('heroSub').textContent = heroSubs[l];
+  ['ru','en','pl','uk','de','be'].forEach(function(x){
+    document.getElementById('btn'+x.charAt(0).toUpperCase()+x.slice(1)).className = x===l?'active':'';
+  });
+}
 </script>
+</body>
+</html>
