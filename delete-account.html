@@ -1,0 +1,401 @@
+<title>Удаление аккаунта ProBazis</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+<style>
+  :root {
+    --bg:         #12121F;
+    --card:       #1C1C30;
+    --card-border:rgba(255,255,255,0.07);
+    --accent:     #348BFE;
+    --accent-dim: rgba(52,139,254,0.12);
+    --danger:     #FF4D4D;
+    --danger-dim: rgba(255,77,77,0.12);
+    --text:       #F0F0F5;
+    --text-sec:   #9090A8;
+    --footer:     #404058;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  /* ── header ── */
+  .site-header {
+    background: #000B1D;
+    border-bottom: 1px solid rgba(52,139,254,0.15);
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .logo-dot {
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .logo-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  /* language toggle */
+  .lang-switch {
+    display: flex;
+    gap: 4px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 4px;
+  }
+  .lang-btn {
+    padding: 4px 12px;
+    border: none;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 0.76rem;
+    font-weight: 700;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-sec);
+    transition: background 0.15s, color 0.15s;
+  }
+  .lang-btn.active {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* ── hero ── */
+  .hero {
+    background: #000B1D;
+    border-bottom: 1px solid rgba(52,139,254,0.15);
+    padding: 52px 24px 44px;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--accent-dim);
+    color: var(--accent);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .hero p {
+    font-size: 0.95rem;
+    color: var(--text-sec);
+    max-width: 44ch;
+    margin: 0 auto;
+  }
+
+  /* ── content ── */
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .section-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-sec);
+    margin-bottom: 4px;
+  }
+
+  /* steps card */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 28px;
+  }
+  .card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .step:last-child { border-bottom: none; padding-bottom: 0; }
+  .step:first-child { padding-top: 0; }
+  .step-num {
+    width: 26px; height: 26px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 0.78rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-body strong {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .step-body span {
+    font-size: 0.875rem;
+    color: var(--text-sec);
+    line-height: 1.55;
+  }
+
+  /* warning */
+  .warning {
+    background: var(--danger-dim);
+    border: 1px solid rgba(255,77,77,0.2);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 0.875rem;
+    color: var(--text-sec);
+    line-height: 1.55;
+  }
+  .warning strong { color: var(--danger); }
+  .warning-icon { flex-shrink: 0; font-size: 1rem; line-height: 1.55; }
+
+  /* contact */
+  .contact-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .contact-card p {
+    font-size: 0.9rem;
+    color: var(--text-sec);
+    max-width: 52ch;
+  }
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: #fff;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 0.875rem;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    align-self: flex-start;
+    transition: opacity 0.15s;
+  }
+  .contact-btn:hover { opacity: 0.85; }
+  .contact-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  /* footer */
+  footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 0.82rem;
+    color: var(--footer);
+  }
+  footer a { color: var(--footer); text-decoration: none; }
+  footer a:hover { color: var(--text-sec); }
+
+  .lang-block { display: none; }
+  .lang-block.visible { display: contents; }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.4rem; }
+    .card, .contact-card { padding: 20px; }
+  }
+</style>
+
+<header class="site-header">
+  <a class="logo" href="https://probazis.com">
+    <div class="logo-dot"></div>
+    <span class="logo-name">ProBazis</span>
+  </a>
+  <div class="lang-switch" role="group" aria-label="Language">
+    <button class="lang-btn active" onclick="setLang('ru')" id="btn-ru">RU</button>
+    <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+  </div>
+</header>
+
+<!-- RU HERO -->
+<div id="hero-ru" class="hero">
+  <div class="hero-badge">Аккаунт</div>
+  <h1>Удаление аккаунта</h1>
+  <p>Как удалить свой аккаунт ProBazis и все связанные данные</p>
+</div>
+
+<!-- EN HERO -->
+<div id="hero-en" class="hero" style="display:none">
+  <div class="hero-badge">Account</div>
+  <h1>Delete Your Account</h1>
+  <p>How to delete your ProBazis account and all associated data</p>
+</div>
+
+<div class="container">
+
+  <!-- RU -->
+  <div class="lang-block visible" id="lang-ru">
+    <p class="section-label">Шаги в приложении</p>
+    <div class="card">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Откройте приложение ProBazis</strong>
+            <span>Убедитесь, что вы вошли в аккаунт, который хотите удалить.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Перейдите во вкладку «Профиль»</strong>
+            <span>Нажмите иконку профиля в нижней панели навигации.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Откройте Настройки</strong>
+            <span>Нажмите на иконку шестерёнки в правом верхнем углу.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong>Нажмите «Удалить аккаунт»</strong>
+            <span>Кнопка находится внизу страницы настроек.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <strong>Подтвердите удаление</strong>
+            <span>Прочитайте предупреждение и подтвердите своё решение.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="warning">
+      <span class="warning-icon">⚠️</span>
+      <span><strong>Внимание:</strong> удаление аккаунта необратимо. Профиль, отзывы и избранное будут удалены навсегда в течение 30 дней.</span>
+    </div>
+
+    <p class="section-label" style="margin-top:8px">Нет доступа к приложению?</p>
+    <div class="contact-card">
+      <p>Если вы не можете войти в приложение, отправьте запрос на удаление по email. Укажите адрес электронной почты вашего аккаунта.</p>
+      <a class="contact-btn" href="mailto:igor.strekha@gmail.com?subject=Запрос на удаление аккаунта ProBazis">Написать нам</a>
+    </div>
+  </div>
+
+  <!-- EN -->
+  <div class="lang-block" id="lang-en">
+    <p class="section-label">Steps in the app</p>
+    <div class="card">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Open the ProBazis app</strong>
+            <span>Make sure you are signed in to the account you want to delete.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Go to the Profile tab</strong>
+            <span>Tap the profile icon in the bottom navigation bar.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Open Settings</strong>
+            <span>Tap the gear icon in the top-right corner of the screen.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong>Tap "Delete Account"</strong>
+            <span>The button is at the bottom of the Settings page.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <strong>Confirm deletion</strong>
+            <span>Read the warning and confirm your decision.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="warning">
+      <span class="warning-icon">⚠️</span>
+      <span><strong>Warning:</strong> account deletion is permanent. Your profile, reviews, and favorites will be removed within 30 days.</span>
+    </div>
+
+    <p class="section-label" style="margin-top:8px">Can't access the app?</p>
+    <div class="contact-card">
+      <p>If you can't sign in to the app, send a deletion request by email. Include the email address associated with your account.</p>
+      <a class="contact-btn" href="mailto:igor.strekha@gmail.com?subject=ProBazis Account Deletion Request">Contact us</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <a href="https://probazis.com/privacy-policy.html">Privacy Policy</a> · © 2026 ProBazis
+</footer>
+
+<script>
+  function setLang(lang) {
+    ['ru','en'].forEach(l => {
+      document.getElementById('lang-' + l).classList.toggle('visible', l === lang);
+      document.getElementById('hero-' + l).style.display = l === lang ? '' : 'none';
+      document.getElementById('btn-' + l).classList.toggle('active', l === lang);
+    });
+  }
+</script>
