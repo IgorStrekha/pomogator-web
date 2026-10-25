@@ -269,6 +269,26 @@
     .acc-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
     .tool-row { display: flex; gap: 8px; justify-content: flex-end; margin: -8px 0 16px; }
 
+    /* ОКНО ПИСЬМА АВТОРУ (mailto работает не везде — показываем письмо на странице) */
+    .mail-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.45);
+      display: none; align-items: center; justify-content: center; padding: 16px; z-index: 50;
+    }
+    .mail-card {
+      background: var(--card); border-radius: 16px; padding: 20px;
+      width: 100%; max-width: 620px; max-height: 92vh; overflow: auto;
+      box-shadow: 0 12px 40px rgba(0,0,0,.25);
+    }
+    .mail-card h3 { font-size: 17px; margin-bottom: 4px; }
+    .mail-card .hint { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+    .mail-card input, .mail-card textarea {
+      width: 100%; padding: 10px 12px; border: 1.5px solid var(--border);
+      border-radius: 10px; font: inherit; font-size: 13px; color: var(--text); margin-bottom: 10px;
+    }
+    .mail-card textarea { min-height: 260px; resize: vertical; line-height: 1.45; }
+    .mail-card .acc-actions { justify-content: flex-end; }
+    .btn-small.primary { background: var(--yellow); border-color: var(--yellow); }
+
     /* STATES */
     .empty-state, .loading-state { text-align: center; padding: 64px 20px; color: var(--muted); }
     .empty-state .icon { font-size: 52px; margin-bottom: 14px; }
@@ -365,6 +385,26 @@
     </div>
 
     <div id="list"></div>
+
+    <!-- Письмо автору отзыва: открыть в Gmail, скопировать или открыть в почтовой программе -->
+    <div class="mail-overlay" id="mail-overlay" onclick="if(event.target===this)closeMail()">
+      <div class="mail-card">
+        <h3>&#x2709;&#xFE0F; Письмо автору отзыва</h3>
+        <div class="hint">Отправьте из своей почты. Ответ автора придёт вам — по нему решите жалобу.</div>
+        <div class="section-lbl">Кому</div>
+        <input id="mail-to" readonly>
+        <div class="section-lbl">Тема</div>
+        <input id="mail-subject">
+        <div class="section-lbl">Текст</div>
+        <textarea id="mail-body"></textarea>
+        <div class="acc-actions">
+          <button class="btn-small" onclick="closeMail()">Закрыть</button>
+          <button class="btn-small" onclick="copyMail(this)">&#x1F4CB; Скопировать</button>
+          <button class="btn-small" onclick="openMailClient()">Почтовая программа</button>
+          <button class="btn-small primary" onclick="openGmail()">Открыть в Gmail</button>
+        </div>
+      </div>
+    </div>
 
     <!-- DEBUG LOG -->
     <div style="margin-top:32px">
@@ -953,12 +993,45 @@ async function openEvidenceEmail(rid, reviewId){
       'Если подтверждение будет — отзыв останется опубликованным. Если нет — отзыв будет скрыт.\n\n'+
       'С уважением,\nкоманда модерации ProBazis';
 
-    window.location.href='mailto:'+encodeURIComponent(a.author_email)+
-      '?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+    showMail(a.author_email, subject, body);
   }catch(e){
     addLog('Письмо автору: '+e.message,'error');
     alert('Не удалось подготовить письмо: '+e.message);
   }
+}
+
+/* ── ОКНО ПИСЬМА ── */
+function showMail(to, subject, body){
+  document.getElementById('mail-to').value=to;
+  document.getElementById('mail-subject').value=subject;
+  document.getElementById('mail-body').value=body;
+  document.getElementById('mail-overlay').style.display='flex';
+}
+function closeMail(){ document.getElementById('mail-overlay').style.display='none'; }
+function mailParts(){
+  return {
+    to:document.getElementById('mail-to').value,
+    subject:document.getElementById('mail-subject').value,
+    body:document.getElementById('mail-body').value
+  };
+}
+function openGmail(){
+  var m=mailParts();
+  window.open('https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(m.to)+
+    '&su='+encodeURIComponent(m.subject)+'&body='+encodeURIComponent(m.body),'_blank','noopener');
+}
+function openMailClient(){
+  var m=mailParts();
+  window.location.href='mailto:'+encodeURIComponent(m.to)+
+    '?subject='+encodeURIComponent(m.subject)+'&body='+encodeURIComponent(m.body);
+}
+async function copyMail(btn){
+  var m=mailParts();
+  var text='Кому: '+m.to+'\nТема: '+m.subject+'\n\n'+m.body;
+  try{ await navigator.clipboard.writeText(text); }
+  catch(e){ var t=document.getElementById('mail-body'); t.select(); document.execCommand('copy'); }
+  var old=btn.innerHTML; btn.innerHTML='&#x2705; Скопировано';
+  setTimeout(function(){btn.innerHTML=old;},1500);
 }
 
 /* ── ПРОСРОЧЕННЫЕ ЗАПРОСЫ: скрыть отзывы, авторы которых не ответили ── */
