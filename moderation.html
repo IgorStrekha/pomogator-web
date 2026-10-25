@@ -892,10 +892,14 @@ async function loadAccordionData(dataType, reportId, targetId, el){
       var rep=allData.find(function(r){return (r.report_id||r.id)===reportId;});
       rows=[
         ['ФИО',  rep?(rep.reporter_name||'—'):'—'],
-        ['Email', rep?(rep.reporter_email||'—'):'—']
+        ['Email', rep?(rep.reporter_email||'—'):'—'],
+        /* Галочка «подтверждаю достоверность жалобы» (миграция 040) */
+        ['Подтвердил достоверность', rep&&rep.reporter_attested_at
+          ? '✅ '+new Date(rep.reporter_attested_at).toLocaleString('ru')
+          : '— (старая версия приложения)']
       ];
     } else if(dataType==='review'){
-      var rv=await sb.from('reviews').select('author_name,rating,text,created_at,reply_text').eq('id',String(targetId)).single();
+      var rv=await sb.from('reviews').select('author_name,rating,text,created_at,reply_text,service_month,attested_at').eq('id',String(targetId)).single();
       if(rv.error) throw rv.error;
       var d=rv.data;
       var rating=d.rating||0;
@@ -905,7 +909,14 @@ async function loadAccordionData(dataType, reportId, targetId, el){
         ['ФИО',         d.author_name||'—'],
         ['Дата',   dateStr],
         ['Рейтинг', stars],
-        ['Текст',             d.text||'—']
+        ['Текст',             d.text||'—'],
+        /* Со слов автора: когда пользовался услугой + галочка личного опыта (миграция 040) */
+        ['Месяц услуги', d.service_month
+          ? new Date(d.service_month).toLocaleDateString('ru',{month:'long',year:'numeric'})+' (со слов автора)'
+          : '— (не указан)'],
+        ['Подтвердил опыт', d.attested_at
+          ? '✅ '+new Date(d.attested_at).toLocaleString('ru')
+          : '— (старая версия приложения)']
       ];
       if(d.reply_text) rows.push(['Ответ специалиста', d.reply_text]);
     } else if(dataType==='author'){
