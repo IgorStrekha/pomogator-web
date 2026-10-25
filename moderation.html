@@ -289,6 +289,22 @@
     .mail-card .acc-actions { justify-content: flex-end; }
     .btn-small.primary { background: var(--yellow); border-color: var(--yellow); }
 
+    /* НОМЕР ОБРАЩЕНИЯ, ПОИСК, ЗАМЕТКА МОДЕРАТОРА */
+    .b-ticket { background: #1A1A1A; color: #FFD600; cursor: pointer; font-family: ui-monospace, Consolas, monospace; }
+    .search-row { display: flex; gap: 8px; margin-bottom: 14px; }
+    .search-row input {
+      flex: 1; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 12px;
+      font-size: 14px; outline: none; background: white;
+    }
+    .search-row input:focus { border-color: var(--yellow); }
+    .search-hint { font-size: 12px; color: var(--muted); margin: -6px 0 14px; }
+    .report-card.highlight { box-shadow: 0 0 0 3px var(--yellow); }
+    .note-input {
+      width: 100%; min-height: 70px; padding: 10px 12px; border: 1.5px solid var(--border);
+      border-radius: 10px; font: inherit; font-size: 13px; resize: vertical; line-height: 1.45;
+    }
+    .note-input:focus { outline: none; border-color: var(--yellow); }
+
     /* STATES */
     .empty-state, .loading-state { text-align: center; padding: 64px 20px; color: var(--muted); }
     .empty-state .icon { font-size: 52px; margin-bottom: 14px; }
@@ -368,6 +384,14 @@
         &#x1F4AC; Отзывы <span class="tab-count" id="tc-review">—</span>
       </button>
     </div>
+
+    <!-- Поиск по номеру обращения (PB-0042), email или имени -->
+    <div class="search-row">
+      <input id="ticket-search" placeholder="&#x1F50E; Номер обращения (PB-0042), email или имя"
+             oninput="onSearch(this.value)">
+      <button class="btn-small" onclick="clearSearch()">Сбросить</button>
+    </div>
+    <div class="search-hint" id="search-hint" style="display:none"></div>
 
     <div class="filter-tabs">
       <button class="filter-tab active" onclick="setFilter('pending',this)">&#x23F3; Ожидают</button>
@@ -459,12 +483,70 @@ var PICKER_SPECIALIST=[
   {val:'Жалоба необоснована — профиль соответствует правилам сервиса', lbl:'Жалоба необоснована',    href:''}
 ];
 
-var filter='pending', typeTab='specialist', currentUid=null, allData=[];
+var filter='pending', typeTab='specialist', currentUid=null, allData=[], searchQuery='';
 
 window.addEventListener('DOMContentLoaded',async function(){
   var s=await sb.auth.getSession();
   if(s.data.session) await tryShowPanel(s.data.session.user);
 });
+
+/* Ссылка вида moderation.html#PB-0042 открывает дело (из ticket.html или из письма) */
+window.addEventListener('hashchange',function(){ if(allData.length) applyHashTicket(); });
+
+function applyHashTicket(){
+  var h=decodeURIComponent((location.hash||'').replace(/^#/,''));
+  if(!/\d/.test(h)) return;
+  var input=document.getElementById('ticket-search');
+  if(input) input.value=h;
+  onSearch(h);
+  var hit=allData.filter(function(r){return ticketMatches(r,h);})[0];
+  if(hit){
+    var card=document.getElementById('card-'+(hit.report_id||hit.id));
+    if(card){ card.classList.add('highlight'); card.scrollIntoView({behavior:'smooth',block:'start'}); }
+  }
+}
+
+function ticketDigits(s){ var m=String(s||'').match(/\d+/); return m?String(parseInt(m[0],10)):''; }
+function ticketMatches(r,q){ var d=ticketDigits(q); return !!d&&ticketDigits(r.ticket)===d; }
+
+/* Поиск: номер обращения точно, иначе — по email/имени заявителя и названию объекта */
+function onSearch(q){
+  searchQuery=String(q||'').trim();
+  renderList();
+}
+function clearSearch(){
+  document.getElementById('ticket-search').value='';
+  if(location.hash) history.replaceState(null,'',location.pathname+location.search);
+  onSearch('');
+}
+
+/* Публичная ссылка на обращение: на localhost — локальная страница, иначе — сайт */
+function ticketUrl(ticket){
+  var local=location.hostname==='localhost'||location.hostname==='127.0.0.1';
+  var base=local?location.origin:'https://probazis.com';
+  return base+'/ticket.html?id='+encodeURIComponent(ticket);
+}
+async function copyTicketLink(ticket,el){
+  var url=location.origin+location.pathname+'#'+ticket;
+  try{ await navigator.clipboard.writeText(url); }catch(e){}
+  var old=el.innerHTML; el.innerHTML='&#x2705; ссылка скопирована';
+  setTimeout(function(){el.innerHTML=old;},1500);
+}
+
+/* Заметка модератора — внутренняя, автор и специалист её не видят */
+async function saveNote(rid,btn){
+  var el=document.getElementById('note-'+rid);
+  var note=el?el.value.trim():'';
+  btn.disabled=true;
+  var upd=await sb.from('reports').update({moderator_note:note||null}).eq('id',rid);
+  btn.disabled=false;
+  if(upd.error){ alert('Ошибка: '+upd.error.message); return; }
+  var idx=allData.findIndex(function(x){return (x.report_id||x.id)===rid;});
+  if(idx!==-1) allData[idx]=Object.assign({},allData[idx],{moderator_note:note||null});
+  var old=btn.innerHTML; btn.innerHTML='&#x2705; Сохранено';
+  setTimeout(function(){btn.innerHTML=old;},1500);
+  addLog('Заметка сохранена: '+rid,'ok');
+}
 
 function onEnter(e){ if(e.key==='Enter') doLogin(); }
 
@@ -533,6 +615,7 @@ async function loadReports(){
   addLog('Получено записей: '+allData.length,'ok');
   refreshStats();
   renderList();
+  applyHashTicket();
 }
 
 function refreshStats(){
@@ -562,6 +645,25 @@ function isLowPriorityReporter(r){ return (r.reporter_rejected_count||0)>=REPORT
 function fmtDate(d){ return d?new Date(d).toLocaleDateString('ru',{day:'2-digit',month:'long',year:'numeric'}):'—'; }
 
 function renderList(){
+  var hint=document.getElementById('search-hint');
+  if(searchQuery){
+    /* Поиск идёт по всем жалобам — без учёта вкладок и фильтров */
+    var q=searchQuery.toLowerCase();
+    var found=/\d/.test(searchQuery)&&/^\s*(pb)?[\s-]*\d+\s*$/i.test(searchQuery)
+      ? allData.filter(function(r){return ticketMatches(r,searchQuery);})
+      : allData.filter(function(r){
+          return [r.ticket,r.reporter_email,r.reporter_name,r.target_name,r.comment]
+            .some(function(v){return v&&String(v).toLowerCase().indexOf(q)!==-1;});
+        });
+    hint.style.display='block';
+    hint.textContent='Найдено: '+found.length+' (поиск по всем вкладкам)';
+    document.getElementById('list').innerHTML=found.length
+      ? found.map(renderCard).join('')
+      : '<div class="empty-state"><div class="icon">&#x1F50E;</div><p>Ничего не найдено</p></div>';
+    return;
+  }
+  hint.style.display='none';
+
   var list=allData.filter(function(r){return r.target_type===typeTab;});
   if(filter!=='all') list=list.filter(function(r){return r.status===filter;});
   if(filter==='pending'){
@@ -711,8 +813,23 @@ function renderCard(r){
     actionHtml='<div class="resolution-box">&#x1F4DD; '+noteHtml+'</div>';
   }
 
+  /* Внутренняя заметка модератора — сохраняется отдельно и вместе с решением */
+  var noteEditor=
+    '<div class="section-lbl" style="margin-top:14px">Заметка модератора (видите только вы)</div>'+
+    '<textarea class="note-input" id="note-'+rid+'" maxlength="2000" '+
+      'placeholder="Например: прислал скриншот переписки от 12.10 — совпадает с датой отзыва">'+
+      esc(r.moderator_note||'')+'</textarea>'+
+    '<div class="acc-actions" style="justify-content:flex-end">'+
+      '<button class="btn-small" onclick="saveNote(\''+rid+'\',this)">&#x1F4BE; Сохранить заметку</button>'+
+    '</div>';
+
+  var ticketBadge=r.ticket
+    ? '<span class="badge b-ticket" title="Скопировать ссылку на дело" onclick="copyTicketLink(\''+esc(r.ticket)+'\',this)">'+esc(r.ticket)+'</span>'
+    : '';
+
   return '<div class="report-card" id="card-'+rid+'">'+
     '<div class="card-meta">'+
+      ticketBadge+
       '<span class="badge '+typeCls+'">'+typeLbl+'</span>'+
       '<span class="badge '+stCls+'">'+stLbl+'</span>'+
       '<span class="card-date">'+date+'</span>'+
@@ -721,6 +838,7 @@ function renderCard(r){
     reporterAccordion+
     detailsHtml+
     actionHtml+
+    noteEditor+
   '</div>';
 }
 
@@ -845,6 +963,10 @@ async function applyAction(rid, targetType, targetId){
   var card=document.getElementById('card-'+rid);
   card.querySelectorAll('.btn-action').forEach(function(b){b.disabled=true;});
 
+  /* Заметка модератора сохраняется вместе с решением */
+  var noteEl=document.getElementById('note-'+rid);
+  var note=noteEl?noteEl.value.trim():'';
+
   var newStatus, rErr;
 
   if(targetType==='review'&&!isUnfounded){
@@ -865,7 +987,8 @@ async function applyAction(rid, targetType, targetId){
       status:status2,
       reviewed_at:new Date().toISOString(),
       reviewed_by:currentUid,
-      resolution_note:reason
+      resolution_note:reason,
+      moderator_note:note||null
     }).eq('id',rid);
     rErr=upd.error; newStatus=status2;
   }
@@ -876,11 +999,18 @@ async function applyAction(rid, targetType, targetId){
     return;
   }
 
+  /* RPC moderate_review заметку не принимает — дописываем отдельным запросом */
+  if(targetType==='review'&&!isUnfounded){
+    var nUpd=await sb.from('reports').update({moderator_note:note||null}).eq('id',rid);
+    if(nUpd.error) addLog('Заметка не сохранена: '+nUpd.error.message,'error');
+  }
+
   var idx=allData.findIndex(function(x){return (x.report_id||x.id)===rid;});
-  if(idx!==-1) allData[idx]=Object.assign({},allData[idx],{status:newStatus,resolution_note:reason});
+  if(idx!==-1) allData[idx]=Object.assign({},allData[idx],{status:newStatus,resolution_note:reason,moderator_note:note||null});
   refreshStats();
 
-  if(filter==='pending'||filter==='awaiting_author'){
+  if(searchQuery){ renderList(); }
+  else if(filter==='pending'||filter==='awaiting_author'){
     card.classList.add('fading');
     setTimeout(renderList,320);
   } else { renderList(); }
@@ -981,8 +1111,12 @@ async function openEvidenceEmail(rid, reviewId){
     var rep=allData.find(function(x){return (x.report_id||x.id)===rid;})||{};
     var deadline=fmtDate(rep.evidence_deadline||new Date(Date.now()+EVIDENCE_DAYS*86400000));
 
-    var subject='ProBazis: подтвердите, пожалуйста, ваш отзыв';
+    /* Номер обращения — в теме и тексте: при ответе клиента он сохраняется в «Re: …»,
+       а ссылка из цитаты ведёт модератора прямо в карточку дела */
+    var ticket=rep.ticket||'';
+    var subject='ProBazis'+(ticket?' · Обращение '+ticket:'')+': подтвердите, пожалуйста, ваш отзыв';
     var body=
+      (ticket?'Номер обращения: '+ticket+'\nСтатус: '+ticketUrl(ticket)+'\n\n':'')+
       'Здравствуйте, '+(a.author_name||'')+'!\n\n'+
       'Вы оставили отзыв о специалисте «'+specName+'» в приложении ProBazis '+
       '('+fmtDate(a.review_created_at)+(rv.data?', оценка '+rv.data.rating+'/5':'')+').\n'+
@@ -991,6 +1125,7 @@ async function openEvidenceEmail(rid, reviewId){
       'Пожалуйста, ответьте на это письмо до '+deadline+' и приложите любое подтверждение: '+
       'скриншот переписки или звонка со специалистом, чек, фото выполненной работы, дату и место визита.\n\n'+
       'Если подтверждение будет — отзыв останется опубликованным. Если нет — отзыв будет скрыт.\n\n'+
+      (ticket?'При ответе, пожалуйста, не меняйте тему письма — по номеру '+ticket+' мы найдём ваше обращение.\n\n':'')+
       'С уважением,\nкоманда модерации ProBazis';
 
     showMail(a.author_email, subject, body);
