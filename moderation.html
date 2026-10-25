@@ -415,6 +415,9 @@
       <div class="mail-card">
         <h3>&#x2709;&#xFE0F; Письмо автору отзыва</h3>
         <div class="hint">Отправьте из своей почты. Ответ автора придёт вам — по нему решите жалобу.</div>
+        <div class="section-lbl">Язык письма</div>
+        <div class="acc-actions" id="mail-langs" style="justify-content:flex-start;margin:4px 0 4px"></div>
+        <div class="hint" id="mail-lang-hint" style="margin-bottom:10px"></div>
         <div class="section-lbl">Кому</div>
         <input id="mail-to" readonly>
         <div class="section-lbl">Тема</div>
@@ -463,26 +466,34 @@ var NOTE_NOT_CONFIRMED='п. 5 — Клиент (автор отзыва) не п
 var REPORTER_LOW_PRIORITY=3;
 
 var PICKER_REVIEW=[
-  {val:'п. 6 — Оскорбительные выражения или язык ненависти', lbl:'п. 6 — Оскорбительные выражения', href:'#s6'},
-  {val:'п. 6 — Реклама или коммерческое предложение',        lbl:'п. 6 — Реклама в отзыве',          href:'#s6'},
-  {val:'п. 6 — Персональные данные третьих лиц',             lbl:'п. 6 — Персональные данные',        href:'#s6'},
-  {val:'п. 6 — Заведомо ложные обвинения',                   lbl:'п. 6 — Ложные обвинения',           href:'#s6'},
-  {val:NOTE_NOT_CONFIRMED,                                   lbl:NOTE_NOT_CONFIRMED,                  href:'#s5'},
-  {val:'п. 5 — Заведомо ложный или вводящий в заблуждение отзыв', lbl:'п. 5 — Ложный отзыв',         href:'#s5'},
-  {val:'п. 5 — Спам или злоупотребление платформой',         lbl:'п. 5 — Спам',                      href:'#s5'},
-  {val:'п. 4 — Оскорбительный или незаконный контент',       lbl:'п. 4 — Незаконный контент',         href:'#s4'},
-  {val:'Жалоба необоснована — клиент (автор отзыва) подтвердил, что пользовался услугами специалиста',
+  /* code — пишется в reports.resolution_code; приложение показывает специалисту перевод
+     (ключи mod_reason_<code> в AppResources.*.resx). val — русский текст для панели и старых версий. */
+  {code:'offensive_language', val:'п. 6 — Оскорбительные выражения или язык ненависти', lbl:'п. 6 — Оскорбительные выражения', href:'#s6'},
+  {code:'advertising',        val:'п. 6 — Реклама или коммерческое предложение',        lbl:'п. 6 — Реклама в отзыве',          href:'#s6'},
+  {code:'personal_data',      val:'п. 6 — Персональные данные третьих лиц',             lbl:'п. 6 — Персональные данные',        href:'#s6'},
+  {code:'false_accusations',  val:'п. 6 — Заведомо ложные обвинения',                   lbl:'п. 6 — Ложные обвинения',           href:'#s6'},
+  {code:'customer_not_confirmed', val:NOTE_NOT_CONFIRMED,                               lbl:NOTE_NOT_CONFIRMED,                  href:'#s5'},
+  {code:'false_review',       val:'п. 5 — Заведомо ложный или вводящий в заблуждение отзыв', lbl:'п. 5 — Ложный отзыв',         href:'#s5'},
+  {code:'spam',               val:'п. 5 — Спам или злоупотребление платформой',         lbl:'п. 5 — Спам',                      href:'#s5'},
+  {code:'illegal_content',    val:'п. 4 — Оскорбительный или незаконный контент',       lbl:'п. 4 — Незаконный контент',         href:'#s4'},
+  {code:'customer_confirmed', val:'Жалоба необоснована — клиент (автор отзыва) подтвердил, что пользовался услугами специалиста',
    lbl:'Жалоба необоснована — клиент (автор отзыва) подтвердил, что пользовался услугами специалиста', href:''},
-  {val:'Жалоба необоснована — отзыв соответствует правилам сервиса', lbl:'Жалоба необоснована',       href:''}
+  {code:'complies_with_rules', val:'Жалоба необоснована — отзыв соответствует правилам сервиса', lbl:'Жалоба необоснована',       href:''}
 ];
 
 var PICKER_SPECIALIST=[
-  {val:'п. 2 — Недостоверная информация о специалисте',           lbl:'п. 2 — Недостоверные данные', href:'#s2'},
-  {val:'п. 4 — Оскорбительный или незаконный контент в профиле',  lbl:'п. 4 — Незаконный контент',   href:'#s4'},
-  {val:'п. 4 — Использование платформы для рекламы конкурентов',  lbl:'п. 4 — Реклама конкурентов',  href:'#s4'},
-  {val:'п. 8 — Нарушение условий использования платформы',        lbl:'п. 8 — Нарушение условий',    href:'#s8'},
-  {val:'Жалоба необоснована — профиль соответствует правилам сервиса', lbl:'Жалоба необоснована',    href:''}
+  {code:'specialist_inaccurate_info',  val:'п. 2 — Недостоверная информация о специалисте',           lbl:'п. 2 — Недостоверные данные', href:'#s2'},
+  {code:'specialist_illegal_content',  val:'п. 4 — Оскорбительный или незаконный контент в профиле',  lbl:'п. 4 — Незаконный контент',   href:'#s4'},
+  {code:'specialist_competitor_ads',   val:'п. 4 — Использование платформы для рекламы конкурентов',  lbl:'п. 4 — Реклама конкурентов',  href:'#s4'},
+  {code:'specialist_terms_violation',  val:'п. 8 — Нарушение условий использования платформы',        lbl:'п. 8 — Нарушение условий',    href:'#s8'},
+  {code:'specialist_complies',         val:'Жалоба необоснована — профиль соответствует правилам сервиса', lbl:'Жалоба необоснована',    href:''}
 ];
+
+/* Код причины по выбранному тексту (select хранит val) */
+function reasonCode(val){
+  var p=PICKER_REVIEW.concat(PICKER_SPECIALIST).filter(function(x){return x.val===val;})[0];
+  return p?p.code:null;
+}
 
 var filter='pending', typeTab='specialist', currentUid=null, allData=[], searchQuery='';
 
@@ -989,6 +1000,7 @@ async function applyAction(rid, targetType, targetId){
       reviewed_at:new Date().toISOString(),
       reviewed_by:currentUid,
       resolution_note:reason,
+      resolution_code:reasonCode(reason),
       moderator_note:note||null
     }).eq('id',rid);
     rErr=upd.error; newStatus=status2;
@@ -1000,10 +1012,13 @@ async function applyAction(rid, targetType, targetId){
     return;
   }
 
-  /* RPC moderate_review заметку не принимает — дописываем отдельным запросом */
+  /* RPC moderate_review не принимает заметку и код причины — дописываем отдельным запросом */
   if(targetType==='review'&&!isUnfounded){
-    var nUpd=await sb.from('reports').update({moderator_note:note||null}).eq('id',rid);
-    if(nUpd.error) addLog('Заметка не сохранена: '+nUpd.error.message,'error');
+    var nUpd=await sb.from('reports').update({
+      moderator_note:note||null,
+      resolution_code:reasonCode(reason)
+    }).eq('id',rid);
+    if(nUpd.error) addLog('Заметка/код причины не сохранены: '+nUpd.error.message,'error');
   }
 
   var idx=allData.findIndex(function(x){return (x.report_id||x.id)===rid;});
@@ -1095,7 +1110,89 @@ async function requestEvidence(rid, reviewId){
   await openEvidenceEmail(rid, reviewId);
 }
 
-/* Открывает письмо автору в почтовом клиенте модератора (mailto) */
+/* ── ПИСЬМО АВТОРУ НА 6 ЯЗЫКАХ ──
+   Плейсхолдеры: {T} номер, {URL} статус, {NAME} имя, {SPEC} специалист, {DATE} дата отзыва,
+   {R} оценка, {DL} срок. Строки с {T} убираются, если номера нет. */
+var MAIL_LANGS=['ru','uk','be','pl','en','de'];
+var MAIL_LOCALE={ru:'ru-RU',uk:'uk-UA',be:'be-BY',pl:'pl-PL',en:'en-GB',de:'de-DE'};
+var MAIL_T={
+  ru:{subject:'ProBazis · Обращение {T}: подтвердите, пожалуйста, ваш отзыв',
+      body:'Номер обращения: {T}\nСтатус: {URL}\n\nЗдравствуйте, {NAME}!\n\n'+
+           'Вы оставили отзыв о специалисте «{SPEC}» в приложении ProBazis ({DATE}, оценка {R}/5).\n'+
+           'Специалист сообщает, что не оказывал вам услуг. По правилам ProBazis (п. 5 Условий использования) отзывы должны основываться на реальном опыте.\n\n'+
+           'Пожалуйста, ответьте на это письмо до {DL} и приложите любое подтверждение: скриншот переписки или звонка со специалистом, чек, фото выполненной работы, дату и место визита.\n\n'+
+           'Если подтверждение будет — отзыв останется опубликованным. Если нет — отзыв будет скрыт.\n\n'+
+           'При ответе, пожалуйста, не меняйте тему письма — по номеру {T} мы найдём ваше обращение.\n\n'+
+           'С уважением,\nкоманда модерации ProBazis'},
+  uk:{subject:'ProBazis · Звернення {T}: будь ласка, підтвердіть ваш відгук',
+      body:'Номер звернення: {T}\nСтатус: {URL}\n\nВітаємо, {NAME}!\n\n'+
+           'Ви залишили відгук про спеціаліста «{SPEC}» у застосунку ProBazis ({DATE}, оцінка {R}/5).\n'+
+           'Спеціаліст повідомляє, що не надавав вам послуг. За правилами ProBazis (п. 5 Умов використання) відгуки мають ґрунтуватися на реальному досвіді.\n\n'+
+           'Будь ласка, дайте відповідь на цей лист до {DL} і додайте будь-яке підтвердження: скриншот листування чи дзвінка зі спеціалістом, чек, фото виконаної роботи, дату й місце візиту.\n\n'+
+           'Якщо підтвердження буде — відгук залишиться опублікованим. Якщо ні — відгук буде приховано.\n\n'+
+           'Відповідаючи, будь ласка, не змінюйте тему листа — за номером {T} ми знайдемо ваше звернення.\n\n'+
+           'З повагою,\nкоманда модерації ProBazis'},
+  be:{subject:'ProBazis · Зварот {T}: калі ласка, пацвердзіце ваш водгук',
+      body:'Нумар звароту: {T}\nСтатус: {URL}\n\nДобры дзень, {NAME}!\n\n'+
+           'Вы пакінулі водгук пра спецыяліста «{SPEC}» у праграме ProBazis ({DATE}, ацэнка {R}/5).\n'+
+           'Спецыяліст паведамляе, што не аказваў вам паслуг. Паводле правілаў ProBazis (п. 5 Умоў выкарыстання) водгукі павінны грунтавацца на рэальным досведзе.\n\n'+
+           'Калі ласка, адкажыце на гэты ліст да {DL} і дадайце любое пацвярджэнне: скрыншот перапіскі або званка са спецыялістам, чэк, фота выкананай працы, дату і месца візіту.\n\n'+
+           'Калі пацвярджэнне будзе — водгук застанецца апублікаваным. Калі не — водгук будзе схаваны.\n\n'+
+           'Пры адказе, калі ласка, не змяняйце тэму ліста — па нумары {T} мы знойдзем ваш зварот.\n\n'+
+           'З павагай,\nкаманда мадэрацыі ProBazis'},
+  pl:{subject:'ProBazis · Zgłoszenie {T}: prosimy o potwierdzenie Twojej opinii',
+      body:'Numer zgłoszenia: {T}\nStatus: {URL}\n\nDzień dobry, {NAME}!\n\n'+
+           'Dodałeś(-aś) opinię o specjaliście „{SPEC}” w aplikacji ProBazis ({DATE}, ocena {R}/5).\n'+
+           'Specjalista zgłasza, że nie świadczył Ci usług. Zgodnie z zasadami ProBazis (pkt 5 Warunków korzystania) opinie muszą opierać się na rzeczywistym doświadczeniu.\n\n'+
+           'Prosimy o odpowiedź na tę wiadomość do {DL} i dołączenie dowolnego potwierdzenia: zrzutu ekranu korespondencji lub połączenia ze specjalistą, paragonu, zdjęcia wykonanej pracy, daty i miejsca wizyty.\n\n'+
+           'Jeśli otrzymamy potwierdzenie — opinia pozostanie opublikowana. Jeśli nie — opinia zostanie ukryta.\n\n'+
+           'Odpowiadając, prosimy nie zmieniać tematu wiadomości — po numerze {T} odnajdziemy Twoje zgłoszenie.\n\n'+
+           'Z pozdrowieniami,\nzespół moderacji ProBazis'},
+  en:{subject:'ProBazis · Request {T}: please confirm your review',
+      body:'Request number: {T}\nStatus: {URL}\n\nHello {NAME},\n\n'+
+           'You left a review of the specialist “{SPEC}” in the ProBazis app ({DATE}, rating {R}/5).\n'+
+           'The specialist reports that they never provided services to you. Under the ProBazis rules (section 5 of the Terms of Use), reviews must be based on genuine experience.\n\n'+
+           'Please reply to this email by {DL} and attach any confirmation: a screenshot of messages or a call with the specialist, a receipt, a photo of the work done, the date and place of the visit.\n\n'+
+           'If we receive confirmation, the review will stay published. If not, the review will be hidden.\n\n'+
+           'When replying, please keep the email subject unchanged — the number {T} helps us find your request.\n\n'+
+           'Best regards,\nProBazis moderation team'},
+  de:{subject:'ProBazis · Anfrage {T}: Bitte bestätigen Sie Ihre Bewertung',
+      body:'Anfragenummer: {T}\nStatus: {URL}\n\nGuten Tag {NAME},\n\n'+
+           'Sie haben in der ProBazis-App eine Bewertung über den Spezialisten „{SPEC}“ abgegeben ({DATE}, Bewertung {R}/5).\n'+
+           'Der Spezialist gibt an, Ihnen keine Leistungen erbracht zu haben. Nach den Regeln von ProBazis (Abschnitt 5 der Nutzungsbedingungen) müssen Bewertungen auf tatsächlichen Erfahrungen beruhen.\n\n'+
+           'Bitte antworten Sie bis {DL} auf diese E-Mail und fügen Sie einen Nachweis bei: einen Screenshot von Nachrichten oder einem Anruf mit dem Spezialisten, einen Beleg, ein Foto der ausgeführten Arbeit, Datum und Ort des Termins.\n\n'+
+           'Wenn wir einen Nachweis erhalten, bleibt die Bewertung veröffentlicht. Andernfalls wird sie ausgeblendet.\n\n'+
+           'Bitte ändern Sie beim Antworten den Betreff nicht — anhand der Nummer {T} finden wir Ihre Anfrage.\n\n'+
+           'Mit freundlichen Grüßen\nIhr ProBazis-Moderationsteam'}
+};
+
+var mailCtx=null; /* данные для пересборки письма при смене языка */
+
+function fmtDateLang(d,lang){
+  return d?new Date(d).toLocaleDateString(MAIL_LOCALE[lang]||'ru-RU',{day:'numeric',month:'long',year:'numeric'}):'—';
+}
+
+function buildEvidenceMail(ctx,lang){
+  var t=MAIL_T[lang]||MAIL_T.ru;
+  var fill=function(s){
+    return s.replace(/\{T\}/g,ctx.ticket)
+            .replace(/\{URL\}/g,ctx.ticket?ticketUrl(ctx.ticket)+'&lang='+lang:'')
+            .replace(/\{NAME\}/g,ctx.name)
+            .replace(/\{SPEC\}/g,ctx.spec)
+            .replace(/\{DATE\}/g,fmtDateLang(ctx.reviewDate,lang))
+            .replace(/\{R\}/g,ctx.rating)
+            .replace(/\{DL\}/g,fmtDateLang(ctx.deadline,lang));
+  };
+  var subject=t.subject, body=t.body;
+  if(!ctx.ticket){
+    /* Без номера: убираем строки и упоминания номера */
+    subject=subject.replace(/ · [^:]*\{T\}/,'');
+    body=body.split('\n').filter(function(l){return l.indexOf('{T}')===-1&&l.indexOf('{URL}')===-1;}).join('\n').replace(/^\n+/,'');
+  }
+  return {subject:fill(subject), body:fill(body)};
+}
+
+/* Готовит письмо автору: язык по умолчанию — язык приложения автора (profiles.app_language) */
 async function openEvidenceEmail(rid, reviewId){
   try{
     var info=await sb.rpc('get_review_author_info',{p_review_id:String(reviewId)});
@@ -1104,45 +1201,49 @@ async function openEvidenceEmail(rid, reviewId){
     if(!a||!a.author_email){ alert('У автора нет email — связаться не получится.'); return; }
 
     var rv=await sb.from('reviews').select('rating,specialist_id').eq('id',String(reviewId)).single();
-    var specName='специалист';
+    var specName='ProBazis';
     if(!rv.error&&rv.data){
       var sp=await sb.from('specialists').select('name').eq('id',rv.data.specialist_id).single();
       if(!sp.error&&sp.data) specName=sp.data.name;
     }
     var rep=allData.find(function(x){return (x.report_id||x.id)===rid;})||{};
-    var deadline=fmtDate(rep.evidence_deadline||new Date(Date.now()+EVIDENCE_DAYS*86400000));
 
     /* Номер обращения — в теме и тексте: при ответе клиента он сохраняется в «Re: …»,
        а ссылка из цитаты ведёт модератора прямо в карточку дела */
-    var ticket=rep.ticket||'';
-    var subject='ProBazis'+(ticket?' · Обращение '+ticket:'')+': подтвердите, пожалуйста, ваш отзыв';
-    var body=
-      (ticket?'Номер обращения: '+ticket+'\nСтатус: '+ticketUrl(ticket)+'\n\n':'')+
-      'Здравствуйте, '+(a.author_name||'')+'!\n\n'+
-      'Вы оставили отзыв о специалисте «'+specName+'» в приложении ProBazis '+
-      '('+fmtDate(a.review_created_at)+(rv.data?', оценка '+rv.data.rating+'/5':'')+').\n'+
-      'Специалист сообщает, что не оказывал вам услуг. По правилам ProBazis (п. 5 Условий использования) '+
-      'отзывы должны основываться на реальном опыте.\n\n'+
-      'Пожалуйста, ответьте на это письмо до '+deadline+' и приложите любое подтверждение: '+
-      'скриншот переписки или звонка со специалистом, чек, фото выполненной работы, дату и место визита.\n\n'+
-      'Если подтверждение будет — отзыв останется опубликованным. Если нет — отзыв будет скрыт.\n\n'+
-      (ticket?'При ответе, пожалуйста, не меняйте тему письма — по номеру '+ticket+' мы найдём ваше обращение.\n\n':'')+
-      'С уважением,\nкоманда модерации ProBazis';
-
-    showMail(a.author_email, subject, body);
+    mailCtx={
+      to:a.author_email,
+      ticket:rep.ticket||'',
+      name:a.author_name||'',
+      spec:specName,
+      reviewDate:a.review_created_at,
+      rating:rv.data?rv.data.rating:'—',
+      deadline:rep.evidence_deadline||new Date(Date.now()+EVIDENCE_DAYS*86400000).toISOString(),
+      authorLang:MAIL_LANGS.indexOf(a.author_language)!==-1?a.author_language:null
+    };
+    setMailLang(mailCtx.authorLang||'ru');
+    document.getElementById('mail-overlay').style.display='flex';
   }catch(e){
     addLog('Письмо автору: '+e.message,'error');
     alert('Не удалось подготовить письмо: '+e.message);
   }
 }
 
-/* ── ОКНО ПИСЬМА ── */
-function showMail(to, subject, body){
-  document.getElementById('mail-to').value=to;
-  document.getElementById('mail-subject').value=subject;
-  document.getElementById('mail-body').value=body;
-  document.getElementById('mail-overlay').style.display='flex';
+/* Переключение языка письма: текст пересобирается из шаблона (ручные правки сбрасываются) */
+function setMailLang(lang){
+  if(!mailCtx) return;
+  var m=buildEvidenceMail(mailCtx,lang);
+  document.getElementById('mail-to').value=mailCtx.to;
+  document.getElementById('mail-subject').value=m.subject;
+  document.getElementById('mail-body').value=m.body;
+  document.getElementById('mail-langs').innerHTML=MAIL_LANGS.map(function(l){
+    return '<button class="btn-small'+(l===lang?' primary':'')+'" onclick="setMailLang(\''+l+'\')">'+l.toUpperCase()+'</button>';
+  }).join('');
+  document.getElementById('mail-lang-hint').textContent=mailCtx.authorLang
+    ? 'Язык приложения автора: '+mailCtx.authorLang.toUpperCase()
+    : 'Язык автора неизвестен (старая версия приложения) — выберите вручную';
 }
+
+/* ── ОКНО ПИСЬМА ── */
 function closeMail(){ document.getElementById('mail-overlay').style.display='none'; }
 function mailParts(){
   return {
