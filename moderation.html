@@ -245,6 +245,29 @@
     .btn-resolve { background: #E8F5E9; color: var(--green); }
     .btn-reject  { background: #FFEBEE; color: var(--red);   }
     .btn-apply   { background: var(--yellow); color: #1A1A1A; }
+    .btn-evidence { background: #E3F2FD; color: #1565C0; }
+    .btn-small {
+      padding: 8px 12px; border: 1.5px solid var(--border); border-radius: 10px;
+      background: white; font-size: 12px; font-weight: 700; cursor: pointer; color: var(--text);
+      text-decoration: none; display: inline-block;
+    }
+    .btn-small.danger { color: var(--red); border-color: #FFCDD2; }
+    .btn-small:disabled { opacity: .45; cursor: not-allowed; }
+
+    /* ПРОВЕРКА «НЕ БЫЛ КЛИЕНТОМ» */
+    .b-awaiting { background: #E3F2FD; color: #1565C0; }
+    .b-overdue  { background: #FFEBEE; color: #C62828; }
+    .b-flag     { background: #FFF8E1; color: #8D6E00; }
+    .evidence-box {
+      background: #E3F2FD; border-radius: 10px; padding: 10px 14px;
+      font-size: 13px; color: #0D47A1; margin-top: 12px; line-height: 1.5;
+    }
+    .evidence-box.overdue { background: #FFEBEE; color: #B71C1C; }
+    .signals { margin: 8px 0 4px; padding: 0; list-style: none; }
+    .signals li { font-size: 12px; color: #8D6E00; margin: 2px 0; }
+    .signals li.ok { color: var(--muted); }
+    .acc-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .tool-row { display: flex; gap: 8px; justify-content: flex-end; margin: -8px 0 16px; }
 
     /* STATES */
     .empty-state, .loading-state { text-align: center; padding: 64px 20px; color: var(--muted); }
@@ -303,6 +326,10 @@
         <div class="num" id="s-pending">—</div>
         <div class="lbl">Ожидают</div>
       </div>
+      <div class="stat-chip">
+        <div class="num" id="s-awaiting">—</div>
+        <div class="lbl">Ждём автора</div>
+      </div>
       <div class="stat-chip ok">
         <div class="num" id="s-resolved">—</div>
         <div class="lbl">Решено</div>
@@ -324,9 +351,17 @@
 
     <div class="filter-tabs">
       <button class="filter-tab active" onclick="setFilter('pending',this)">&#x23F3; Ожидают</button>
+      <button class="filter-tab" onclick="setFilter('awaiting_author',this)">&#x1F4E8; Ждём автора</button>
       <button class="filter-tab" onclick="setFilter('resolved',this)">&#x2705; Решённые</button>
       <button class="filter-tab" onclick="setFilter('rejected',this)">&#x274C; Отклонённые</button>
       <button class="filter-tab" onclick="setFilter('all',this)">Все</button>
+    </div>
+
+    <!-- Просроченные запросы подтверждения: автор не ответил в срок → скрыть отзывы -->
+    <div class="tool-row" id="overdue-row" style="display:none">
+      <button class="btn-small danger" id="btn-overdue" onclick="processOverdue()">
+        &#x23F0; Скрыть отзывы с истёкшим сроком (<span id="overdue-count">0</span>)
+      </button>
     </div>
 
     <div id="list"></div>
@@ -352,17 +387,27 @@ var REASONS={
   offensive:'Оскорбительный контент',spam:'Спам',
   false_information:'Ложная информация',personal_information:'Персональные данные',
   misleading_information:'Вводящая в заблуждение информация',fraud:'Мошенничество',
-  inappropriate_content:'Неприемлемый контент',fake_profile:'Фейковый профиль',other:'Другое'
+  inappropriate_content:'Неприемлемый контент',fake_profile:'Фейковый профиль',other:'Другое',
+  not_a_customer:'Не был моим клиентом'
 };
+
+/* Срок на подтверждение реального опыта автором отзыва (дней) */
+var EVIDENCE_DAYS=7;
+/* Совпадает с resolution_note автоскрытия в process_expired_review_evidence() */
+var NOTE_NOT_CONFIRMED='п. 5 — Автор не подтвердил, что пользовался услугой';
+/* С этого числа отклонённых жалоб заявителя его новые жалобы уходят в конец списка */
+var REPORTER_LOW_PRIORITY=3;
 
 var PICKER_REVIEW=[
   {val:'п. 6 — Оскорбительные выражения или язык ненависти', lbl:'п. 6 — Оскорбительные выражения', href:'#s6'},
   {val:'п. 6 — Реклама или коммерческое предложение',        lbl:'п. 6 — Реклама в отзыве',          href:'#s6'},
   {val:'п. 6 — Персональные данные третьих лиц',             lbl:'п. 6 — Персональные данные',        href:'#s6'},
   {val:'п. 6 — Заведомо ложные обвинения',                   lbl:'п. 6 — Ложные обвинения',           href:'#s6'},
+  {val:NOTE_NOT_CONFIRMED,                                   lbl:'п. 5 — Автор не подтвердил опыт',   href:'#s5'},
   {val:'п. 5 — Заведомо ложный или вводящий в заблуждение отзыв', lbl:'п. 5 — Ложный отзыв',         href:'#s5'},
   {val:'п. 5 — Спам или злоупотребление платформой',         lbl:'п. 5 — Спам',                      href:'#s5'},
   {val:'п. 4 — Оскорбительный или незаконный контент',       lbl:'п. 4 — Незаконный контент',         href:'#s4'},
+  {val:'Жалоба необоснована — автор подтвердил реальный опыт', lbl:'Жалоба необоснована — автор подтвердил опыт', href:''},
   {val:'Жалоба необоснована — отзыв соответствует правилам сервиса', lbl:'Жалоба необоснована',       href:''}
 ];
 
@@ -453,19 +498,42 @@ async function loadReports(){
 function refreshStats(){
   var byType=allData.filter(function(r){return r.target_type===typeTab;});
   var p=byType.filter(function(r){return r.status==='pending';}).length;
+  var aw=byType.filter(function(r){return r.status==='awaiting_author';}).length;
   var rv=byType.filter(function(r){return r.status==='resolved';}).length;
   document.getElementById('s-pending').textContent=p;
+  document.getElementById('s-awaiting').textContent=aw;
   document.getElementById('s-resolved').textContent=rv;
   document.getElementById('s-total').textContent=byType.length;
   document.getElementById('tc-specialist').textContent=
-    allData.filter(function(r){return r.target_type==='specialist'&&r.status==='pending';}).length;
+    allData.filter(function(r){return r.target_type==='specialist'&&isActive(r);}).length;
   document.getElementById('tc-review').textContent=
-    allData.filter(function(r){return r.target_type==='review'&&r.status==='pending';}).length;
+    allData.filter(function(r){return r.target_type==='review'&&isActive(r);}).length;
+
+  var overdue=allData.filter(isOverdue).length;
+  document.getElementById('overdue-count').textContent=overdue;
+  document.getElementById('overdue-row').style.display=overdue?'flex':'none';
 }
+
+function isActive(r){ return r.status==='pending'||r.status==='awaiting_author'; }
+function isOverdue(r){
+  return r.status==='awaiting_author'&&r.evidence_deadline&&new Date(r.evidence_deadline)<new Date();
+}
+function isLowPriorityReporter(r){ return (r.reporter_rejected_count||0)>=REPORTER_LOW_PRIORITY; }
+function fmtDate(d){ return d?new Date(d).toLocaleDateString('ru',{day:'2-digit',month:'long',year:'numeric'}):'—'; }
 
 function renderList(){
   var list=allData.filter(function(r){return r.target_type===typeTab;});
   if(filter!=='all') list=list.filter(function(r){return r.status===filter;});
+  if(filter==='pending'){
+    /* Жалобы заявителей с частыми отклонёнными жалобами — в конец очереди */
+    list=list.slice().sort(function(a,b){
+      var pa=isLowPriorityReporter(a)?1:0, pb=isLowPriorityReporter(b)?1:0;
+      return pa-pb || new Date(b.created_at)-new Date(a.created_at);
+    });
+  } else if(filter==='awaiting_author'){
+    /* Ближайший срок — сверху */
+    list=list.slice().sort(function(a,b){return new Date(a.evidence_deadline)-new Date(b.evidence_deadline);});
+  }
   if(!list.length){
     document.getElementById('list').innerHTML=
       '<div class="empty-state"><div class="icon">&#x1F389;</div><p>Жалоб в этой категории нет</p></div>';
@@ -482,8 +550,10 @@ function renderCard(r){
   });
   var typeCls=r.target_type==='specialist'?'b-specialist':'b-review';
   var typeLbl=r.target_type==='specialist'?'Специалист':'Отзыв';
-  var stCls=r.status==='pending'?'b-pending':r.status==='resolved'?'b-resolved':'b-rejected';
-  var stLbl=r.status==='pending'?'&#x23F3; Ожидает':r.status==='resolved'?'&#x2705; Решено':'&#x274C; Отклонено';
+  var stCls=r.status==='pending'?'b-pending':r.status==='resolved'?'b-resolved':
+            r.status==='awaiting_author'?(isOverdue(r)?'b-overdue':'b-awaiting'):'b-rejected';
+  var stLbl=r.status==='pending'?'&#x23F3; Ожидает':r.status==='resolved'?'&#x2705; Решено':
+            r.status==='awaiting_author'?(isOverdue(r)?'&#x23F0; Срок истёк':'&#x1F4E8; Ждём автора'):'&#x274C; Отклонено';
   var reason=REASONS[r.reason]||r.reason||'—';
   var tid=r.target_id||'';
 
@@ -506,7 +576,10 @@ function renderCard(r){
                      rid+'-rv','review',rid,tid)+
       '<div class="acc-connector">на</div>'+
       buildAccordion('<strong>'+esc(specialistDisplay)+'</strong>',
-                     rid+'-sp','review-specialist',rid,tid);
+                     rid+'-sp','review-specialist',rid,tid)+
+      '<div class="section-lbl" style="margin-top:12px">Автор отзыва: контакты и признаки накрутки</div>'+
+      buildAccordion('&#x1F464; <strong>'+esc(reviewAuthorDisplay)+'</strong>',
+                     rid+'-au','author',rid,tid);
   } else {
     accordionsHtml=
       '<div class="section-lbl">Жалоба на специалиста</div>'+
@@ -514,9 +587,12 @@ function renderCard(r){
                      rid+'-sp','specialist',rid,tid);
   }
 
+  var reporterFlag=isLowPriorityReporter(r)
+    ? ' <span class="badge b-flag">&#x26A0; отклонено '+r.reporter_rejected_count+' из '+(r.reporter_total_count||0)+' жалоб</span>'
+    : '';
   var reporterAccordion=
     '<div class="section-lbl">Кто пожаловался</div>'+
-    buildAccordion('<strong>'+esc(r.reporter_name||r.reporter_email||'—')+'</strong>',
+    buildAccordion('<strong>'+esc(r.reporter_name||r.reporter_email||'—')+'</strong>'+reporterFlag,
                    rid+'-rep','reporter',rid,tid);
 
   /* причина и комментарий */
@@ -527,13 +603,44 @@ function renderCard(r){
 
   /* блок действий */
   var actionHtml='';
-  if(r.status==='pending'){
+  if(isActive(r)){
     var picks=r.target_type==='review'?PICKER_REVIEW:PICKER_SPECIALIST;
     var isRev=r.target_type==='review';
+
+    /* Процедура «не был клиентом»: запросить подтверждение у автора отзыва */
+    var evidenceHtml='';
+    if(isRev&&r.status==='pending'){
+      var recommended=r.reason==='not_a_customer';
+      evidenceHtml=
+        '<div class="evidence-box">'+
+          (recommended
+            ? '&#x1F4A1; Специалист утверждает, что автор <b>не был его клиентом</b>. Если явных признаков накрутки нет — '+
+              'запросите у автора подтверждение. Пока идёт проверка, отзыв остаётся видимым.'
+            : 'Если нужно проверить, был ли автор клиентом, — запросите подтверждение.')+
+          '<div class="acc-actions">'+
+            '<button class="btn-small" onclick="requestEvidence(\''+rid+'\',\''+esc(String(tid))+'\')">'+
+              '&#x1F4E8; Запросить подтверждение у автора ('+EVIDENCE_DAYS+' дней)</button>'+
+          '</div>'+
+        '</div>';
+    } else if(r.status==='awaiting_author'){
+      var overdue=isOverdue(r);
+      evidenceHtml=
+        '<div class="evidence-box'+(overdue?' overdue':'')+'">'+
+          (overdue
+            ? '&#x23F0; Срок истёк '+fmtDate(r.evidence_deadline)+'. Автор не подтвердил опыт → скрыть отзыв '+
+              '(причина «'+esc(NOTE_NOT_CONFIRMED)+'»).'
+            : '&#x1F4E8; Подтверждение запрошено '+fmtDate(r.evidence_requested_at)+', срок — <b>'+fmtDate(r.evidence_deadline)+'</b>. '+
+              'Если автор прислал подтверждение — отклоните жалобу. Если отказался — скройте отзыв.')+
+          '<div class="acc-actions">'+
+            '<button class="btn-small" onclick="openEvidenceEmail(\''+rid+'\',\''+esc(String(tid))+'\')">&#x2709;&#xFE0F; Написать автору ещё раз</button>'+
+          '</div>'+
+        '</div>';
+    }
+    actionHtml+=evidenceHtml;
     var options=picks.map(function(p){
       return '<option value="'+esc(p.val)+'">'+esc(p.lbl)+'</option>';
     }).join('');
-    actionHtml=
+    actionHtml+=
       '<div class="action-picker">'+
         '<label>Причина решения</label>'+
         '<select id="picker-'+rid+'"'+(isRev?' onchange="onReasonChange(\''+rid+'\')"':'')+'>'+
@@ -618,7 +725,7 @@ async function loadAccordionData(dataType, reportId, targetId, el){
         ['Email', rep?(rep.reporter_email||'—'):'—']
       ];
     } else if(dataType==='review'){
-      var rv=await sb.from('reviews').select('author_name,rating,text,created_at').eq('id',String(targetId)).single();
+      var rv=await sb.from('reviews').select('author_name,rating,text,created_at,reply_text').eq('id',String(targetId)).single();
       if(rv.error) throw rv.error;
       var d=rv.data;
       var rating=d.rating||0;
@@ -630,6 +737,11 @@ async function loadAccordionData(dataType, reportId, targetId, el){
         ['Рейтинг', stars],
         ['Текст',             d.text||'—']
       ];
+      if(d.reply_text) rows.push(['Ответ специалиста', d.reply_text]);
+    } else if(dataType==='author'){
+      await renderAuthorInfo(reportId, targetId, el);
+      el.dataset.loaded='1';
+      return;
     } else if(dataType==='review-specialist'){
       var rv2=await sb.from('reviews').select('specialist_id').eq('id',String(targetId)).single();
       if(rv2.error) throw rv2.error;
@@ -728,10 +840,137 @@ async function applyAction(rid, targetType, targetId){
   if(idx!==-1) allData[idx]=Object.assign({},allData[idx],{status:newStatus,resolution_note:reason});
   refreshStats();
 
-  if(filter==='pending'){
+  if(filter==='pending'||filter==='awaiting_author'){
     card.classList.add('fading');
     setTimeout(renderList,320);
   } else { renderList(); }
+}
+
+/* ── АВТОР ОТЗЫВА: контакты, статистика, признаки накрутки, запрет отзывов ── */
+async function renderAuthorInfo(reportId, reviewId, el){
+  var r=await sb.rpc('get_review_author_info',{p_review_id:String(reviewId)});
+  if(r.error) throw r.error;
+  var a=(r.data||[])[0];
+  if(!a){ el.innerHTML='<div class="acc-loading">Автор не найден (аккаунт удалён)</div>'; return; }
+
+  var accountDays=a.account_created_at?Math.floor((new Date(a.review_created_at)-new Date(a.account_created_at))/86400000):null;
+  var signals=[];
+  if(accountDays!==null&&accountDays<1)  signals.push('Отзыв написан в день регистрации');
+  else if(accountDays!==null&&accountDays<7) signals.push('Отзыв написан через '+accountDays+' дн. после регистрации');
+  if(a.author_reviews_total>=2&&a.author_one_star_total===a.author_reviews_total)
+    signals.push('Все '+a.author_reviews_total+' отзыва автора — на 1 звезду');
+  if(a.author_reviews_hidden>0) signals.push('У автора уже скрыто отзывов: '+a.author_reviews_hidden);
+  if(a.is_banned) signals.push('Автору уже запрещено писать отзывы');
+
+  var rows=[
+    ['Имя',              a.author_name||'—'],
+    ['Email',            a.author_email||'—'],
+    ['Регистрация',      fmtDate(a.account_created_at)],
+    ['Отзыв написан',    fmtDate(a.review_created_at)+(accountDays!==null?' (через '+accountDays+' дн.)':'')],
+    ['Отзывов всего',    a.author_reviews_total+' (на 1★: '+a.author_one_star_total+', скрыто: '+a.author_reviews_hidden+')']
+  ];
+  var html=rows.map(function(row){
+    return '<div class="acc-row"><span class="acc-lbl">'+esc(row[0])+'</span><span class="acc-val">'+esc(String(row[1]))+'</span></div>';
+  }).join('');
+
+  html+='<div class="section-lbl" style="margin-top:10px">Признаки накрутки</div>'+
+        '<ul class="signals">'+
+          (signals.length
+            ? signals.map(function(s){return '<li>&#x26A0; '+esc(s)+'</li>';}).join('')
+            : '<li class="ok">Явных признаков нет — используйте запрос подтверждения</li>')+
+        '</ul>';
+
+  html+='<div class="acc-actions">'+
+          (a.author_email?'<button class="btn-small" onclick="openEvidenceEmail(\''+reportId+'\',\''+esc(String(reviewId))+'\')">&#x2709;&#xFE0F; Написать автору</button>':'')+
+          (a.author_id
+            ? (a.is_banned
+                ? '<button class="btn-small" onclick="toggleReviewBan(\''+a.author_id+'\',false,\''+reportId+'\',\''+esc(String(reviewId))+'\')">Снять запрет на отзывы</button>'
+                : '<button class="btn-small danger" onclick="toggleReviewBan(\''+a.author_id+'\',true,\''+reportId+'\',\''+esc(String(reviewId))+'\')">&#x1F6AB; Запретить писать отзывы</button>')
+            : '')+
+        '</div>';
+  el.innerHTML=html;
+}
+
+async function toggleReviewBan(userId, ban, reportId, reviewId){
+  var reason='';
+  if(ban){
+    reason=prompt('Причина запрета (увидит только модератор):','п. 5 — Заведомо ложные отзывы');
+    if(reason===null) return;
+  } else if(!confirm('Снять запрет на отзывы?')) return;
+
+  var r=await sb.rpc('set_review_ban',{p_user_id:userId,p_ban:ban,p_reason:reason});
+  if(r.error){ alert('Ошибка: '+r.error.message); return; }
+  addLog((ban?'Запрет отзывов: ':'Запрет снят: ')+userId,'ok');
+  var el=document.getElementById('abody-'+reportId+'-au');
+  if(el) await renderAuthorInfo(reportId, reviewId, el);
+}
+
+/* ── ЗАПРОС ПОДТВЕРЖДЕНИЯ У АВТОРА ОТЗЫВА ── */
+async function requestEvidence(rid, reviewId){
+  if(!confirm('Запросить у автора подтверждение реального опыта?\n\n'+
+              'Жалоба перейдёт в статус «Ждём автора» на '+EVIDENCE_DAYS+' дней. '+
+              'Откроется письмо автору — отправьте его из своей почты.')) return;
+
+  var r=await sb.rpc('request_review_evidence',{p_report_id:rid,p_days:EVIDENCE_DAYS});
+  if(r.error){ alert('Ошибка: '+r.error.message); return; }
+
+  var idx=allData.findIndex(function(x){return (x.report_id||x.id)===rid;});
+  if(idx!==-1) allData[idx]=Object.assign({},allData[idx],{
+    status:'awaiting_author', evidence_requested_at:new Date().toISOString(), evidence_deadline:r.data
+  });
+  addLog('Запрошено подтверждение по жалобе '+rid+', срок '+fmtDate(r.data),'ok');
+  refreshStats();
+  renderList();
+  await openEvidenceEmail(rid, reviewId);
+}
+
+/* Открывает письмо автору в почтовом клиенте модератора (mailto) */
+async function openEvidenceEmail(rid, reviewId){
+  try{
+    var info=await sb.rpc('get_review_author_info',{p_review_id:String(reviewId)});
+    if(info.error) throw info.error;
+    var a=(info.data||[])[0];
+    if(!a||!a.author_email){ alert('У автора нет email — связаться не получится.'); return; }
+
+    var rv=await sb.from('reviews').select('rating,specialist_id').eq('id',String(reviewId)).single();
+    var specName='специалист';
+    if(!rv.error&&rv.data){
+      var sp=await sb.from('specialists').select('name').eq('id',rv.data.specialist_id).single();
+      if(!sp.error&&sp.data) specName=sp.data.name;
+    }
+    var rep=allData.find(function(x){return (x.report_id||x.id)===rid;})||{};
+    var deadline=fmtDate(rep.evidence_deadline||new Date(Date.now()+EVIDENCE_DAYS*86400000));
+
+    var subject='ProBazis: подтвердите, пожалуйста, ваш отзыв';
+    var body=
+      'Здравствуйте, '+(a.author_name||'')+'!\n\n'+
+      'Вы оставили отзыв о специалисте «'+specName+'» в приложении ProBazis '+
+      '('+fmtDate(a.review_created_at)+(rv.data?', оценка '+rv.data.rating+'/5':'')+').\n'+
+      'Специалист сообщает, что не оказывал вам услуг. По правилам ProBazis (п. 5 Условий использования) '+
+      'отзывы должны основываться на реальном опыте.\n\n'+
+      'Пожалуйста, ответьте на это письмо до '+deadline+' и приложите любое подтверждение: '+
+      'скриншот переписки или звонка со специалистом, чек, фото выполненной работы, дату и место визита.\n\n'+
+      'Если подтверждение будет — отзыв останется опубликованным. Если нет — отзыв будет скрыт.\n\n'+
+      'С уважением,\nкоманда модерации ProBazis';
+
+    window.location.href='mailto:'+encodeURIComponent(a.author_email)+
+      '?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  }catch(e){
+    addLog('Письмо автору: '+e.message,'error');
+    alert('Не удалось подготовить письмо: '+e.message);
+  }
+}
+
+/* ── ПРОСРОЧЕННЫЕ ЗАПРОСЫ: скрыть отзывы, авторы которых не ответили ── */
+async function processOverdue(){
+  var n=allData.filter(isOverdue).length;
+  if(!n||!confirm('Скрыть '+n+' отзыв(ов): авторы не подтвердили опыт в срок?')) return;
+  var btn=document.getElementById('btn-overdue'); btn.disabled=true;
+  var r=await sb.rpc('process_expired_review_evidence_mod');
+  btn.disabled=false;
+  if(r.error){ alert('Ошибка: '+r.error.message); return; }
+  addLog('Скрыто по истечении срока: '+r.data,'ok');
+  await loadReports();
 }
 
 /* ── UTILS ── */
