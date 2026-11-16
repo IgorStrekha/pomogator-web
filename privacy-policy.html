@@ -63,7 +63,22 @@
     <!-- RUSSIAN -->
     <div class="section-ru">
       <div class="card">
-        <div class="badge">Версия 1.2 — 16 ноября 2026</div>
+        <div class="badge">Версия 1.3 — 16 ноября 2026</div>
+        <h2>Кратко</h2>
+        <ul>
+          <li>Мы собираем только то, что нужно для работы аккаунта, карточек специалистов, отзывов и поддержки.</li>
+          <li>Контакты специалиста (телефон, мессенджеры) видят только вошедшие пользователи.</li>
+          <li>Мы не продаём ваши данные и не показываем рекламу.</li>
+          <li>Основные данные хранятся на серверах в ЕС. Некоторые сервисы (почта, карты, магазины приложений) могут обрабатывать данные и за пределами ЕС — см. раздел о международных передачах.</li>
+          <li>Удалить аккаунт и все свои данные можно самостоятельно: Профиль → Настройки → Удалить аккаунт.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Оператор данных</h2>
+        <p>Оператором ваших персональных данных является <strong>IHAR STREKHA</strong>, индивидуальная предпринимательская деятельность, зарегистрированная в Польше (CEIDG), NIP 7773388139, адрес: ul. Żurawia 8/2, 62-052 Chomęcice, Польша.</p>
+        <p>Контакт по вопросам данных: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
+      </div>
+      <div class="card">
         <h2>Что мы собираем</h2>
         <p>При регистрации и использовании приложения мы можем собирать:</p>
         <ul>
@@ -101,6 +116,11 @@
         <p>Каждый сервис имеет собственную политику конфиденциальности и соответствует требованиям GDPR.</p>
       </div>
       <div class="card">
+        <h2>Международные передачи данных</h2>
+        <p>Основные данные (аккаунт, профили, отзывы) хранятся на серверах Supabase в Европейском союзе (Ирландия). Отчёты об ошибках обрабатывает Sentry (серверы в Германии).</p>
+        <p>Некоторые сервисы могут обрабатывать данные за пределами ЕС: Resend (США) — отправка писем; Google и Apple — карты, определение точки по адресу, магазины приложений и платежи. Такая передача осуществляется на основании стандартных договорных положений ЕС и (или) решения Европейской комиссии об адекватной защите (Data Privacy Framework), а также, где это необходимо, для исполнения договора с вами.</p>
+      </div>
+      <div class="card">
         <h2>Аналитика</h2>
         <p>На текущем этапе приложение <strong>не использует</strong> аналитические сервисы для отслеживания поведения пользователей.</p>
       </div>
@@ -112,7 +132,7 @@
           <li>Переходы между экранами и нажатия кнопок</li>
           <li>Время выполнения запросов к серверу (без содержимого ответов)</li>
           <li>Технические ошибки и сбои</li>
-          <li>При поиске — только <strong>количество символов</strong> запроса, но не его текст (защита по GDPR ст. 9)</li>
+          <li>При поиске — только <strong>количество символов</strong> запроса, но не его текст</li>
         </ul>
         <p>Идентификатор пользователя в журнале <strong>псевдонимизирован</strong>: хранятся только последние 8 символов из 36-значного UUID.</p>
         <p>Журнал хранится на устройстве и <strong>недоступен пользователям напрямую</strong>. Он передаётся в Sentry в двух случаях: технические ошибки автоматически дублируются в Sentry; при отправке обратной связи через приложение журнал прикрепляется к обращению для диагностики.</p>
@@ -125,7 +145,8 @@
         <h2>Хранение и удаление данных</h2>
         <p>Данные хранятся на серверах Supabase в Европейском союзе. Мы применяем технические меры для защиты ваших данных от несанкционированного доступа.</p>
         <p>Токены сессии хранятся локально на вашем устройстве и используются для автоматического входа.</p>
-        <p>После удаления аккаунта ваши персональные данные удаляются в течение <strong>30 дней</strong>, за исключением данных, которые мы обязаны хранить в соответствии с применимым законодательством.</p>
+        <p>При удалении аккаунта в приложении ваш профиль, карточка специалиста, услуги, фотографии, отзывы и избранное удаляются сразу. Резервные копии базы данных хранятся до <strong>7 дней</strong> и затем удаляются автоматически.</p>
+        <p>Отчёты об ошибках в Sentry хранятся ограниченный срок (не более 90 дней). Данные, которые мы обязаны хранить в соответствии с применимым законодательством, мы храним в пределах, требуемых законом. Если вы не можете удалить аккаунт в приложении, напишите нам — мы ответим в течение <strong>30 дней</strong>.</p>
       </div>
       <div class="card">
         <h2>Ваши права</h2>
@@ -134,8 +155,10 @@
           <li>Потребовать исправления неточных данных</li>
           <li>Удалить аккаунт и все связанные данные</li>
           <li>Отозвать согласие в любое время</li>
+          <li>Получить данные в переносимом формате</li>
+          <li>Ограничить обработку или возразить против неё</li>
         </ul>
-        <p>Для реализации любого из этих прав — напишите нам.</p>
+        <p>Для реализации любого из этих прав — напишите нам; мы ответим в течение 30 дней. Вы также вправе подать жалобу в надзорный орган: Prezes Urzędu Ochrony Danych Osobowych (UODO), ul. Stawki 2, 00-193 Warszawa, uodo.gov.pl.</p>
       </div>
       <div class="card">
         <h2>Дети</h2>
@@ -144,13 +167,29 @@
       <div class="card">
         <h2>Контакты</h2>
         <p>По вопросам конфиденциальности: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
+        <p>Тексты на разных языках одинаковы по смыслу; при расхождениях приоритет имеет русская версия.</p>
       </div>
     </div>
 
     <!-- ENGLISH -->
     <div class="section-en">
       <div class="card">
-        <div class="badge">Version 1.2 — November 16, 2026</div>
+        <div class="badge">Version 1.3 — November 16, 2026</div>
+        <h2>In short</h2>
+        <ul>
+          <li>We collect only what is needed to run your account, specialist profiles, reviews and support.</li>
+          <li>A specialist's contacts (phone, messengers) are visible only to signed-in users.</li>
+          <li>We do not sell your data and we show no advertising.</li>
+          <li>Core data is stored on servers in the EU. Some services (email, maps, app stores) may also process data outside the EU — see the section on international transfers.</li>
+          <li>You can delete your account and all your data yourself: Profile → Settings → Delete account.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Data controller</h2>
+        <p>The controller of your personal data is <strong>IHAR STREKHA</strong>, a sole proprietorship registered in Poland (CEIDG), NIP 7773388139, address: ul. Żurawia 8/2, 62-052 Chomęcice, Poland.</p>
+        <p>Contact for data matters: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
+      </div>
+      <div class="card">
         <h2>What We Collect</h2>
         <p>When you register and use the app, we may collect:</p>
         <ul>
@@ -188,6 +227,11 @@
         <p>Each service has its own privacy policy and complies with GDPR requirements.</p>
       </div>
       <div class="card">
+        <h2>International data transfers</h2>
+        <p>Core data (account, profiles, reviews) is stored on Supabase servers in the European Union (Ireland). Error reports are processed by Sentry (servers in Germany).</p>
+        <p>Some services may process data outside the EU: Resend (USA) — sending emails; Google and Apple — maps, locating an address, app stores and payments. Such transfers rely on the EU Standard Contractual Clauses and/or the European Commission's adequacy decision (Data Privacy Framework), and, where necessary, on performing our contract with you.</p>
+      </div>
+      <div class="card">
         <h2>Analytics</h2>
         <p>At this time, the application <strong>does not use</strong> analytics services for tracking user behavior.</p>
       </div>
@@ -199,7 +243,7 @@
           <li>Navigation between screens and button taps</li>
           <li>Server request timing (without response content)</li>
           <li>Technical errors and crashes</li>
-          <li>For searches — only the <strong>character count</strong> of the query, not the query text itself (GDPR Art. 9 protection)</li>
+          <li>For searches — only the <strong>character count</strong> of the query, not the query text itself</li>
         </ul>
         <p>Your user ID in the log is <strong>pseudonymised</strong>: only the last 8 characters of the 36-character UUID are stored.</p>
         <p>The log is stored on your device and is <strong>not directly accessible to users</strong>. It is transmitted to Sentry in two cases: technical errors are automatically forwarded to Sentry; when you submit feedback through the app, the log is attached to the report to help diagnose the issue.</p>
@@ -212,7 +256,8 @@
         <h2>Data Storage and Deletion</h2>
         <p>Data is stored on Supabase servers in the European Union. We apply technical measures to protect your data from unauthorized access.</p>
         <p>Session tokens are stored locally on your device and used for automatic sign-in.</p>
-        <p>After account deletion, your personal data is removed within <strong>30 days</strong>, except for data we are legally required to retain.</p>
+        <p>When you delete your account in the app, your profile, specialist card, services, photos, reviews and favorites are deleted immediately. Database backups are kept for up to <strong>7 days</strong> and then deleted automatically.</p>
+        <p>Error reports in Sentry are kept for a limited period (no more than 90 days). Data we are legally required to retain is kept only as far as the law requires. If you cannot delete your account in the app, write to us — we will reply within <strong>30 days</strong>.</p>
       </div>
       <div class="card">
         <h2>Your Rights</h2>
@@ -221,8 +266,10 @@
           <li>Request correction of inaccurate data</li>
           <li>Delete your account and all associated data</li>
           <li>Withdraw consent at any time</li>
+          <li>Receive your data in a portable format</li>
+          <li>Restrict processing or object to it</li>
         </ul>
-        <p>To exercise any of these rights, please contact us.</p>
+        <p>To exercise any of these rights, please contact us; we will reply within 30 days. You also have the right to lodge a complaint with a supervisory authority: Prezes Urzędu Ochrony Danych Osobowych (UODO), ul. Stawki 2, 00-193 Warszawa, uodo.gov.pl.</p>
       </div>
       <div class="card">
         <h2>Children</h2>
@@ -231,13 +278,29 @@
       <div class="card">
         <h2>Contact</h2>
         <p>Privacy inquiries: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
+        <p>The language versions have the same meaning; in case of discrepancy the Russian version prevails.</p>
       </div>
     </div>
 
     <!-- POLISH -->
     <div class="section-pl">
       <div class="card">
-        <div class="badge">Wersja 1.2 — 16 listopada 2026</div>
+        <div class="badge">Wersja 1.3 — 16 listopada 2026</div>
+        <h2>W skrócie</h2>
+        <ul>
+          <li>Zbieramy tylko to, co potrzebne do działania konta, kart specjalistów, opinii i obsługi.</li>
+          <li>Kontakty specjalisty (telefon, komunikatory) widzą tylko zalogowani użytkownicy.</li>
+          <li>Nie sprzedajemy Twoich danych i nie pokazujemy reklam.</li>
+          <li>Podstawowe dane są przechowywane na serwerach w UE. Niektóre usługi (poczta, mapy, sklepy z aplikacjami) mogą przetwarzać dane także poza UE — zob. sekcję o przekazywaniu danych.</li>
+          <li>Konto i wszystkie swoje dane możesz usunąć samodzielnie: Profil → Ustawienia → Usuń konto.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Administrator danych</h2>
+        <p>Administratorem Twoich danych osobowych jest <strong>IHAR STREKHA</strong>, jednoosobowa działalność gospodarcza zarejestrowana w Polsce (CEIDG), NIP 7773388139, adres: ul. Żurawia 8/2, 62-052 Chomęcice, Polska.</p>
+        <p>Kontakt w sprawach danych: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
+      </div>
+      <div class="card">
         <h2>Co zbieramy</h2>
         <p>Podczas rejestracji i korzystania z aplikacji możemy zbierać:</p>
         <ul>
@@ -275,6 +338,11 @@
         <p>Każda usługa ma własną politykę prywatności i spełnia wymogi RODO.</p>
       </div>
       <div class="card">
+        <h2>Przekazywanie danych za granicę</h2>
+        <p>Podstawowe dane (konto, profile, opinie) są przechowywane na serwerach Supabase w Unii Europejskiej (Irlandia). Raporty błędów przetwarza Sentry (serwery w Niemczech).</p>
+        <p>Niektóre usługi mogą przetwarzać dane poza UE: Resend (USA) — wysyłanie wiadomości e-mail; Google i Apple — mapy, ustalanie punktu na podstawie adresu, sklepy z aplikacjami i płatności. Takie przekazanie odbywa się na podstawie standardowych klauzul umownych UE i (lub) decyzji Komisji Europejskiej o odpowiednim stopniu ochrony (Data Privacy Framework) oraz, w razie potrzeby, w celu wykonania umowy z Tobą.</p>
+      </div>
+      <div class="card">
         <h2>Analityka</h2>
         <p>Na obecnym etapie aplikacja <strong>nie korzysta</strong> z usług analitycznych do śledzenia zachowań użytkowników.</p>
       </div>
@@ -286,7 +354,7 @@
           <li>Przejścia między ekranami i naciśnięcia przycisków</li>
           <li>Czas wykonania zapytań do serwera (bez treści odpowiedzi)</li>
           <li>Błędy techniczne i awarie</li>
-          <li>Przy wyszukiwaniu — tylko <strong>liczba znaków</strong> zapytania, nie jego treść (ochrona zgodnie z RODO art. 9)</li>
+          <li>Przy wyszukiwaniu — tylko <strong>liczba znaków</strong> zapytania, nie jego treść</li>
         </ul>
         <p>Identyfikator użytkownika w dzienniku jest <strong>pseudonimizowany</strong>: przechowywane są tylko ostatnie 8 z 36 znaków UUID.</p>
         <p>Dziennik jest przechowywany na urządzeniu i <strong>nie jest bezpośrednio dostępny dla użytkowników</strong>. Przekazywany jest do Sentry w dwóch przypadkach: błędy techniczne są automatycznie przekazywane do Sentry; podczas wysyłania opinii przez aplikację dziennik jest dołączany do zgłoszenia w celu diagnostyki.</p>
@@ -299,7 +367,8 @@
         <h2>Przechowywanie i usuwanie danych</h2>
         <p>Dane są przechowywane na serwerach Supabase w Unii Europejskiej. Stosujemy środki techniczne chroniące Twoje dane przed nieuprawnionym dostępem.</p>
         <p>Tokeny sesji są przechowywane lokalnie na Twoim urządzeniu i służą do automatycznego logowania.</p>
-        <p>Po usunięciu konta Twoje dane osobowe są usuwane w ciągu <strong>30 dni</strong>, z wyjątkiem danych, które musimy przechowywać zgodnie z obowiązującym prawem.</p>
+        <p>Po usunięciu konta w aplikacji Twój profil, karta specjalisty, usługi, zdjęcia, opinie i ulubione są usuwane natychmiast. Kopie zapasowe bazy danych są przechowywane do <strong>7 dni</strong>, a następnie usuwane automatycznie.</p>
+        <p>Raporty błędów w Sentry są przechowywane przez ograniczony czas (nie dłużej niż 90 dni). Dane, które musimy przechowywać na mocy prawa, przechowujemy w zakresie wymaganym przepisami. Jeśli nie możesz usunąć konta w aplikacji, napisz do nas — odpowiemy w ciągu <strong>30 dni</strong>.</p>
       </div>
       <div class="card">
         <h2>Twoje prawa</h2>
@@ -308,8 +377,10 @@
           <li>Zażądać poprawienia niedokładnych danych</li>
           <li>Usunąć konto i wszystkie powiązane dane</li>
           <li>Wycofać zgodę w dowolnym momencie</li>
+          <li>Otrzymać dane w formacie nadającym się do przenoszenia</li>
+          <li>Ograniczyć przetwarzanie lub wnieść sprzeciw</li>
         </ul>
-        <p>Aby skorzystać z któregokolwiek z tych praw, skontaktuj się z nami.</p>
+        <p>Aby skorzystać z któregokolwiek z tych praw, napisz do nas; odpowiemy w ciągu 30 dni. Masz też prawo wnieść skargę do organu nadzorczego: Prezes Urzędu Ochrony Danych Osobowych (UODO), ul. Stawki 2, 00-193 Warszawa, uodo.gov.pl.</p>
       </div>
       <div class="card">
         <h2>Dzieci</h2>
@@ -318,13 +389,29 @@
       <div class="card">
         <h2>Kontakt</h2>
         <p>Zapytania dotyczące prywatności: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
+        <p>Wersje językowe mają to samo znaczenie; w razie rozbieżności pierwszeństwo ma wersja rosyjska.</p>
       </div>
     </div>
 
     <!-- UKRAINIAN -->
     <div class="section-uk">
       <div class="card">
-        <div class="badge">Версія 1.2 — 16 листопада 2026</div>
+        <div class="badge">Версія 1.3 — 16 листопада 2026</div>
+        <h2>Коротко</h2>
+        <ul>
+          <li>Ми збираємо лише те, що потрібно для роботи акаунта, карток спеціалістів, відгуків і підтримки.</li>
+          <li>Контакти спеціаліста (телефон, месенджери) бачать лише користувачі, які увійшли.</li>
+          <li>Ми не продаємо ваші дані й не показуємо рекламу.</li>
+          <li>Основні дані зберігаються на серверах у ЄС. Деякі сервіси (пошта, мапи, магазини застосунків) можуть обробляти дані й за межами ЄС — див. розділ про міжнародні передачі.</li>
+          <li>Видалити акаунт і всі свої дані можна самостійно: Профіль → Налаштування → Видалити акаунт.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Оператор даних</h2>
+        <p>Оператором ваших персональних даних є <strong>IHAR STREKHA</strong>, індивідуальна підприємницька діяльність, зареєстрована в Польщі (CEIDG), NIP 7773388139, адреса: ul. Żurawia 8/2, 62-052 Chomęcice, Польща.</p>
+        <p>Контакт з питань даних: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
+      </div>
+      <div class="card">
         <h2>Що ми збираємо</h2>
         <p>При реєстрації та використанні застосунку ми можемо збирати:</p>
         <ul>
@@ -362,6 +449,11 @@
         <p>Кожен сервіс має власну політику конфіденційності та відповідає вимогам GDPR.</p>
       </div>
       <div class="card">
+        <h2>Міжнародні передачі даних</h2>
+        <p>Основні дані (акаунт, профілі, відгуки) зберігаються на серверах Supabase в Європейському союзі (Ірландія). Звіти про помилки обробляє Sentry (сервери в Німеччині).</p>
+        <p>Деякі сервіси можуть обробляти дані за межами ЄС: Resend (США) — надсилання листів; Google та Apple — мапи, визначення точки за адресою, магазини застосунків і платежі. Така передача здійснюється на підставі стандартних договірних положень ЄС та (або) рішення Європейської комісії про адекватний захист (Data Privacy Framework), а також, де необхідно, для виконання договору з вами.</p>
+      </div>
+      <div class="card">
         <h2>Аналітика</h2>
         <p>На поточному етапі застосунок <strong>не використовує</strong> аналітичні сервіси для відстеження поведінки користувачів.</p>
       </div>
@@ -373,7 +465,7 @@
           <li>Переходи між екранами та натискання кнопок</li>
           <li>Час виконання запитів до сервера (без вмісту відповідей)</li>
           <li>Технічні помилки та збої</li>
-          <li>При пошуку — лише <strong>кількість символів</strong> запиту, але не його текст (захист за GDPR ст. 9)</li>
+          <li>При пошуку — лише <strong>кількість символів</strong> запиту, але не його текст</li>
         </ul>
         <p>Ідентифікатор користувача в журналі <strong>псевдонімізований</strong>: зберігаються лише останні 8 символів із 36-значного UUID.</p>
         <p>Журнал зберігається на пристрої та <strong>недоступний користувачам безпосередньо</strong>. Він передається до Sentry у двох випадках: технічні помилки автоматично дублюються до Sentry; при надсиланні зворотного зв'язку через застосунок журнал додається до звернення для діагностики.</p>
@@ -386,7 +478,8 @@
         <h2>Зберігання та видалення даних</h2>
         <p>Дані зберігаються на серверах Supabase в Європейському союзі. Ми застосовуємо технічні заходи для захисту ваших даних від несанкціонованого доступу.</p>
         <p>Токени сесії зберігаються локально на вашому пристрої та використовуються для автоматичного входу.</p>
-        <p>Після видалення облікового запису ваші персональні дані видаляються протягом <strong>30 днів</strong>, за винятком даних, які ми зобов'язані зберігати відповідно до чинного законодавства.</p>
+        <p>Під час видалення акаунта в застосунку ваш профіль, картка спеціаліста, послуги, фотографії, відгуки й обране видаляються одразу. Резервні копії бази даних зберігаються до <strong>7 днів</strong> і потім видаляються автоматично.</p>
+        <p>Звіти про помилки в Sentry зберігаються обмежений час (не більше 90 днів). Дані, які ми зобов'язані зберігати відповідно до чинного законодавства, ми зберігаємо в межах, потрібних законом. Якщо ви не можете видалити акаунт у застосунку, напишіть нам — ми відповімо протягом <strong>30 днів</strong>.</p>
       </div>
       <div class="card">
         <h2>Ваші права</h2>
@@ -395,8 +488,10 @@
           <li>Вимагати виправлення неточних даних</li>
           <li>Видалити обліковий запис та всі пов'язані дані</li>
           <li>Відкликати згоду в будь-який час</li>
+          <li>Отримати дані в переносному форматі</li>
+          <li>Обмежити обробку або заперечити проти неї</li>
         </ul>
-        <p>Для реалізації будь-якого з цих прав — напишіть нам.</p>
+        <p>Для реалізації будь-якого з цих прав — напишіть нам; ми відповімо протягом 30 днів. Ви також маєте право подати скаргу до наглядового органу: Prezes Urzędu Ochrony Danych Osobowych (UODO), ul. Stawki 2, 00-193 Warszawa, uodo.gov.pl.</p>
       </div>
       <div class="card">
         <h2>Діти</h2>
@@ -405,13 +500,29 @@
       <div class="card">
         <h2>Контакти</h2>
         <p>З питань конфіденційності: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
+        <p>Тексти різними мовами однакові за змістом; у разі розбіжностей пріоритет має російська версія.</p>
       </div>
     </div>
 
     <!-- GERMAN -->
     <div class="section-de">
       <div class="card">
-        <div class="badge">Version 1.2 — 16. November 2026</div>
+        <div class="badge">Version 1.3 — 16. November 2026</div>
+        <h2>Kurz gesagt</h2>
+        <ul>
+          <li>Wir erheben nur, was für Konto, Spezialistenprofile, Bewertungen und Support nötig ist.</li>
+          <li>Die Kontakte eines Spezialisten (Telefon, Messenger) sehen nur angemeldete Nutzer.</li>
+          <li>Wir verkaufen Ihre Daten nicht und zeigen keine Werbung.</li>
+          <li>Die Kerndaten werden auf Servern in der EU gespeichert. Einige Dienste (E-Mail, Karten, App-Stores) können Daten auch außerhalb der EU verarbeiten — siehe Abschnitt zu internationalen Übermittlungen.</li>
+          <li>Konto und alle Ihre Daten können Sie selbst löschen: Profil → Einstellungen → Konto löschen.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Verantwortlicher</h2>
+        <p>Verantwortlicher für Ihre personenbezogenen Daten ist <strong>IHAR STREKHA</strong>, Einzelunternehmen, registriert in Polen (CEIDG), NIP 7773388139, Adresse: ul. Żurawia 8/2, 62-052 Chomęcice, Polen.</p>
+        <p>Kontakt in Datenschutzfragen: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
+      </div>
+      <div class="card">
         <h2>Was wir sammeln</h2>
         <p>Bei der Registrierung und Nutzung der App können wir folgende Daten erfassen:</p>
         <ul>
@@ -449,6 +560,11 @@
         <p>Jeder Dienst hat seine eigene Datenschutzrichtlinie und entspricht den DSGVO-Anforderungen.</p>
       </div>
       <div class="card">
+        <h2>Internationale Datenübermittlung</h2>
+        <p>Die Kerndaten (Konto, Profile, Bewertungen) werden auf Supabase-Servern in der Europäischen Union (Irland) gespeichert. Fehlerberichte verarbeitet Sentry (Server in Deutschland).</p>
+        <p>Einige Dienste können Daten außerhalb der EU verarbeiten: Resend (USA) — E-Mail-Versand; Google und Apple — Karten, Ermittlung des Punktes zu einer Adresse, App-Stores und Zahlungen. Die Übermittlung erfolgt auf Grundlage der EU-Standardvertragsklauseln und/oder des Angemessenheitsbeschlusses der Europäischen Kommission (Data Privacy Framework) sowie, wo nötig, zur Erfüllung des Vertrags mit Ihnen.</p>
+      </div>
+      <div class="card">
         <h2>Analyse</h2>
         <p>Zum gegenwärtigen Zeitpunkt verwendet die Anwendung <strong>keine</strong> Analysedienste zur Verfolgung des Nutzerverhaltens.</p>
       </div>
@@ -460,7 +576,7 @@
           <li>Navigation zwischen Bildschirmen und Schaltflächen-Tippen</li>
           <li>Serveranfrage-Zeiten (ohne Antwortinhalte)</li>
           <li>Technische Fehler und Abstürze</li>
-          <li>Bei Suchen — nur die <strong>Zeichenanzahl</strong> der Anfrage, nicht der Text selbst (DSGVO Art. 9 Schutz)</li>
+          <li>Bei Suchen — nur die <strong>Zeichenanzahl</strong> der Anfrage, nicht der Text selbst</li>
         </ul>
         <p>Ihre Nutzer-ID im Protokoll ist <strong>pseudonymisiert</strong>: Es werden nur die letzten 8 von 36 Zeichen der UUID gespeichert.</p>
         <p>Das Protokoll wird auf Ihrem Gerät gespeichert und ist <strong>für Nutzer nicht direkt zugänglich</strong>. Es wird in zwei Fällen an Sentry übertragen: Technische Fehler werden automatisch an Sentry weitergeleitet; beim Senden von Feedback über die App wird das Protokoll zur Diagnose an den Bericht angehängt.</p>
@@ -473,7 +589,8 @@
         <h2>Datenspeicherung und -löschung</h2>
         <p>Daten werden auf Supabase-Servern in der Europäischen Union gespeichert. Wir wenden technische Maßnahmen an, um Ihre Daten vor unbefugtem Zugriff zu schützen.</p>
         <p>Sitzungstoken werden lokal auf Ihrem Gerät gespeichert und für die automatische Anmeldung verwendet.</p>
-        <p>Nach der Kontolöschung werden Ihre personenbezogenen Daten innerhalb von <strong>30 Tagen</strong> gelöscht, außer Daten, die wir gesetzlich aufbewahren müssen.</p>
+        <p>Wenn Sie Ihr Konto in der App löschen, werden Profil, Spezialistenkarte, Leistungen, Fotos, Bewertungen und Favoriten sofort gelöscht. Datenbank-Backups werden bis zu <strong>7 Tage</strong> aufbewahrt und dann automatisch gelöscht.</p>
+        <p>Fehlerberichte in Sentry werden begrenzte Zeit gespeichert (höchstens 90 Tage). Daten, die wir gesetzlich aufbewahren müssen, bewahren wir nur im gesetzlich erforderlichen Umfang auf. Wenn Sie Ihr Konto nicht in der App löschen können, schreiben Sie uns — wir antworten innerhalb von <strong>30 Tagen</strong>.</p>
       </div>
       <div class="card">
         <h2>Ihre Rechte</h2>
@@ -482,8 +599,10 @@
           <li>Berichtigung ungenauer Daten verlangen</li>
           <li>Konto und alle zugehörigen Daten löschen</li>
           <li>Einwilligung jederzeit widerrufen</li>
+          <li>Daten in einem übertragbaren Format erhalten</li>
+          <li>Verarbeitung einschränken oder ihr widersprechen</li>
         </ul>
-        <p>Zur Ausübung dieser Rechte kontaktieren Sie uns bitte.</p>
+        <p>Zur Ausübung dieser Rechte kontaktieren Sie uns bitte; wir antworten innerhalb von 30 Tagen. Sie haben außerdem das Recht, sich bei einer Aufsichtsbehörde zu beschweren: Prezes Urzędu Ochrony Danych Osobowych (UODO), ul. Stawki 2, 00-193 Warszawa, uodo.gov.pl.</p>
       </div>
       <div class="card">
         <h2>Kinder</h2>
@@ -492,13 +611,29 @@
       <div class="card">
         <h2>Kontakt</h2>
         <p>Datenschutzanfragen: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
+        <p>Die Sprachversionen haben denselben Inhalt; bei Abweichungen gilt die russische Fassung.</p>
       </div>
     </div>
 
     <!-- BELARUSIAN -->
     <div class="section-be">
       <div class="card">
-        <div class="badge">Версія 1.2 — 16 лістапада 2026</div>
+        <div class="badge">Версія 1.3 — 16 лістапада 2026</div>
+        <h2>Коратка</h2>
+        <ul>
+          <li>Мы збіраем толькі тое, што трэба для працы акаўнта, картак спецыялістаў, водгукаў і падтрымкі.</li>
+          <li>Кантакты спецыяліста (тэлефон, мэсэнджары) бачаць толькі карыстальнікі, якія ўвайшлі.</li>
+          <li>Мы не прадаём вашы дадзеныя і не паказваем рэкламу.</li>
+          <li>Асноўныя дадзеныя захоўваюцца на серверах у ЕС. Некаторыя сэрвісы (пошта, карты, крамы прыкладанняў) могуць апрацоўваць дадзеныя і за межамі ЕС — гл. раздзел аб міжнародных перадачах.</li>
+          <li>Выдаліць акаўнт і ўсе свае дадзеныя можна самастойна: Профіль → Налады → Выдаліць акаўнт.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Аператар дадзеных</h2>
+        <p>Аператарам вашых персанальных дадзеных з'яўляецца <strong>IHAR STREKHA</strong>, індывідуальная прадпрымальніцкая дзейнасць, зарэгістраваная ў Польшчы (CEIDG), NIP 7773388139, адрас: ul. Żurawia 8/2, 62-052 Chomęcice, Польшча.</p>
+        <p>Кантакт па пытаннях дадзеных: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
+      </div>
+      <div class="card">
         <h2>Што мы збіраем</h2>
         <p>Пры рэгістрацыі і выкарыстанні прыкладання мы можам збіраць:</p>
         <ul>
@@ -536,6 +671,11 @@
         <p>Кожны сэрвіс мае ўласную палітыку канфідэнцыяльнасці і адпавядае патрабаванням GDPR.</p>
       </div>
       <div class="card">
+        <h2>Міжнародныя перадачы дадзеных</h2>
+        <p>Асноўныя дадзеныя (акаўнт, профілі, водгукі) захоўваюцца на серверах Supabase у Еўрапейскім саюзе (Ірландыя). Справаздачы аб памылках апрацоўвае Sentry (серверы ў Германіі).</p>
+        <p>Некаторыя сэрвісы могуць апрацоўваць дадзеныя за межамі ЕС: Resend (ЗША) — адпраўка лістоў; Google і Apple — карты, вызначэнне кропкі па адрасе, крамы прыкладанняў і плацяжы. Такая перадача ажыццяўляецца на падставе стандартных дагаворных палажэнняў ЕС і (або) рашэння Еўрапейскай камісіі аб адэкватнай абароне (Data Privacy Framework), а таксама, дзе неабходна, для выканання дагавора з вамі.</p>
+      </div>
+      <div class="card">
         <h2>Аналітыка</h2>
         <p>На бягучым этапе прыкладанне <strong>не выкарыстоўвае</strong> аналітычныя сэрвісы для адсочвання паводзін карыстальнікаў.</p>
       </div>
@@ -560,7 +700,8 @@
         <h2>Захоўванне і выдаленне дадзеных</h2>
         <p>Дадзеныя захоўваюцца на серверах Supabase ў Еўрапейскім саюзе. Мы ўжываем тэхнічныя меры для абароны вашых дадзеных ад несанкцыянаванага доступу.</p>
         <p>Токены сесіі захоўваюцца лакальна на вашай прыладзе і выкарыстоўваюцца для аўтаматычнага ўваходу.</p>
-        <p>Пасля выдалення акаўнту вашы персанальныя дадзеныя выдаляюцца ў цягу <strong>30 дзён</strong>, за выключэннем дадзеных, якія мы абавязаны захоўваць паводле закону.</p>
+        <p>Пры выдаленні акаўнта ў прыкладанні ваш профіль, картка спецыяліста, паслугі, фатаграфіі, водгукі і абранае выдаляюцца адразу. Рэзервовыя копіі базы дадзеных захоўваюцца да <strong>7 дзён</strong> і потым выдаляюцца аўтаматычна.</p>
+        <p>Справаздачы аб памылках у Sentry захоўваюцца абмежаваны час (не больш за 90 дзён). Дадзеныя, якія мы абавязаны захоўваць паводле закону, мы захоўваем у межах, неабходных па законе. Калі вы не можаце выдаліць акаўнт у прыкладанні, напішыце нам — мы адкажам у цягу <strong>30 дзён</strong>.</p>
       </div>
       <div class="card">
         <h2>Вашы правы</h2>
@@ -569,8 +710,10 @@
           <li>Патрабаваць выпраўлення недакладных дадзеных</li>
           <li>Выдаліць акаўнт і ўсе звязаныя дадзеныя</li>
           <li>Адклікаць згоду ў любы час</li>
+          <li>Атрымаць дадзеныя ў пераносным фармаце</li>
+          <li>Абмежаваць апрацоўку або запярэчыць супраць яе</li>
         </ul>
-        <p>Для рэалізацыі любога з гэтых правоў — напішыце нам.</p>
+        <p>Для рэалізацыі любога з гэтых правоў — напішыце нам; мы адкажам у цягу 30 дзён. Вы таксама маеце права падаць скаргу ў наглядавы орган: Prezes Urzędu Ochrony Danych Osobowych (UODO), ul. Stawki 2, 00-193 Warszawa, uodo.gov.pl.</p>
       </div>
       <div class="card">
         <h2>Дзеці</h2>
@@ -579,6 +722,7 @@
       <div class="card">
         <h2>Кантакты</h2>
         <p>Па пытаннях канфідэнцыяльнасці: <a href="mailto:probazis.app@gmail.com">probazis.app@gmail.com</a></p>
+        <p>Тэксты на розных мовах аднолькавыя па сэнсе; пры разыходжаннях прыярытэт мае руская версія.</p>
       </div>
     </div>
 
